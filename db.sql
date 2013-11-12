@@ -10,7 +10,7 @@ USE `control_vales` ;
 -- Table `control_vales`.`usuario`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `control_vales`.`usuario` (
-  `idusuario` INT NOT NULL AUTO_INCREMENT,
+  `idusuario` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL ,
   `usuario` VARCHAR(45) NULL ,
   `password` VARCHAR(45) NULL ,
@@ -24,7 +24,7 @@ ENGINE = InnoDB;
 -- Table `control_vales`.`empresa`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `control_vales`.`empresa` (
-  `idempresa` INT NOT NULL ,
+  `idempresa` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NULL ,
   `rut` VARCHAR(45) NULL ,
   PRIMARY KEY (`idempresa`) )
@@ -35,7 +35,7 @@ ENGINE = InnoDB;
 -- Table `control_vales`.`vale`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `control_vales`.`vale` (
-  `idvale` INT NOT NULL ,
+  `idvale` INT NOT NULL AUTO_INCREMENT ,
   `fecha_uso` DATE NULL ,
   `origen` VARCHAR(45) NULL ,
   `destino` VARCHAR(45) NULL ,
@@ -60,6 +60,12 @@ CREATE  TABLE IF NOT EXISTS `control_vales`.`vale` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+USE `control_vales` ;
+
+CREATE USER 'kross' IDENTIFIED BY 'sprit3';
+
+GRANT ALL ON `control_vales`.* TO 'kross';
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
