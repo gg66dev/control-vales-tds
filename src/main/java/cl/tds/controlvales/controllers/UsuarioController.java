@@ -3,6 +3,9 @@
  */
 package cl.tds.controlvales.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cl.tds.controlvales.beans.Usuario;
 import cl.tds.controlvales.daos.UsuarioDAO;
 import cl.tds.controlvales.util.ValidacionUtil;
@@ -64,5 +67,22 @@ public class UsuarioController {
 	public Usuario obtenUsuario(String username) {
 		return usuarioDao.obtenUsuario(username);
 	}
+	
+	/**
+	 * Retorna lista de usuarios , si no hat
+	 * encuentra retorna null
+	 * 
+	 * @param 
+	 *           
+	 * @return lista de usuario o null
+	 */
+	 public List<Usuario> obtenerListaUsuario(){
+		 
+		 
+		 return usuarioDao.obtenListaUsuarios();
+		 
+		 
+	}
+	
 
 }
