@@ -5,7 +5,7 @@
   <artifactId>controlvales</artifactId>
   <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
-<name>ControlVales</name>
+  <name>ControlVales</name>
   <description>Sistema de control de vales de taxis, desarrollado para el ramo de taller de analisis de sistemas.</description>
   
   <properties>
@@ -66,22 +66,19 @@
 		<version>2.6.12</version>
 	</dependency>
 	<dependency>
-		<groupId>javax.websocket</groupId>
-		<artifactId>javax.websocket-api</artifactId>
-		<version>1.0</version>
+	    <groupId>javax</groupId>
+	    <artifactId>javaee-web-api</artifactId>
+	    <version>7.0</version>
 	</dependency>
-	<dependency>
-	    <groupId>javax.servlet</groupId>
-	    <artifactId>servlet-api</artifactId>
-	    <version>2.4</version>
-	    <scope>provided</scope>
-	</dependency>
+	<!-- Esta dependencia deberia ser solucionada por javaee-web-api
+	Ver: https://wikis.oracle.com/display/GlassFish/Java+EE+7+Maven+Coordinates
 	<dependency>
 	    <groupId>javax.servlet.jsp</groupId>
 	    <artifactId>jsp-api</artifactId>
 	    <version>2.1</version>
 	    <scope>provided</scope>
 	</dependency>
+	 -->
   </dependencies>
   
   <build>
@@ -93,7 +90,15 @@
               <version>7</version>
               
           </plugin>
-          
-      </plugins>
+	      <plugin>
+	          <groupId>org.apache.maven.plugins</groupId>
+	          <artifactId>maven-compiler-plugin</artifactId>
+	          <version>3.0</version>
+	          <configuration>
+	              <source>1.7</source>
+	              <target>1.7</target>
+	          </configuration>
+	      </plugin>
+	  </plugins>
    </build>
 </project>

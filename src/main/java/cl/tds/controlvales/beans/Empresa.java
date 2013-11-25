@@ -32,6 +32,9 @@ public class Empresa {
 	@OneToMany(mappedBy="empresa", cascade=CascadeType.ALL)
     private List<Vale> vales = new ArrayList<Vale>();
 
+	/** Constructor por defecto */
+	public Empresa(){}
+	
 	/**
 	 * @return the idempresa
 	 */

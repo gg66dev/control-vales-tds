@@ -34,7 +34,26 @@ public class Usuario {
 	
 	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL)
     private List<Vale> vales = new ArrayList<Vale>();
+	
+	/** Constructor por defecto */
+	public Usuario(){}
 
+	/** Constructor de la clase usuario
+	 * 
+	 * @param nombre
+	 * @param usuario
+	 * @param password
+	 * @param rut
+	 * @param email
+	 */
+	public Usuario(String nombre, String usuario, String password, String rut, String email){
+		this.nombre = nombre;
+		this.usuario = usuario;
+		this.password = password;
+		this.rut = rut;
+		this.email = email;
+	}
+	
 	/**
 	 * @return the idusuario
 	 */

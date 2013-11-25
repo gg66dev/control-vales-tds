@@ -41,6 +41,9 @@ public class Vale {
 	@ManyToOne
 	@JoinColumn(name="empresa_idempresa", nullable=false)
 	private Empresa empresa;
+	
+	/** Constructor por defecto */
+	public Vale(){}
 
 	/**
 	 * @return the idvale
