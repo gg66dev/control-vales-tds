@@ -34,6 +34,12 @@ public class Empresa {
 
 	/** Constructor por defecto */
 	public Empresa(){}
+
+	/** Constructor con argumentos */
+	public Empresa(String nombre, String rut){
+		this.nombre = nombre;
+		this.rut = rut;
+	}
 	
 	/**
 	 * @return the idempresa

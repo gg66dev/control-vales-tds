@@ -5,6 +5,7 @@ package cl.tds.controlvales.daos;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -72,6 +73,8 @@ public class ValeDAO {
 		try {
 			iniciaOperacion();
 			vale = (Vale) sesion.get(Vale.class, id_vale);
+			Hibernate.initialize(vale.getUsuario());
+			Hibernate.initialize(vale.getEmpresa());
 		} finally {
 			if (sesion != null)
 				sesion.close();

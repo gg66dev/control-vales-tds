@@ -15,13 +15,15 @@
 	<center>
 		<div id="mystyle">
 			<h1>Bienvenido</h1>
-			<%=new Date()%>
+			<%= new Date() %>
 			<%
 				Usuario usuario = null;
 				if (session.getAttribute("usuario") != null) {
 					usuario = (Usuario) session.getAttribute("usuario");
 			%>
 			<b><%=usuario.getUsuario()%></b> <br /> <a href="logout.jsp">Logout</a>
+			<br /> <a href="solicitarVale.jsp">Solicitar un Vale</a>
+			<br /> <a href="registrarEmpresa.jsp">Registrar una empresa</a>
 			<%
 				} else {
 			%>

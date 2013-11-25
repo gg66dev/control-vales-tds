@@ -3,10 +3,12 @@
  */
 package cl.tds.controlvales.beans;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -32,6 +34,8 @@ public class Vale {
 	private int monto_estipulado;
 	private int monto_real;
 	private Date fecha_confirmacion;
+	@Column(columnDefinition = "enum('esperando_autorizacion','autorizado', 'consolidado')")
+	@Enumerated(EnumType.STRING)
 	private Estado estado;
 	
 	@ManyToOne
@@ -44,6 +48,22 @@ public class Vale {
 	
 	/** Constructor por defecto */
 	public Vale(){}
+	
+	/** Constructor con algunos atributos
+	 * 
+	 * @param fecha_uso
+	 * @param origen
+	 * @param destino
+	 * @param motivo
+	 * @param monto_estipulado
+	 */
+	public Vale( Date fecha_uso, String origen, String destino, String motivo, int monto_estipulado ) {
+		this.fecha_uso = fecha_uso;
+		this.origen = origen;
+		this.destino = destino;
+		this.motivo_viaje = motivo;
+		this.monto_estipulado = monto_estipulado;
+	}
 
 	/**
 	 * @return the idvale

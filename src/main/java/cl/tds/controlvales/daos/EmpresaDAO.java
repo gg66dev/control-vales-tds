@@ -5,7 +5,9 @@ package cl.tds.controlvales.daos;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -72,11 +74,31 @@ public class EmpresaDAO {
 		try {
 			iniciaOperacion();
 			empresa = (Empresa) sesion.get(Empresa.class, id_empresa);
+			Hibernate.initialize(empresa.getVales());
 		} finally {
 			if (sesion != null)
 				sesion.close();
 		}
 
+		return empresa;
+	}
+	
+	public Empresa obtenEmpresa(String nombre) throws HibernateException {
+		Empresa empresa = null;
+		try {
+			iniciaOperacion();
+			Query q = sesion
+					.createQuery("from Empresa where :nombre=nombre order by nombre DESC LIMIT 1");
+			q.setParameter("nombre", nombre);
+			empresa = (Empresa) q.list().get(0);
+			if (empresa != null) {
+				Hibernate.initialize(empresa.getVales());
+			}
+		} finally {
+			if (sesion != null)
+				sesion.close();
+		}
+		
 		return empresa;
 	}
 

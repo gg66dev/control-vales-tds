@@ -4,4 +4,14 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>SolicitaVale</servlet-name>
+  	<display-name>SolicitaVale</display-name>
+  	<description>Clase para solicitar vale</description>
+  	<servlet-class>cl.tds.controlvales.servlets.SolicitaVale</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>SolicitaVale</servlet-name>
+  	<url-pattern>/SolicitaVale</url-pattern>
+  </servlet-mapping>
 </web-app>
