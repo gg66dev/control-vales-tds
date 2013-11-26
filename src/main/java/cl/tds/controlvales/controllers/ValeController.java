@@ -6,6 +6,7 @@ package cl.tds.controlvales.controllers;
 import java.sql.Date;
 import java.util.List;
 
+
 import cl.tds.controlvales.beans.Estado;
 import cl.tds.controlvales.beans.Usuario;
 import cl.tds.controlvales.beans.Vale;

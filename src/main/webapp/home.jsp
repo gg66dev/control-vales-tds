@@ -15,17 +15,14 @@
 	<center>
 		<div id="mystyle">
 			<h1>Bienvenido</h1>
-			<%= new Date() %>
+			<p>
+			<%=new Date()%>
 			<%
 				Usuario usuario = null;
 				if (session.getAttribute("usuario") != null) {
 					usuario = (Usuario) session.getAttribute("usuario");
 			%>
 			<b><%=usuario.getUsuario()%></b> <br /> <a href="logout.jsp">Logout</a>
-			<br /> <a href="solicitarVale.jsp">Solicitar un Vale</a>
-			<br /> <a href="registrarEmpresa.jsp">Registrar una empresa</a>
-			<br /> <a href=consultarVale.jsp>consultar vale de usuarios</a>
-		
 			<%
 				} else {
 			%>
@@ -34,7 +31,12 @@
 			<%
 				}
 			%>
+			</p>
 		
+		 <h3>usuario</h3>
+		 <a href=>solicitar vales</a><br/>
+		 <a href=>confirmar valor de vale</a><br/>
+		 <a href=>consultar vale de usuarios</a><br/>
 		
 		 <h3>administrador</h3>			
 		 <a href="userlist.jsp">Listar Usarios Registrados (administrar cuentas)</a><br/>
