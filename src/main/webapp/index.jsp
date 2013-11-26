@@ -32,7 +32,26 @@
 			<%
 				}
 			%>
-
+			</p>
+		
+		 <h3>usuario</h3>
+		 <a href=>solicitar vales</a><br/>
+		 <a href=>confirmar valor de vale</a><br/>
+		 <a href=>consultar vale de usuarios</a><br/>
+		
+		 <h3>administrador</h3>			
+		 <a href="userlist.jsp">Listar Usarios Registrados (administrar cuentas)</a><br/>
+		 <a href=>Ingresar centro de costo</a><br/>
+		 <a href=>Mostrar centro de costo</a><br/>
+		 <a href=>Ingresar Planilla</a><br/>
+		 
+		 <h3>gerente</h3>
+		 <a href=>Consulta de vales</a><br/>
+		 <a href=>autorizar vales</a><br/>
+		 <a href=>informes</a><br/>
+		 <a href=>consolidacion de vales</a><br/>
+		 <a href=>detalle vale radio taxi</a><br/>
+		 
 		</div>
 	</center>
 </body>
