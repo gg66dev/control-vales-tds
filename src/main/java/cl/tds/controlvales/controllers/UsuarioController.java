@@ -3,7 +3,6 @@
  */
 package cl.tds.controlvales.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cl.tds.controlvales.beans.Usuario;
@@ -60,12 +59,11 @@ public class UsuarioController {
 	 * Retorna el usuario que tiene por nombre de usuario username, si no lo
 	 * encuentra retorna null
 	 * 
-	 * @param username
-	 *            el nombre de usuario
+	 * @param nombre El nombre
 	 * @return El usuario, si no lo encuentra retorna null
 	 */
-	public Usuario obtenUsuario(String username) {
-		return usuarioDao.obtenUsuario(username);
+	public Usuario obtenUsuario(String nombre) {
+		return usuarioDao.obtenUsuario(nombre);
 	}
 	
 	/**
@@ -77,11 +75,14 @@ public class UsuarioController {
 	 * @return lista de usuario o null
 	 */
 	 public List<Usuario> obtenerListaUsuario(){
-		 
-		 
 		 return usuarioDao.obtenListaUsuarios();
-		 
-		 
+	}
+
+	public Usuario obtenUsuarioRut(String rut) {
+		if( ValidacionUtil.validarRut(rut) ){
+			return usuarioDao.obtenUsuarioRut(rut);
+		}
+		return null;
 	}
 	
 

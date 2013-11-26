@@ -3,7 +3,8 @@
  */
 package cl.tds.controlvales.beans;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +35,7 @@ public class Vale {
 	private int monto_estipulado;
 	private int monto_real;
 	private Date fecha_confirmacion;
-	@Column(columnDefinition = "enum('esperando_autorizacion','autorizado', 'consolidado')")
+	@Column(columnDefinition = "enum('esperando_autorizacion','autorizado', 'rechazado, 'consolidado')")
 	@Enumerated(EnumType.STRING)
 	private Estado estado;
 	

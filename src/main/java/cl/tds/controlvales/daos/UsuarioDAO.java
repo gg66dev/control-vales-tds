@@ -68,6 +68,23 @@ public class UsuarioDAO {
 				sesion.close();
 		}
 	}
+	
+	public Usuario obtenUsuarioRut(String rut) throws HibernateException {
+		Usuario u = null;
+		try {
+			iniciaOperacion();
+			Query q = sesion
+					.createQuery("from Usuario where :rut=rut order by usuario DESC LIMIT 1");
+			q.setParameter("rut", rut);
+			u = (Usuario) q.list().get(0);
+			Hibernate.initialize(u.getVales());
+		} finally {
+			if (sesion != null)
+				sesion.close();
+		}
+		
+		return u;
+	}
 
 	public Usuario obtenUsuario(long id_usuario) throws HibernateException {
 		Usuario usuario = null;
@@ -83,17 +100,15 @@ public class UsuarioDAO {
 		return usuario;
 	}
 
-	public Usuario obtenUsuario(String username) throws HibernateException {
+	public Usuario obtenUsuario(String nombre) throws HibernateException {
 		Usuario u = null;
 		try {
 			iniciaOperacion();
 			Query q = sesion
-					.createQuery("from Usuario where :username=usuario order by usuario DESC LIMIT 1");
-			q.setParameter("username", username);
+					.createQuery("from Usuario where :nombre=nombre order by usuario DESC LIMIT 1");
+			q.setParameter("nombre", nombre);
 			u = (Usuario) q.list().get(0);
-			if (u != null) {
-				Hibernate.initialize(u.getVales());
-			}
+			Hibernate.initialize(u.getVales());
 		} catch (IndexOutOfBoundsException e) {
 			// TODO
 		} finally {

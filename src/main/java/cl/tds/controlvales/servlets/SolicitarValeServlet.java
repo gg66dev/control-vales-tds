@@ -2,7 +2,7 @@ package cl.tds.controlvales.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,7 +37,7 @@ public class SolicitarValeServlet extends HttpServlet {
 				&& request.getSession().getAttribute("usuario") != null 
 				&& request.getParameter("empresa") != null 
 				&& NumberUtil.isLong( request.getParameter("empresa") )){
-			Date fecha_uso = DateUtil.toDate( request.getParameter("fecha_uso") );
+			Date fecha_uso = (Date) DateUtil.toDate( request.getParameter("fecha_uso") );
 			String origen = request.getParameter("origen");
 			String destino = request.getParameter("destino");
 			String motivo = request.getParameter("motivo");

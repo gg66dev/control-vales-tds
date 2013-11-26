@@ -8,5 +8,5 @@ package cl.tds.controlvales.beans;
  *
  */
 public enum Estado {
-	esperando_autorizacion, autorizado, consolidado
+	esperando_autorizacion, autorizado, rechazado, consolidado
 }

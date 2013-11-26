@@ -3,13 +3,17 @@
  */
 package cl.tds.controlvales.daos;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import cl.tds.controlvales.beans.Estado;
+import cl.tds.controlvales.beans.Usuario;
 import cl.tds.controlvales.beans.Vale;
 import cl.tds.controlvales.util.HibernateUtil;
 
@@ -40,11 +44,13 @@ public class ValeDAO {
 		return id;
 	}
 
-	public void actualizaVale(Vale vale) throws HibernateException {
+	public boolean actualizaVale(Vale vale) throws HibernateException {
+		boolean actualizado = false;
 		try {
 			iniciaOperacion();
 			sesion.update(vale);
 			tx.commit();
+			actualizado = true;
 		} catch (HibernateException he) {
 			manejaExcepcion(he);
 			throw he;
@@ -52,6 +58,7 @@ public class ValeDAO {
 			if (sesion != null)
 				sesion.close();
 		}
+		return actualizado;
 	}
 
 	public void eliminaVale(Vale vale) throws HibernateException {
@@ -86,9 +93,7 @@ public class ValeDAO {
 	@SuppressWarnings("unchecked")
 	public List<Vale> obtenListaVales() throws HibernateException {
 		List<Vale> listaVales = null;
-
 		try {
-
 			iniciaOperacion();
 			listaVales = sesion.createQuery("from Vale").list();
 		} finally {
@@ -96,6 +101,73 @@ public class ValeDAO {
 				sesion.close();
 		}
 
+		return listaVales;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Vale> obtenListaVales( String rut ) throws HibernateException {
+		List<Vale> listaVales = null;
+		try {
+			iniciaOperacion();
+			Query q = sesion.createQuery("from Vale where :rut=rut order by rut DESC");
+			q.setParameter("rut", rut);
+			listaVales = q.list();
+		} finally {
+			if (sesion != null)
+				sesion.close();
+		}
+		
+		return listaVales;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Vale> obtenListaVales(Usuario usuario) throws HibernateException {
+		List<Vale> listaVales = null;
+		try {
+			iniciaOperacion();
+			Query q = sesion.createQuery("from Vale where :usuario=usuario order by usuario DESC");
+			q.setParameter("usuario", usuario);
+			listaVales = q.list();
+		} finally {
+			if (sesion != null)
+				sesion.close();
+		}
+		
+		return listaVales;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Vale> obtenListaVales(Date desde, Date hasta) throws HibernateException {
+		List<Vale> listaVales = null;
+		try {
+			iniciaOperacion();
+			Query q = sesion.createQuery("from Vale where fecha_uso between :desde and :hasta order by fecha DESC");
+			q.setParameter("desde", desde);
+			q.setParameter("hasta", hasta);
+			listaVales = q.list();
+		} finally {
+			if (sesion != null)
+				sesion.close();
+		}
+		
+		return listaVales;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Vale> obtenListaVales(Estado estado) throws HibernateException {
+		List<Vale> listaVales = null;
+		
+		try {
+			
+			iniciaOperacion();
+			Query q = sesion.createQuery("from Vale where :estado=estado order by empresa DESC");
+			q.setParameter("estado", estado);
+			listaVales = q.list();
+		} finally {
+			if (sesion != null)
+				sesion.close();
+		}
+		
 		return listaVales;
 	}
 

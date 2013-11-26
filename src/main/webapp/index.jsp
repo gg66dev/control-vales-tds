@@ -32,10 +32,9 @@
 			<%
 				}
 			%>
-			</p>
 		
 		 <h3>usuario</h3>
-		 <a href=>solicitar vales</a><br/>
+		 <a href=>solicitar vales</a> (Requiere estar logeado, esta disponible si se logean)<br/>
 		 <a href=>confirmar valor de vale</a><br/>
 		 <a href=>consultar vale de usuarios</a><br/>
 		

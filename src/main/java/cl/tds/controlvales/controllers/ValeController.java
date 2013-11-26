@@ -3,8 +3,14 @@
  */
 package cl.tds.controlvales.controllers;
 
+import java.sql.Date;
+import java.util.List;
+
+import cl.tds.controlvales.beans.Estado;
+import cl.tds.controlvales.beans.Usuario;
 import cl.tds.controlvales.beans.Vale;
 import cl.tds.controlvales.daos.ValeDAO;
+import cl.tds.controlvales.util.ValidacionUtil;
 
 /**
  * @author "Fernando Valencia"
@@ -30,5 +36,39 @@ public class ValeController {
 			resp = true;
 		}
 		return resp;
+	}
+	
+	public List<Vale> listarVales( String input ){
+		UsuarioController usuarioController = new UsuarioController();
+		Usuario usuario = null;
+		if( input != null && ValidacionUtil.validarRut(input) ){
+			usuario = usuarioController.obtenUsuarioRut(input);
+		}else{
+			usuario = usuarioController.obtenUsuario(input);
+		}
+		if( usuario == null )
+			return null;
+		else
+			return usuario.getVales();
+	}
+	
+	public List<Vale> listarVales( Date desde, Date hasta ){
+		return valeDao.obtenListaVales(desde, hasta);
+	}
+	
+	public List<Vale> listarVales( Estado estado ){
+		return valeDao.obtenListaVales(estado);
+	}
+
+	public boolean autorizarVale(Vale vale, Estado estado) {
+		boolean confirmado = false;
+		vale.setEstado(estado);
+		if ( valeDao.actualizaVale(vale) )
+			confirmado = true;
+		return confirmado;
+	}
+	
+	public Vale obtenerVale(long id){
+		return valeDao.obtenVale(id);
 	}
 }
