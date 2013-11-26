@@ -141,7 +141,7 @@ public class ValeDAO {
 		List<Vale> listaVales = null;
 		try {
 			iniciaOperacion();
-			Query q = sesion.createQuery("from Vale where fecha_uso between :desde and :hasta order by fecha_uso DESC");
+			Query q = sesion.createQuery("from Vale where fecha_uso between :desde and :hasta order by fecha DESC");
 			q.setParameter("desde", desde);
 			q.setParameter("hasta", hasta);
 			listaVales = q.list();
