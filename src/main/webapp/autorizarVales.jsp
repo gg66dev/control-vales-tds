@@ -16,13 +16,39 @@
 		<form method="post" action="ConsultaValesServlet">
 			<table>
 				<tr>
-					<td><input type="radio" name="opcion" value="rut"> Rut<br></td>
-					<td><input type="radio" name="opcion" value="nombre"> Nombre<br></td>
+					<td><input 
+					onclick="document.getElementById('desde').disabled = false;
+					document.getElementById('hasta').disabled = false;
+					document.getElementById('texto').disabled = true;"
+					type="radio" name="opcion" value="fecha"> Fecha<br></td>
+					<td><input
+					onclick="document.getElementById('desde').disabled = true;
+					document.getElementById('hasta').disabled = true;
+					document.getElementById('texto').disabled = false;" 
+					type="radio" name="opcion" value="rut"> Rut<br></td>
+					<td><input
+					onclick="document.getElementById('desde').disabled = true;
+					document.getElementById('hasta').disabled = true;
+					document.getElementById('texto').disabled = false;"
+					type="radio" name="opcion" value="nombre"> Nombre<br></td>
 					<!-- <td><input type="radio" name="opcion" value="estado"> Estado<br></td> -->
 					<td><input type="submit" value="Filtrar"></td>
 				</tr>
 				<tr>
-					<td colspan="4"><input type="text" name="input"></td>
+					<td colspan="4" align="center">Nombre o rut</td>
+				</tr>
+				<tr>
+					<td colspan="4" align="center">
+						<input id="texto" type="text" name="input" size="35" disabled="disabled">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4" align="center">Fecha</td>
+				</tr>
+				<tr>
+					<td colspan="2">Desde <input id="desde" type="text" name="desde" disabled="disabled"></td>
+					<td colspan="2">Hasta <input id="hasta" type="text" name="hasta" disabled="disabled"></td>
+				</tr>
 			</table>
 		</form>
 		<%
@@ -55,10 +81,10 @@
 								<td><%= v.getDestino() %></td>
 								<td><%= v.getMotivo_viaje() %></td>
 								<td><%= v.getMonto_estipulado() %></td>
-								<td><input value="<%= v.getIdvale() %>" name="aceptado" type="radio" 
-								value="<%= Estado.autorizado %>" ></td>
-								<td><input value="<%= v.getIdvale() %>" name="rechazado" type="radio" 
-								value="<%= Estado.rechazado %>" ></td>
+								<td><input value="<%= v.getIdvale().toString()+"-"+"aceptado" %>" 
+								name="<%= "opcion-"+v.getIdvale() %>" type="radio"></td>
+								<td><input value="<%= v.getIdvale().toString()+"-"+"rechazado" %>" 
+								name="<%= "opcion-"+v.getIdvale() %>" type="radio"></td>
 								<td></td>
 							</tr>
 							<%

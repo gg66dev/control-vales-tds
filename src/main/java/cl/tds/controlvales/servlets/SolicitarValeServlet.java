@@ -3,6 +3,8 @@ package cl.tds.controlvales.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,7 +39,14 @@ public class SolicitarValeServlet extends HttpServlet {
 				&& request.getSession().getAttribute("usuario") != null 
 				&& request.getParameter("empresa") != null 
 				&& NumberUtil.isLong( request.getParameter("empresa") )){
-			Date fecha_uso = (Date) DateUtil.toDate( request.getParameter("fecha_uso") );
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			Date fecha_uso = null;
+			try {
+				fecha_uso = new Date( sdf.parse( request.getParameter("fecha_uso") ).getTime() );
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			String origen = request.getParameter("origen");
 			String destino = request.getParameter("destino");
 			String motivo = request.getParameter("motivo");

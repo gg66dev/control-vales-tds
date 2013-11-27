@@ -4,8 +4,9 @@
 package cl.tds.controlvales.controllers;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
-
 
 import cl.tds.controlvales.beans.Estado;
 import cl.tds.controlvales.beans.Usuario;
@@ -28,11 +29,14 @@ public class ValeController {
 	 */
 	public boolean solicitaVale( Vale vale ){
 		boolean resp = false;
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		String fecha = df.format(vale.getFecha_uso());
 		if( vale.getFecha_uso() != null 
 				&& vale.getOrigen() != null
 				&& vale.getDestino() != null
 				&& vale.getMonto_estipulado() != 0
-				&& vale.getMotivo_viaje() != null ){
+				&& vale.getMotivo_viaje() != null 
+				&& ValidacionUtil.validaFechaMascara( fecha, "dd/MM/yyyy")){
 			valeDao.guardaVale(vale);
 			resp = true;
 		}

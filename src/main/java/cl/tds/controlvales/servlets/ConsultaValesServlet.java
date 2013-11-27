@@ -4,6 +4,9 @@
 package cl.tds.controlvales.servlets;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -32,19 +35,33 @@ public class ConsultaValesServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String opcion = request.getParameter("opcion");
 		String input = request.getParameter("input");
+		String desde = request.getParameter("desde");
+		String hasta = request.getParameter("hasta");
 		
 		ValeController valeController = new ValeController();
 		List<Vale> vales = null;
-		if( opcion != null && input != null){
-			if ( opcion.equals("rut") && ValidacionUtil.validarRut(input) ){
+		if( opcion != null ){
+			if ( opcion.equals("rut") && input != null && ValidacionUtil.validarRut(input) ){
 				vales = valeController.listarVales(input);
-			}else if( opcion.equals("nombre") ){
+			}else if( opcion.equals("nombre") && input != null ){
 				vales = valeController.listarVales(input);
+			}else if( opcion.equals("fecha") && desde != null && hasta != null 
+					&& ValidacionUtil.validaFechaMascara(desde, "dd/MM/yyyy")
+					&& ValidacionUtil.validaFechaMascara(hasta, "dd/MM/yyyy")){
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+				Date d = null, h = null;
+				try {
+					d = new Date(sdf.parse(desde).getTime());
+					h = new Date(sdf.parse(hasta).getTime());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				vales = valeController.listarVales(d, h);
 			}
+			request.getSession().setAttribute("vales", vales);
 		}
-		
-		request.getSession().setAttribute("vales", vales);
-		response.sendRedirect("listarVales.jsp");
+		response.sendRedirect("autorizarVales.jsp");
 	}
 
 	@Override

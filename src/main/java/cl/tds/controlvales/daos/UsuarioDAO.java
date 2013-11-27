@@ -69,6 +69,26 @@ public class UsuarioDAO {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	public Usuario obtenUsuarioUsername(String username) throws HibernateException {
+		Usuario u = null;
+		try {
+			iniciaOperacion();
+			Query q = sesion
+					.createQuery("from Usuario where :username=usuario order by usuario DESC LIMIT 1");
+			q.setParameter("username", username);
+			List<Usuario> usuarios = q.list();
+			if ( usuarios != null && usuarios.size() > 0 ){
+				u = (Usuario) q.list().get(0);
+				Hibernate.initialize(u.getVales());
+			}
+		} finally {
+			if (sesion != null)
+				sesion.close();
+		}
+		return u;
+	}
+	
 	public Usuario obtenUsuarioRut(String rut) throws HibernateException {
 		Usuario u = null;
 		try {
