@@ -54,6 +54,7 @@
 		<%
 		/* 	ValeController valeController = new ValeController();
 			List<Vale> vales = valeController.listarVales(Estado.esperando_autorizacion); */
+			@SuppressWarnings("unchecked")
 			List<Vale> vales = ( List<Vale> )request.getSession().getAttribute("vales");
 			if( vales != null ){
 				%>

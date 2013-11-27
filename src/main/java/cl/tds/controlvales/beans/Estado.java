@@ -3,10 +3,10 @@
  */
 package cl.tds.controlvales.beans;
 
-/**
+/** Enumeraci&oacute;n que determina el estado de un vale
  * @author Fernando Valencia F.
  *
  */
 public enum Estado {
-	esperando_autorizacion, autorizado, rechazado, consolidado
+	abierto, autorizado, rechazado, consolidado
 }

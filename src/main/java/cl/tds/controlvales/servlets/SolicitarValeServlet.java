@@ -59,7 +59,7 @@ public class SolicitarValeServlet extends HttpServlet {
 			Vale vale = new Vale(fecha_uso, origen, destino, motivo, monto_estipulado);
 			vale.setEmpresa(e);
 			vale.setUsuario( (Usuario ) request.getSession().getAttribute("usuario") );
-			vale.setEstado(Estado.esperando_autorizacion);
+			vale.setEstado(Estado.abierto);
 			
 			ValeController valeController = new ValeController();
 			result = valeController.solicitaVale( vale );
