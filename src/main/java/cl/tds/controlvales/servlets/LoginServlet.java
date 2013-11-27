@@ -32,8 +32,8 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		UsuarioController usuarioController = new UsuarioController();
 		boolean result = usuarioController.login(username, password);
-		Usuario usuario = usuarioController.obtenUsuario(username);
-		if (result == true) {
+		Usuario usuario = usuarioController.obtenUsuarioUsername(username);
+		if (result == true && usuario != null) {
 			request.getSession().setAttribute("usuario", usuario);
 			response.sendRedirect("index.jsp");
 		} else {

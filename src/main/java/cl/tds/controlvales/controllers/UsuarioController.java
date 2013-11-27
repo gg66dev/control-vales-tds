@@ -28,7 +28,7 @@ public class UsuarioController {
 	 */
 	public boolean login(String username, String password) {
 		boolean autenticado = false;
-		Usuario usuario = usuarioDao.obtenUsuario(username);
+		Usuario usuario = usuarioDao.obtenUsuarioUsername(username);
 		if (usuario != null && usuario.getPassword().equals(password)) {
 			autenticado = true;
 		}
@@ -83,6 +83,10 @@ public class UsuarioController {
 			return usuarioDao.obtenUsuarioRut(rut);
 		}
 		return null;
+	}
+	
+	public Usuario obtenUsuarioUsername(String username) {
+		return usuarioDao.obtenUsuarioUsername(username);
 	}
 	
 
