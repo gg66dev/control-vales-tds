@@ -3,7 +3,8 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+<display-name>Archetype Created Web Application</display-name>
+<!-- 
   <servlet>
   	<servlet-name>SolicitaVale</servlet-name>
   	<display-name>SolicitaVale</display-name>
@@ -13,5 +14,77 @@
   <servlet-mapping>
   	<servlet-name>SolicitaVale</servlet-name>
   	<url-pattern>/SolicitaVale</url-pattern>
+  </servlet-mapping>
+   -->
+  <servlet>
+  	<servlet-name>SolicitarValeServlet</servlet-name>
+  	<display-name>SolicitarValeServlet</display-name>
+  	<description>Clase para solicitar vale</description>
+  	<servlet-class>cl.tds.controlvales.servlets.SolicitarValeServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+  	<servlet-name>AutorizarValeServlet</servlet-name>
+  	<display-name>AutorizarValeServlet</display-name>
+  	<description>Clase para autorizar vales</description>
+  	<servlet-class>cl.tds.controlvales.servlets.AutorizarValeServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+  	<servlet-name>ConsultaValesServlet</servlet-name>
+  	<display-name>ConsultaValesServlet</display-name>
+  	<description>Clase para consultar vales</description>
+  	<servlet-class>cl.tds.controlvales.servlets.ConsultaValesServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+  	<servlet-name>LoginServlet</servlet-name>
+  	<display-name>LoginServlet</display-name>
+  	<description>Clase para login</description>
+  	<servlet-class>cl.tds.controlvales.servlets.LoginServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+  	<servlet-name>RegisterServlet</servlet-name>
+  	<display-name>RegisterServlet</display-name>
+  	<description>Clase para registrarse</description>
+  	<servlet-class>cl.tds.controlvales.servlets.RegisterServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+  	<servlet-name>RegistrarEmpresaServlet</servlet-name>
+  	<display-name>RegistrarEmpresaServlet</display-name>
+  	<description>Clase para registrar empresas</description>
+  	<servlet-class>cl.tds.controlvales.servlets.RegistrarEmpresaServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>SolicitarValeServlet</servlet-name>
+  	<url-pattern>/SolicitarValeServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+  	<servlet-name>AutorizarValeServlet</servlet-name>
+  	<url-pattern>/AutorizarValeServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+  	<servlet-name>ConsultaValesServlet</servlet-name>
+  	<url-pattern>/ConsultaValesServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+  	<servlet-name>LoginServlet</servlet-name>
+  	<url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+  	<servlet-name>RegisterServlet</servlet-name>
+  	<url-pattern>/RegisterServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+  	<servlet-name>RegistrarEmpresaServlet</servlet-name>
+  	<url-pattern>/RegistrarEmpresaServlet</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -144,10 +144,15 @@ public class ValeDAO {
 		try {
 			iniciaOperacion();
 			Long algo= (long) 1 ;
-			String hql = "FROM Vale WHERE fecha_uso >= :hasta and fecha_uso <= :desde " + " ORDER BY fecha_uso DESC ";
-			Query q = sesion.createQuery(hql); 
+			String hql = "FROM Vale WHERE fecha_uso >= :hasta and fecha_uso <= :desde " + " ORDER BY fecha_uso DESC ";//> :desde and fecha_uso < :hasta"; 
+		            
+			Query q = sesion.createQuery(hql); //where fecha_uso between :desde=desde and :hasta=hasta order by fecha_uso DESC");
 			q.setParameter("desde", desde);
 			q.setParameter("hasta", hasta);
+			//q.setParameter("algo", algo);
+			 System.out.println(q);
+			 System.out.println(desde);
+			 //System.out.println(hasta);
 			listaVales = q.list();
 			System.out.println(listaVales);
 		} finally {

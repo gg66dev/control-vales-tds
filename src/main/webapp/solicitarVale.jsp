@@ -23,18 +23,17 @@
 				<h1>Solicitar Vale</h1>
 				<p>Por favor ingrese la siguiente informaci&oacute;n</p>
 
-				<label>Fecha de Uso <span class="small">24/01/2013</span></label> <input
-					type="text" name="fecha_uso" id="fecha_uso" /> <label>Origen
-					<span class="small">Origen</span>
-				</label> <input type="text" name="origen" id="origen" /> <label>Destino
-					<span class="small">Destino</span>
-				</label> <input type="text" name="destino" id="destino" /> <label>Motivo
-					de viaje <span class="small">Motivo de viaje</span>
-				</label> <input type="text" name="motivo" id="motivo" /> <label>Monto
-					estipulado<span class="small">Monto estipulado</span>
-				</label> <input type="text" name="monto_estipulado" id="monto_estipulado" /><label>Empresa
-					<span class="small">Empresa </span>
-				</label> 
+				<label>Fecha de Uso <span class="small">24/01/2013</span></label> 
+				<input type="text" name="fecha_uso" id="fecha_uso" /> 
+				<label>Origen <span class="small">Origen</span> </label> 
+				<input type="text" name="origen" id="origen" /> 
+				<label>Destino<span class="small">Destino</span></label> 
+				<input type="text" name="destino" id="destino" /> 
+				<label>Motivo de viaje <span class="small">Motivo de viaje</span> </label>
+				<input type="text" name="motivo" id="motivo" /> 
+				<label>Monto estipulado<span class="small">Monto estipulado</span> </label>
+				<input type="text" name="monto_estipulado" id="monto_estipulado" />
+				<label>Empresa <span class="small">Empresa </span></label> 
 					<SELECT NAME="empresa" SIZE="1">
 						<%
 							for (Empresa e : empresas) {

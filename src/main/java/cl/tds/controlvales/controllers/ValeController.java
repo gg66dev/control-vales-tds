@@ -36,7 +36,8 @@ public class ValeController {
 				&& vale.getDestino() != null
 				&& vale.getMonto_estipulado() != 0
 				&& vale.getMotivo_viaje() != null 
-				&& ValidacionUtil.validaFechaMascara( fecha, "dd/MM/yyyy")){
+				&& ValidacionUtil.validaFechaMascara( fecha, "dd/MM/yyyy")
+				){
 			valeDao.guardaVale(vale);
 			resp = true;
 		}
