@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="cl.tds.controlvales.beans.Estado" %>
 <%@ page import="cl.tds.controlvales.beans.Vale" %>
 <%@ page import="java.util.List"%>
-<%@ page import="cl.tds.controlvales.controllers.ValeController" %>
+<%@ page import="cl.tds.controlvales.controller.ValeController" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="style.css" />
+<link rel="stylesheet" type="text/css" href="./css/style.css" />
 <title>Autorizar Vale</title>
 </head>
 <body>
@@ -61,7 +60,6 @@
 				<form method="post" action="AutorizarValeServlet">
 					<table>
 						<tr>
-							<th>Empresa</th>
 							<th>Usuario</th>
 							<th>Fecha de Uso</th>
 							<th>Origen</th>
@@ -75,7 +73,6 @@
 						for ( Vale v : vales ){
 							%>
 							<tr>
-								<td><%= v.getEmpresa().getNombre() %></td>
 								<td><%= v.getUsuario().getNombre() %></td>
 								<td><%= v.getFecha_uso() %></td>
 								<td><%= v.getOrigen() %></td>

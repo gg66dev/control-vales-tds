@@ -3,6 +3,7 @@
  */
 package cl.tds.controlvales.daos;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Hibernate;
@@ -18,8 +19,12 @@ import cl.tds.controlvales.util.HibernateUtil;
  * @author "Fernando Valencia"
  * 
  */
-public class UsuarioDAO {
+public class UsuarioDAO implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Session sesion = null;
 	private Transaction tx = null;
 

@@ -12,15 +12,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cl.tds.controlvales.beans.CentroCosto;
+import cl.tds.controlvales.beans.Perfil;
 import cl.tds.controlvales.beans.Usuario;
-import cl.tds.controlvales.controllers.UsuarioController;
+import cl.tds.controlvales.controller.CentroCostoController;
+import cl.tds.controlvales.controller.UsuarioController;
 
 /**
  * @author "Fernando Valencia"
  * 
  */
-@WebServlet(name = "RegisterServlet", urlPatterns = { "/RegisterServlet" })
-public class RegisterServlet extends HttpServlet {
+@WebServlet(name = "RegistrarUsuarioServlet", urlPatterns = { "/RegistrarUsuarioServlet" })
+public class RegistrarUsuarioServlet extends HttpServlet {
 
 	/**
 	 * 
@@ -37,8 +40,22 @@ public class RegisterServlet extends HttpServlet {
 		String password2 = request.getParameter("password2");
 		String rut = request.getParameter("rut");
 		String email = request.getParameter("email");
+		String perfil = request.getParameter("perfil");
 		Usuario user = new Usuario(nombre, usuario, password1, rut, email);
-
+		for(Perfil p : Perfil.values()){
+			if( p.toString().toLowerCase().equals(perfil) ){
+				user.setPerfil(p);
+				break;
+			}
+		}
+		String id_centroCosto = (String ) request.getParameter("centro_costo");
+		if( id_centroCosto != null ){
+			long id = Long.parseLong(id_centroCosto);
+			CentroCostoController centroCostoController = new CentroCostoController();
+			CentroCosto centroCosto = centroCostoController.obtenCentroCosto(id);
+			user.setCentroCosto(centroCosto);
+		}
+		
 		PrintWriter out = response.getWriter();
 
 		try {

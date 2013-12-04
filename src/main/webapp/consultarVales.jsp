@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="cl.tds.controlvales.controllers.ValeController"%>
+<%@ page import="cl.tds.controlvales.controller.ValeController"%>
 <%@ page import="cl.tds.controlvales.beans.Vale"%>
 <%@ page import="cl.tds.controlvales.beans.Estado"%>
 <%@ page import="java.util.List"%>
@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="style.css" />
+<link rel="stylesheet" type="text/css" href="./css/style.css" />
 <title>Consultar Vale</title>
 </head>
 <body>
@@ -139,7 +139,6 @@
 			<%
 				}
 			%>
-		</div>
 		<%
 			List<Vale> listavales = null;
 			Vale val = null;
@@ -226,7 +225,7 @@
 				</tr>
 				<tr>
 					<td><input value="<%=val.getIdvale()%>" name="seleccionado"
-						type="radio"></td>
+						type="radio" width=10></td>
 					<td><%=val.getIdvale()%></td>
 					<td><%=val.getEstado()%></td>
 					<td><%=val.getFecha_uso()%></td>
@@ -239,6 +238,7 @@
 				out.print("<p>No hay vales para confirmar</p>");
 			}
 		%>
+		</div>
 	</center>
 </body>
 </html>

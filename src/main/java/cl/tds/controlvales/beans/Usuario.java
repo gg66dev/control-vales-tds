@@ -9,8 +9,12 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -31,6 +35,13 @@ public class Usuario {
 	private String password;
 	private String rut;
 	private String email;
+	@Column(columnDefinition = "enum('usuario','gerente', 'administrador')")
+	@Enumerated(EnumType.STRING)
+	private Perfil perfil;
+	
+	@ManyToOne
+    @JoinColumn(name="centro_costo_idcentro_costo", nullable=true)
+	private CentroCosto centroCosto;
 	
 	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL)
     private List<Vale> vales = new ArrayList<Vale>();
@@ -136,6 +147,35 @@ public class Usuario {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	/**
+	 * @return the perfil
+	 */
+	public Perfil getPerfil() {
+		return perfil;
+	}
+
+	/**
+	 * @param perfil the perfil to set
+	 */
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
+	}
+
+	/**
+	 * @return the centroCosto
+	 */
+	public CentroCosto getCentroCosto() {
+		return centroCosto;
+	}
+
+	/**
+	 * @param centroCosto the centroCosto to set
+	 */
+	public void setCentroCosto(CentroCosto centroCosto) {
+		this.centroCosto = centroCosto;
+		centroCosto.addUsuario(this);
 	}
 
 	/**

@@ -3,6 +3,7 @@
  */
 package cl.tds.controlvales.daos;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Hibernate;
@@ -11,24 +12,29 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import cl.tds.controlvales.beans.Empresa;
+import cl.tds.controlvales.beans.Departamento;
 import cl.tds.controlvales.util.HibernateUtil;
 
 /**
  * @author "Fernando Valencia"
- * 
+ *
  */
-public class EmpresaDAO {
+public class DepartamentoDAO implements Serializable {
 
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5209836384258429410L;
 	private Session sesion = null;
 	private Transaction tx = null;
 
-	public Long guardaEmpresa(Empresa empresa) throws HibernateException {
+	public Long guardaDepartamento(Departamento departamento) throws HibernateException {
 		Long id = (long) 0;
 
 		try {
 			iniciaOperacion();
-			id = (Long) sesion.save(empresa);
+			id = (Long) sesion.save(departamento);
 			tx.commit();
 		} catch (HibernateException he) {
 			manejaExcepcion(he);
@@ -41,10 +47,10 @@ public class EmpresaDAO {
 		return id;
 	}
 
-	public void actualizaEmpresa(Empresa empresa) throws HibernateException {
+	public void actualizaDepartamento(Departamento departamento) throws HibernateException {
 		try {
 			iniciaOperacion();
-			sesion.update(empresa);
+			sesion.update(departamento);
 			tx.commit();
 		} catch (HibernateException he) {
 			manejaExcepcion(he);
@@ -55,10 +61,10 @@ public class EmpresaDAO {
 		}
 	}
 
-	public void eliminaEmpresa(Empresa empresa) throws HibernateException {
+	public void eliminaDepartamento(Departamento departamento) throws HibernateException {
 		try {
 			iniciaOperacion();
-			sesion.delete(empresa);
+			sesion.delete(departamento);
 			tx.commit();
 		} catch (HibernateException he) {
 			manejaExcepcion(he);
@@ -67,55 +73,53 @@ public class EmpresaDAO {
 			if (sesion != null)
 				sesion.close();
 		}
-	}
-
-	public Empresa obtenEmpresa(long id_empresa) throws HibernateException {
-		Empresa empresa = null;
-		try {
-			iniciaOperacion();
-			empresa = (Empresa) sesion.get(Empresa.class, id_empresa);
-			Hibernate.initialize(empresa.getVales());
-		} finally {
-			if (sesion != null)
-				sesion.close();
-		}
-
-		return empresa;
 	}
 	
-	public Empresa obtenEmpresa(String nombre) throws HibernateException {
-		Empresa empresa = null;
+	public Departamento obtenDepartamento(long id_departamento) throws HibernateException {
+		Departamento departamento = null;
+		try {
+			iniciaOperacion();
+			departamento = (Departamento) sesion.get(Departamento.class, id_departamento);
+			Hibernate.initialize(departamento.getCentrosDeCostos());
+		} finally {
+			if (sesion != null)
+				sesion.close();
+		}
+
+		return departamento;
+	}
+
+	public Departamento obtenDepartamento(String nombre) throws HibernateException {
+		Departamento departamento = null;
 		try {
 			iniciaOperacion();
 			Query q = sesion
-					.createQuery("from Empresa where :nombre=nombre order by nombre DESC LIMIT 1");
+					.createQuery("from Departamento where :nombre=nombre order by nombre DESC LIMIT 1");
 			q.setParameter("nombre", nombre);
-			empresa = (Empresa) q.list().get(0);
-			if (empresa != null) {
-				Hibernate.initialize(empresa.getVales());
-			}
+			departamento = (Departamento) q.list().get(0);
+			Hibernate.initialize(departamento.getCentrosDeCostos());
+		} catch (IndexOutOfBoundsException e) {
+			// TODO
 		} finally {
 			if (sesion != null)
 				sesion.close();
 		}
-		
-		return empresa;
+		return departamento;
 	}
-
+	
 	@SuppressWarnings("unchecked")
-	public List<Empresa> obtenListaEmpresas() throws HibernateException {
-		List<Empresa> listaEmpresas = null;
+	public List<Departamento> obtenListaDepartamentos() throws HibernateException {
+		List<Departamento> listaDepartamentos = null;
 
 		try {
-
 			iniciaOperacion();
-			listaEmpresas = sesion.createQuery("from Empresa").list();
+			listaDepartamentos = sesion.createQuery("from Departamento").list();
 		} finally {
 			if (sesion != null)
 				sesion.close();
 		}
 
-		return listaEmpresas;
+		return listaDepartamentos;
 	}
 
 	private void iniciaOperacion() throws HibernateException {

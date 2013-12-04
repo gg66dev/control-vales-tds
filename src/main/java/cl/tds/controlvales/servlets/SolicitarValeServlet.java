@@ -12,12 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cl.tds.controlvales.beans.Empresa;
 import cl.tds.controlvales.beans.Estado;
 import cl.tds.controlvales.beans.Usuario;
 import cl.tds.controlvales.beans.Vale;
-import cl.tds.controlvales.controllers.EmpresaController;
-import cl.tds.controlvales.controllers.ValeController;
+import cl.tds.controlvales.controller.ValeController;
 import cl.tds.controlvales.util.DateUtil;
 import cl.tds.controlvales.util.NumberUtil;
 
@@ -51,13 +49,8 @@ public class SolicitarValeServlet extends HttpServlet {
 			String destino = request.getParameter("destino");
 			String motivo = request.getParameter("motivo");
 			int monto_estipulado = Integer.parseInt( request.getParameter("monto_estipulado") );
-			long idempresa = Long.parseLong( request.getParameter("empresa") );
-			
-			EmpresaController empresaController = new EmpresaController();
-			Empresa e = empresaController.obtenEmpresa(idempresa);
 			
 			Vale vale = new Vale(fecha_uso, origen, destino, motivo, monto_estipulado);
-			vale.setEmpresa(e);
 			vale.setUsuario( (Usuario ) request.getSession().getAttribute("usuario") );
 			vale.setEstado(Estado.abierto);
 			

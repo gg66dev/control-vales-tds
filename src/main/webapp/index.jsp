@@ -3,29 +3,27 @@
 <%@page import="cl.tds.controlvales.beans.Usuario"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.List"%>
-<%@page import="cl.tds.controlvales.controllers.UsuarioController"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="style.css" />
+<link rel="stylesheet" type="text/css" href="./css/style.css" />
 <title>Home</title>
 </head>
 <body>
 	<center>
 		<div id="mystyle">
 			<h1>Bienvenido</h1>
-			<%= new Date() %>
+			<%=new Date()%>
 			<%
 				Usuario usuario = null;
 				if (session.getAttribute("usuario") != null) {
 					usuario = (Usuario) session.getAttribute("usuario");
 			%>
 			<b><%=usuario.getUsuario()%></b> <br /> <a href="logout.jsp">Logout</a>
-			<br /> <a href="solicitarVale.jsp">Solicitar un Vale</a>
-			<br /> <a href="registrarEmpresa.jsp">Registrar una empresa</a>
-			<br /> <a href=consultarVale.jsp>consultar vale de usuarios</a>
-		
+			<br /> <a href="solicitarVale.jsp">Solicitar un Vale</a> <br /> <a
+				href=consultarVales.jsp>consultar vale de usuarios</a>
+
 			<%
 				} else {
 			%>
@@ -34,21 +32,19 @@
 			<%
 				}
 			%>
-		
-		
-		 <h3>administrador</h3>			
-		 <a href="userlist.jsp">Listar Usarios Registrados (administrar cuentas)</a><br/>
-		 <a href=>Ingresar centro de costo</a><br/>
-		 <a href=>Mostrar centro de costo</a><br/>
-		 <a href=>Ingresar Planilla</a><br/>
-		 
-		 <h3>gerente</h3>
-		 <a href=>Consulta de vales</a><br/>
-		 <a href=>autorizar vales</a><br/>
-		 <a href=>informes</a><br/>
-		 <a href=>consolidacion de vales</a><br/>
-		 <a href=>detalle vale radio taxi</a><br/>
-		 
+
+			<h3>administrador</h3>
+			<a href="registrarDepartamento.jsp">Registrar un departamento</a><br />
+			<a href="registrarCentroCosto.jsp">Registrar un centro de costo</a><br />
+			<a href="userlist.jsp">Listar Usarios Registrados (administrar
+				cuentas)</a><br /> <a href=>Ingresar centro de costo</a><br /> <a href=>Mostrar
+				centro de costo</a><br /> <a href=>Ingresar Planilla</a><br />
+
+			<h3>gerente</h3>
+			<a href=>Consulta de vales</a><br /> <a href="autorizarVales.jsp">autorizar
+				vales</a><br /> <a href=>informes</a><br /> <a href=>consolidacion
+				de vales</a><br /> <a href=>detalle vale radio taxi</a><br />
+
 		</div>
 	</center>
 </body>

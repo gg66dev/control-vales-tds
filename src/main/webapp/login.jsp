@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="style.css" />
+<link rel="stylesheet" type="text/css" href="./css/style.css" />
 <title>Login</title>
 </head>
 <body>
@@ -15,7 +15,7 @@
 				<h1>Login</h1>
 				<p>
 					Por favor ponga su informaci&oacute;n para ingresar <br />¿Nuevo
-					usuario? <a href="register.jsp">Registrese</a>
+					usuario? <a href="registrarUsuario.jsp">Registrese</a>
 				</p>
 				<label>Nombre de usuario <span class="small">Ponga su
 						nombre de usuario</span>

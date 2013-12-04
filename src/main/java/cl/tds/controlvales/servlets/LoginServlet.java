@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cl.tds.controlvales.beans.Usuario;
-import cl.tds.controlvales.controllers.UsuarioController;
+import cl.tds.controlvales.controller.UsuarioController;
 
 /**
  * @author "Fernando Valencia"

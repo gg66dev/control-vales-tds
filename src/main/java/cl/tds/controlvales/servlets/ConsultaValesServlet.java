@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cl.tds.controlvales.beans.Vale;
-import cl.tds.controlvales.controllers.ValeController;
+import cl.tds.controlvales.controller.ValeController;
 import cl.tds.controlvales.util.ValidacionUtil;
 
 /**

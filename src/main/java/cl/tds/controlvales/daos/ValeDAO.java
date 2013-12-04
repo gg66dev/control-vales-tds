@@ -3,6 +3,7 @@
  */
 package cl.tds.controlvales.daos;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -21,8 +22,12 @@ import cl.tds.controlvales.util.HibernateUtil;
  * @author "Fernando Valencia"
  * 
  */
-public class ValeDAO {
+public class ValeDAO implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Session sesion = null;
 	private Transaction tx = null;
 
@@ -81,7 +86,6 @@ public class ValeDAO {
 			iniciaOperacion();
 			vale = (Vale) sesion.get(Vale.class, id_vale);
 			Hibernate.initialize(vale.getUsuario());
-			Hibernate.initialize(vale.getEmpresa());
 		} finally {
 			if (sesion != null)
 				sesion.close();

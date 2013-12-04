@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cl.tds.controlvales.controllers;
+package cl.tds.controlvales.controller;
 
 import java.sql.Date;
 import java.text.DateFormat;

@@ -14,8 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cl.tds.controlvales.beans.Estado;
+import cl.tds.controlvales.beans.Usuario;
 import cl.tds.controlvales.beans.Vale;
-import cl.tds.controlvales.controllers.ValeController;
+import cl.tds.controlvales.controller.ValeController;
 
 /**
  * @author "Fernando Valencia"
@@ -35,13 +36,17 @@ public class AutorizarValeServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 
 		List<Vale> vales = (List<Vale>) request.getSession().getAttribute("vales");
+		// para no perder al usuario
+		Usuario u = ((Usuario ) request.getSession().getAttribute("usuario"));
 		
 		PrintWriter out = response.getWriter();
 
 		try {
 			ValeController valeController = new ValeController();
 			
-			if( vales != null ){
+			if( vales != null
+					&& u != null ){
+				
 				for( Vale v : vales ){
 					//si se ha enviado informacion del formulario por post
 					if( request.getParameter("opcion-"+v.getIdvale()) != null ){
@@ -55,24 +60,14 @@ public class AutorizarValeServlet extends HttpServlet {
 				}
 			}
 			
-			
 			out.println("<html>");
 			out.println("<head>");
 			out.println("<title>Registro</title>");
 			out.println("</head>");
 			out.println("<body>");
 			out.println("<center>");
-//			if (result) {
-//				out.println("<h1>Vale "+estado+" exitosamente</h1>");
-//				out.println("Para volver al sitio <a href=login.jsp>haz click aqu&iacute;</a>");
-//			} else {
-//				out.println("<h1>Ha fallado el registro</h1>");
-//				out.println("No se pudo autorizar el vale");
-//				out.println();
-//				out.println("Para intentar de nuevo <a href=listarVales.jsp>Haz click aqu&iacute;</a>");
-//			}
 			out.println("<h1>Vales actualizados exitosamente</h1>");
-			out.println("Para volver al sitio <a href=login.jsp>haz click aqu&iacute;</a>");
+			out.println("Para volver al sitio <a href=index.jsp>haz click aqu&iacute;</a>");
 			out.println("</center>");
 			out.println("</body>");
 			out.println("</html>");

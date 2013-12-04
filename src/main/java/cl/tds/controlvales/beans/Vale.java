@@ -35,17 +35,13 @@ public class Vale {
 	private int monto_estipulado;
 	private int monto_real;
 	private Date fecha_confirmacion;
-	@Column(columnDefinition = "enum('esperando_autorizacion','autorizado', 'rechazado, 'consolidado')")
+	@Column(columnDefinition = "enum('abierto','autorizado', 'rechazado', 'consolidado')")
 	@Enumerated(EnumType.STRING)
 	private Estado estado;
 	
 	@ManyToOne
     @JoinColumn(name="usuario_idusuario", nullable=false)
 	private Usuario usuario;
-
-	@ManyToOne
-	@JoinColumn(name="empresa_idempresa", nullable=false)
-	private Empresa empresa;
 	
 	/** Constructor por defecto */
 	public Vale(){}
@@ -205,21 +201,6 @@ public class Vale {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 		usuario.addVale(this);
-	}
-
-	/**
-	 * @return the empresa
-	 */
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	/**
-	 * @param empresa the empresa to set
-	 */
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-		empresa.addVale(this);
 	}
 	
 }

@@ -1,22 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="cl.tds.controlvales.beans.Empresa"%>
-<%@page import="cl.tds.controlvales.controllers.EmpresaController"%>
 <%@page import="java.util.List;"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="style.css" />
+<link rel="stylesheet" type="text/css" href="./css/style.css" />
 <title>Solicitar Vale</title>
+<link rel="stylesheet"
+	href="./css/smoothness/jquery-ui-1.10.3.custom.css">
+<script src="./js/jquery-1.9.1.js"></script>
+<script src="./js/jquery-ui-1.10.3.custom.js"></script>
 </head>
 <body>
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
+					$("#fecha_uso").datepicker(
+							{
+								dateFormat : "dd/mm/yy",
+								dayNames : [ "Domingo", "Lunes", "Martes",
+										"Miércoles", "Jueves", "Viernes",
+										"Sábado" ],
+								dayNamesMin : [ "Do", "Lu", "Ma", "Mi", "Ju",
+										"Vi", "Sa" ],
+								monthNames : [ "Enero", "Febrero", "Marzo",
+										"Abril", "Mayo", "Junio", "Julio",
+										"Agosto", "Septiembre", "Octubre",
+										"Noviembre", "Diciembre" ],
+								monthNamesShort : [ "Ene", "Feb", "Mar", "Abr",
+										"May", "Jun", "Jul", "Ago", "Sep",
+										"Oct", "Nov", "Dic" ]
+							});
+				});
+	</script>
 	<center>
-		<%
-			EmpresaController empresaController = new EmpresaController();
-			List<Empresa> empresas = empresaController.listarEmpresas();
-			if (empresas != null) {
-		%>
 		<div id="mystyle" class="myform">
 			<form id="form" name="form" method="post"
 				action="SolicitarValeServlet">
@@ -32,31 +50,13 @@
 					de viaje <span class="small">Motivo de viaje</span>
 				</label> <input type="text" name="motivo" id="motivo" /> <label>Monto
 					estipulado<span class="small">Monto estipulado</span>
-				</label> <input type="text" name="monto_estipulado" id="monto_estipulado" /><label>Empresa
-					<span class="small">Empresa </span>
-				</label> 
-					<SELECT NAME="empresa" SIZE="1">
-						<%
-							for (Empresa e : empresas) {
-						%>
-						<OPTION VALUE="<%=e.getIdempresa()%>"><%=e.getNombre()%></OPTION>
-						<%
-							}
-						%>
-					</SELECT>
+				</label> <input type="text" name="monto_estipulado" id="monto_estipulado" />
+				
 				<button type="submit">Solicitar Vale</button>
 				<div class="spacer"></div>
 
 			</form>
 		</div>
-		<%
-			} else {
-		%>
-		<b> Debe registrar al menos una empresa antes de solicitar un
-			vale.</b>
-		<%
-			}
-		%>
 	</center>
 </body>
 </html>
