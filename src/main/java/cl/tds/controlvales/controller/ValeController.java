@@ -12,6 +12,7 @@ import cl.tds.controlvales.beans.Estado;
 import cl.tds.controlvales.beans.Usuario;
 import cl.tds.controlvales.beans.Vale;
 import cl.tds.controlvales.daos.ValeDAO;
+import cl.tds.controlvales.util.Folio;
 import cl.tds.controlvales.util.ValidacionUtil;
 
 /**
@@ -37,8 +38,12 @@ public class ValeController {
 				&& vale.getMonto_estipulado() != 0
 				&& vale.getMotivo_viaje() != null 
 				&& ValidacionUtil.validaFechaMascara( fecha, "dd/MM/yyyy")){
-			valeDao.guardaVale(vale);
-			resp = true;
+			Long folio = Folio.generaFolio();
+			if( folio != 0 ){
+				vale.setFolio(folio);
+				valeDao.guardaVale(vale);
+				resp = true;
+			}
 		}
 		return resp;
 	}

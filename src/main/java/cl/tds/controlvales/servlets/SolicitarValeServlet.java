@@ -34,9 +34,7 @@ public class SolicitarValeServlet extends HttpServlet {
 		
 		if( NumberUtil.isInteger(request.getParameter("monto_estipulado"))
 				&& DateUtil.isDate(request.getParameter("fecha_uso")) 
-				&& request.getSession().getAttribute("usuario") != null 
-				&& request.getParameter("empresa") != null 
-				&& NumberUtil.isLong( request.getParameter("empresa") )){
+				&& request.getSession().getAttribute("usuario") != null){
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			Date fecha_uso = null;
 			try {

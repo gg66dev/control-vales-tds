@@ -6,6 +6,7 @@ package cl.tds.controlvales.daos;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -78,6 +79,7 @@ public class CentroCostoDAO implements Serializable {
 		try {
 			iniciaOperacion();
 			centroCosto = (CentroCosto) sesion.get(CentroCosto.class, id_centroCosto);
+			Hibernate.initialize(centroCosto.getUsuarios());
 		} finally {
 			if (sesion != null)
 				sesion.close();
@@ -86,6 +88,7 @@ public class CentroCostoDAO implements Serializable {
 		return centroCosto;
 	}
 
+	@SuppressWarnings("unchecked")
 	public CentroCosto obtenCentroCosto(String nombre) throws HibernateException {
 		CentroCosto centroCosto = null;
 		try {
@@ -93,7 +96,11 @@ public class CentroCostoDAO implements Serializable {
 			Query q = sesion
 					.createQuery("from CentroCosto where :nombre=nombre order by centroCosto DESC LIMIT 1");
 			q.setParameter("nombre", nombre);
-			centroCosto = (CentroCosto) q.list().get(0);
+			List<CentroCosto> centroCostos = q.list();
+			if( centroCostos != null ){
+				centroCosto = centroCostos.get(0);
+				Hibernate.initialize(centroCosto.getUsuarios());
+			}
 		} catch (IndexOutOfBoundsException e) {
 			// TODO
 		} finally {

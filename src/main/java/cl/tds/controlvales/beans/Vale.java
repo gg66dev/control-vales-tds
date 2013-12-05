@@ -28,6 +28,7 @@ public class Vale {
 	@Column(name = "idvale")
 	@GeneratedValue
 	private Long idvale;
+	private Long folio;
 	private Date fecha_uso;
 	private String origen;
 	private String destino;
@@ -35,6 +36,7 @@ public class Vale {
 	private int monto_estipulado;
 	private int monto_real;
 	private Date fecha_confirmacion;
+	private String patente;
 	@Column(columnDefinition = "enum('abierto','autorizado', 'rechazado', 'consolidado')")
 	@Enumerated(EnumType.STRING)
 	private Estado estado;
@@ -74,6 +76,20 @@ public class Vale {
 	 */
 	public void setIdvale(Long idvale) {
 		this.idvale = idvale;
+	}
+
+	/**
+	 * @return the folio
+	 */
+	public Long getFolio() {
+		return folio;
+	}
+
+	/**
+	 * @param folio the folio to set
+	 */
+	public void setFolio(Long folio) {
+		this.folio = folio;
 	}
 
 	/**
@@ -172,6 +188,20 @@ public class Vale {
 	 */
 	public void setFecha_confirmacion(Date fecha_confirmacion) {
 		this.fecha_confirmacion = fecha_confirmacion;
+	}
+
+	/**
+	 * @return the patente
+	 */
+	public String getPatente() {
+		return patente;
+	}
+
+	/**
+	 * @param patente the patente to set
+	 */
+	public void setPatente(String patente) {
+		this.patente = patente;
 	}
 
 	/**

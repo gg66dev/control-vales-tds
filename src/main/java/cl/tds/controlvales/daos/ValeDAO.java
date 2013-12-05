@@ -95,6 +95,30 @@ public class ValeDAO implements Serializable {
 	}
 
 	@SuppressWarnings("unchecked")
+	public Vale obtenUltimoVale() throws HibernateException {
+		List<Vale> listaVales = null;
+
+		try {
+			iniciaOperacion();
+			Query q = sesion
+					.createQuery("from Vale order by folio DESC LIMIT 1");
+			listaVales = q.list();
+		} catch (HibernateException he) {
+			manejaExcepcion(he);
+			throw he;
+		} finally {
+			if (sesion != null)
+				sesion.close();
+		}
+
+		Vale resp = null;
+		if (listaVales != null && !listaVales.isEmpty()
+				&& listaVales.get(0) != null)
+			resp = listaVales.get(0);
+		return resp;
+	}
+
+	@SuppressWarnings("unchecked")
 	public List<Vale> obtenListaVales() throws HibernateException {
 		List<Vale> listaVales = null;
 		try {
@@ -107,41 +131,45 @@ public class ValeDAO implements Serializable {
 
 		return listaVales;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<Vale> obtenListaVales( String rut ) throws HibernateException {
+	public List<Vale> obtenListaVales(String rut) throws HibernateException {
 		List<Vale> listaVales = null;
 		try {
 			iniciaOperacion();
-			Query q = sesion.createQuery("from Vale where :rut=rut order by rut DESC");
+			Query q = sesion
+					.createQuery("from Vale where :rut=rut order by rut DESC");
 			q.setParameter("rut", rut);
 			listaVales = q.list();
 		} finally {
 			if (sesion != null)
 				sesion.close();
 		}
-		
+
 		return listaVales;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<Vale> obtenListaVales(Usuario usuario) throws HibernateException {
+	public List<Vale> obtenListaVales(Usuario usuario)
+			throws HibernateException {
 		List<Vale> listaVales = null;
 		try {
 			iniciaOperacion();
-			Query q = sesion.createQuery("from Vale where :usuario=usuario order by usuario DESC");
+			Query q = sesion
+					.createQuery("from Vale where :usuario=usuario order by usuario DESC");
 			q.setParameter("usuario", usuario);
 			listaVales = q.list();
 		} finally {
 			if (sesion != null)
 				sesion.close();
 		}
-		
+
 		return listaVales;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<Vale> obtenListaVales(Date desde, Date hasta) throws HibernateException {
+	public List<Vale> obtenListaVales(Date desde, Date hasta)
+			throws HibernateException {
 		List<Vale> listaVales = null;
 		try {
 			iniciaOperacion();
@@ -154,24 +182,25 @@ public class ValeDAO implements Serializable {
 			if (sesion != null)
 				sesion.close();
 		}
-		
+
 		return listaVales;
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Vale> obtenListaVales(Estado estado) throws HibernateException {
 		List<Vale> listaVales = null;
-		
+
 		try {
 			iniciaOperacion();
-			Query q = sesion.createQuery("from Vale where :estado=estado order by empresa DESC");
+			Query q = sesion
+					.createQuery("from Vale where :estado=estado order by empresa DESC");
 			q.setParameter("estado", estado);
 			listaVales = q.list();
 		} finally {
 			if (sesion != null)
 				sesion.close();
 		}
-		
+
 		return listaVales;
 	}
 
