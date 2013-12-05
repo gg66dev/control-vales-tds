@@ -193,7 +193,7 @@ public class ValeDAO implements Serializable {
 		try {
 			iniciaOperacion();
 			Query q = sesion
-					.createQuery("from Vale where :estado=estado order by empresa DESC");
+					.createQuery("from Vale where :estado=estado");
 			q.setParameter("estado", estado);
 			listaVales = q.list();
 		} finally {
@@ -204,6 +204,69 @@ public class ValeDAO implements Serializable {
 		return listaVales;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Vale> obtenListaVales(Estado estado, long idUsuario) throws HibernateException {
+		List<Vale> listaVales = null;
+
+		try {
+			iniciaOperacion();
+			Query q = sesion
+					.createQuery("from Vale where :estado=estado and :idUsuario=usuario_idusuario");
+			q.setParameter("estado", estado);
+			q.setParameter("idUsuario", idUsuario);
+			listaVales = q.list();
+		} finally {
+			if (sesion != null)
+				sesion.close();
+		}
+
+		return listaVales;
+	}
+
+	
+	@SuppressWarnings("unchecked")
+	public List<Vale> obtenListaVales(Date desde, Date hasta, long idUsuario) throws HibernateException {
+		List<Vale> listaVales = null;
+
+		try {
+			iniciaOperacion();
+			Query q = sesion.createQuery("from Vale where :idUsuario=usuario_idusuario and " 
+					+ "fecha_uso between :desde and :hasta "  
+					+ "order by fecha_uso DESC");
+			q.setParameter("desde", desde);
+			q.setParameter("hasta", hasta);
+			q.setParameter("idUsuario", idUsuario);
+			listaVales = q.list();
+		} finally {
+			if (sesion != null)
+				sesion.close();
+		}
+
+		return listaVales;
+	}
+
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<Vale> obtenListaVales(long folio,long idUsuario) throws HibernateException {
+		List<Vale> listaVales = null;
+		try {
+			iniciaOperacion();
+			Query q = sesion
+					.createQuery("from Vale where :folio=folio and :idUsuario=usuario_idusuario");
+			q.setParameter("folio", folio);
+			q.setParameter("idUsuario", idUsuario);
+			listaVales = q.list();
+		} finally {
+			if (sesion != null)
+				sesion.close();
+		}
+
+		return listaVales;
+	}
+
+	
+	
 	private void iniciaOperacion() throws HibernateException {
 		sesion = HibernateUtil.getSessionFactory().openSession();
 		tx = sesion.beginTransaction();

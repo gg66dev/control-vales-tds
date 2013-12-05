@@ -70,6 +70,17 @@ public class ValeController {
 		return valeDao.obtenListaVales(estado);
 	}
 
+	public List<Vale> listarValesUsuario( Estado estado , long idUsuario){
+		return valeDao.obtenListaVales(estado, idUsuario);
+	}
+	public List<Vale> listarValesUsuario( Date desde, Date hasta ,long idUsuario ){
+		return valeDao.obtenListaVales(desde, hasta, idUsuario);
+	}
+	public List<Vale> listarValesUsuario( long folio, long idUsuario){
+		return valeDao.obtenListaVales(folio, idUsuario);
+	}
+	
+	
 	public boolean autorizarVale(Vale vale, Estado estado) {
 		boolean confirmado = false;
 		vale.setEstado(estado);
@@ -77,6 +88,22 @@ public class ValeController {
 			confirmado = true;
 		return confirmado;
 	}
+	
+	public boolean actualizarVale(Vale vale, int monto_real) {
+		boolean confirmado = false;
+		vale.setMonto_real(monto_real);
+		if ( valeDao.actualizaVale(vale) )
+			confirmado = true;
+		return confirmado;
+	}
+	public boolean actualizarVale(Vale vale, Date date) {
+		boolean confirmado = false;
+		vale.setFecha_confirmacion(date);
+		if ( valeDao.actualizaVale(vale) )
+			confirmado = true;
+		return confirmado;
+	}
+	
 	
 	public Vale obtenerVale(long id){
 		return valeDao.obtenVale(id);

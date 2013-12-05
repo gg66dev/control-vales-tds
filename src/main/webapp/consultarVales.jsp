@@ -15,230 +15,127 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="./css/style.css" />
 <title>Consultar Vale</title>
+<link rel="stylesheet"
+	href="./css/smoothness/jquery-ui-1.10.3.custom.css">
+<script src="./js/jquery-1.9.1.js"></script>
+<script src="./js/jquery-ui-1.10.3.custom.js"></script>
 </head>
 <body>
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
+					$("#desde,#hasta").datepicker(
+							{
+								dateFormat : "dd/mm/yy",
+								dayNames : [ "Domingo", "Lunes", "Martes",
+										"Miércoles", "Jueves", "Viernes",
+										"Sábado" ],
+								dayNamesMin : [ "Do", "Lu", "Ma", "Mi", "Ju",
+										"Vi", "Sa" ],
+								monthNames : [ "Enero", "Febrero", "Marzo",
+										"Abril", "Mayo", "Junio", "Julio",
+										"Agosto", "Septiembre", "Octubre",
+										"Noviembre", "Diciembre" ],
+								monthNamesShort : [ "Ene", "Feb", "Mar", "Abr",
+										"May", "Jun", "Jul", "Ago", "Sep",
+										"Oct", "Nov", "Dic" ]
+							});
+				});
+	</script>
 	<center>
-		<div id="mystyle" class="myform">
-			<h1>Consultar Vale</h1>
-			<p>filtros de busqueda</p>
-
-			<%
-				String value = request.getParameter("filter");
-				if (value == null)
-					value = "";
-				
-				if (value.equals("folio")) {
-			%>
-			<form action="consultarVales.jsp" method="post">
-				<p>
-					<input type="radio" name="filter" value="folio" checked>
-					numero de folio<br>
-				</p>
-				<p>
-					<input type="radio" name="filter" value="estado"> estado
-					del vale<br>
-				</p>
-				<p>
-					<input type="radio" name="filter" value="fecha"> fecha de
-					emisión<br>
-				</p>
-				<p>
-					<input type="submit" name="submit" value="seleccionar"><br>
-				</p>
-
-				<p>
-					<label>Numero de Folio </label><input type="text" name="folio_vale"
-						id="folio_vale" /><br>
-				</p>
-				<p>
-					<input type="submit" name="buscar" value="buscar"><br>
-				</p>
-			</form>
-			<%
-				} if (value.equals("estado")) {
-			%>
-			<form action="consultarVales.jsp" method="post">
-				<p>
-					<input type="radio" name="filter" value="folio"> numero de
-					folio<br>
-				</p>
-				<p>
-					<input type="radio" name="filter" value="estado" checked>
-					estado del vale<br>
-				</p>
-				<p>
-					<input type="radio" name="filter" value="fecha"> fecha de
-					emisión<br>
-				</p>
-				<p>
-					<input type="submit" name="submit" value="seleccionar"><br>
-				</p>
-
-				<p>
-					<label>Estado del vale </label> <SELECT name="estado" SIZE="1">
-						<OPTION value="abierto">abierto</OPTION>
-						<OPTION value="aceptado">aceptado</OPTION>
-						<OPTION value="rechazado">rechazado</OPTION>
-						<OPTION value="consolidado">consolidado</OPTION>
-					</SELECT><br>
-				</p>
-				<p>
-					<input type="submit" name="buscar" value="buscar"><br>
-				</p>
-			</form>
-			<%
-				} if (value.equals("fecha")) {
-			%>
-			<form action="consultarVales.jsp" method="post">
-				<p>
-					<input type="radio" name="filter" value="folio"> numero de
-					folio<br>
-				</p>
-				<p>
-					<input type="radio" name="filter" value="estado"> estado
-					del vale<br>
-				</p>
-				<p>
-					<input type="radio" name="filter" value="fecha" checked>
-					fecha de emisión<br>
-				</p>
-				<p>
-					<input type="submit" name="submit" value="seleccionar"><br>
-				</p>
-
-				<p>
-					<label>Entre </label> <input type="text" name="fecha_inicio"
-						id="fecha_inicio" /> <label>Y </label> <input type="text"
-						name="fecha_termino" id="fecha_termino" /> <span class="small">(ej.
-						24/01/2013)</span>
-				</p>
-				<p>
-					<input type="submit" name="buscar" value="buscar"><br>
-				</p>
-			</form>
-			<%
-				} if (value.equals("")) {
-			%>
-			<form action="consultarVales.jsp" method="post">
-				<p>
-					<input type="radio" name="filter" value="folio"> numero de
-					folio<br>
-				</p>
-				<p>
-					<input type="radio" name="filter" value="estado"> estado
-					del vale<br>
-				</p>
-				<p>
-					<input type="radio" name="filter" value="fecha"> fecha de
-					emisión<br>
-				</p>
-				<p>
-					<input type="submit" name="submit" value="seleccionar"><br>
-				</p>
-			</form>
-			<%
-				}
-			%>
-		<%
-			List<Vale> listavales = null;
-			Vale val = null;
-			String buscar = request.getParameter("buscar");
-			ValeController valeController = new ValeController();
-			if (value.equals("folio")) {
-				String folio = request.getParameter("folio_vale");
-				if (folio != null) {
-					long id = Long.parseLong(folio);
-					val = valeController.obtenerVale(id);
-				}
-			}
-			/*abierto, autorizado, rechazado, consolidado*/
-			if (value.equals("estado")) {
-				String estado = request.getParameter("estado");
-				if (estado != null) {
-					if (estado.equals("aceptado"))
-						listavales = valeController
-								.listarVales(Estado.autorizado);
-					if (estado.equals("rechazado"))
-						listavales = valeController
-								.listarVales(Estado.rechazado);
-					if (estado.equals("consolidado"))
-						listavales = valeController
-								.listarVales(Estado.consolidado);
-					if (estado.equals("abierto"))
-						listavales = valeController.listarVales(Estado.abierto);
-				}
-			}
-			if (value.equals("fecha")) {
-				String fecha_termino = request.getParameter("fecha_inicio");
-				String fecha_inicio = request.getParameter("fecha_termino");
-				try {
-					SimpleDateFormat sdf = new java.text.SimpleDateFormat(
-							"dd/MM/yyyy", new Locale("es", "ES"));
-					Date inicioDate = new java.sql.Date(sdf.parse(fecha_inicio)
-							.getTime());
-					Date terminoDate = new java.sql.Date(sdf.parse(
-							fecha_termino).getTime());
-					listavales = valeController.listarVales(inicioDate,
-							terminoDate);
-				} catch (Exception ex) {
-					System.out
-							.println("Error al obtener el formato de la fecha/hora: "
-									+ ex.getMessage());
-				}
-			}
-			if (listavales != null) {
-		%>
-		<form method="post" action="SelectValeServlet">
+		<form method="post" action="ConsultaValesUsuarioServlet">
 			<table>
 				<tr>
-					<th></th>
-					<th>Folio del vale</th>
-					<th>Estado</th>
-					<th>Fecha de emision</th>
+					<td><input
+						onclick="document.getElementById('desde').disabled = false;
+					document.getElementById('hasta').disabled = false;
+					document.getElementById('folio').disabled = true;
+					document.getElementById('estado').disabled = true;"
+						type="radio" name="opcion" value="fecha"> Fecha<br></td>
+					<td><input
+						onclick="document.getElementById('desde').disabled = true;
+					document.getElementById('hasta').disabled = true;
+					document.getElementById('folio').disabled = false;
+					document.getElementById('estado').disabled = true;"
+						type="radio" name="opcion" value="folio"> Folio<br></td>
+					<td><input
+						onclick="document.getElementById('desde').disabled = true;
+					document.getElementById('hasta').disabled = true;
+					document.getElementById('folio').disabled = true;
+					document.getElementById('estado').disabled = false;"
+						type="radio" name="opcion" value="estado"> Estado<br></td>
+					<!-- <td><input type="radio" name="opcion" value="estado"> Estado<br></td> -->
+					<td><input type="submit" value="Filtrar"></td>
 				</tr>
-				<%
-					for (Vale v : listavales) {
-				%>
 				<tr>
-					<td><input value="<%=v.getIdvale()%>" name="seleccionado"
-						type="radio"></td>
-					<td><%=v.getIdvale()%></td>
-					<td><%=v.getEstado()%></td>
-					<td><%=v.getFecha_uso()%></td>
+					<td colspan="4" align="center">Folio</td>
 				</tr>
-				<%
-					}
-				%>
+				<tr>
+					<td colspan="4" align="center"><input id="folio" type="text"
+						name="folio" size="35" disabled="disabled"></td>
+				</tr>
+				<tr>
+					<td colspan="4" align="center">Estado</td>
+				</tr>
+				<tr>
+					<td colspan="4" align="center"><SELECT id="estado"
+						name="estado" SIZE="1" disabled="disabled">
+							<OPTION value="abierto">abierto</OPTION>
+							<OPTION value="autorizado">autorizado</OPTION>
+							<OPTION value="rechazado">rechazado</OPTION>
+							<OPTION value="consolidado">consolidado</OPTION>
+					</SELECT>
+				</tr>
+				<tr>
+					<td colspan="4" align="center">Fecha</td>
+				</tr>
+				<tr>
+					<td colspan="2">Desde <input id="desde" type="text"
+						name="desde" disabled="disabled"></td>
+					<td colspan="2">Hasta <input id="hasta" type="text"
+						name="hasta" disabled="disabled"></td>
+				</tr>
 			</table>
-			<INPUT type="submit" value="Consultar vale">
 		</form>
 		<%
-			} else if (val != null) {
+			@SuppressWarnings("unchecked")
+			List<Vale> vales = (List<Vale>) request.getSession().getAttribute(
+					"vales");
+			if (vales != null) {
 		%>
-		<form method="post" action="SelectValeServlet">
-			<table>
-				<tr>
-					<th></th>
-					<th>Folio del vale</th>
-					<th>Estado</th>
-					<th>Fecha de emision</th>
-				</tr>
-				<tr>
-					<td><input value="<%=val.getIdvale()%>" name="seleccionado"
-						type="radio" width=10></td>
-					<td><%=val.getIdvale()%></td>
-					<td><%=val.getEstado()%></td>
-					<td><%=val.getFecha_uso()%></td>
-				</tr>
-			</table>
-			<INPUT type="submit" value="Consultar vale">
+		<form method="post" action="confirmarValorVale.jsp">
+		<table>
+			<tr>
+				<th></th>
+				<th>Folio</th>
+				<th>Fecha de Uso</th>
+				<th>Motivo de viaje</th>
+			</tr>
+			<%
+				for (Vale v : vales) {
+			%>
+			<tr>
+				<td><input value="<%=v.getIdvale()%>" name="id_vale"
+					type="radio" width=10 checked></td>
+				<td><%=v.getFolio()%></td>
+				<td><%=v.getFecha_uso()%></td>
+				<td><%=v.getMotivo_viaje()%></td>
+			</tr>
+			<%
+				}
+			%>
+		</table>
+		<INPUT type="submit" value="Ingresar valor del vale">
 		</form>
 		<%
 			} else {
-				out.print("<p>No hay vales para confirmar</p>");
+		%>
+		<p>No hay vales para confirmar</p>
+		<%
 			}
 		%>
-		</div>
+		<br/>
+		<a href="index.jsp">index</a><br />
 	</center>
 </body>
 </html>

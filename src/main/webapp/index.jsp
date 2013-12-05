@@ -19,6 +19,12 @@
 				Usuario usuario = null;
 				if (session.getAttribute("usuario") != null) {
 					usuario = (Usuario) session.getAttribute("usuario");
+				
+				//para que al seleccionar una vista no inicie con el resultado de otra
+				//vista la cual no tiene relacion 
+				if (session.getAttribute("vales") != null)
+					session.removeAttribute("vales");
+					
 			%>
 			<b><%=usuario.getUsuario()%></b> <br /> <a href="logout.jsp">Logout</a>
 			<br /> <a href="solicitarVale.jsp">Solicitar un Vale</a> <br /> <a
@@ -41,7 +47,7 @@
 				centro de costo</a><br /> <a href=>Ingresar Planilla</a><br />
 
 			<h3>gerente</h3>
-			<a href=>Consulta de vales</a><br /> <a href="autorizarVales.jsp">autorizar
+				<a href="autorizarVales.jsp">autorizar
 				vales</a><br /> <a href=>informes</a><br /> <a href=>consolidacion
 				de vales</a><br /> <a href=>detalle vale radio taxi</a><br />
 

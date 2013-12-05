@@ -57,6 +57,8 @@
 
 			</form>
 		</div>
+		<br/>
+		<a href="index.jsp">volver</a><br />
 	</center>
 </body>
 </html>

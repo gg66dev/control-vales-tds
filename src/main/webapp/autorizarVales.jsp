@@ -98,6 +98,8 @@
 				<%
 			}
 		%>
+		<br/>
+		<a href="index.jsp">index</a><br />
 	</center>
 </body>
 </html>
