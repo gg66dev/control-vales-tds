@@ -24,7 +24,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#fecha_inicio").datepicker();
-			$("#fecha_termino").Datepicker();
+			$("#fecha_termino").datepicker();
 		});
 	</script>
 	<center>
