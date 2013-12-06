@@ -94,6 +94,8 @@
 				<%
 			}
 		%>
+		<br/>
+		<a href="index.jsp">index</a><br />
 	</center>
 	<script>
 	var validator = new FormValidator('t_filtro', [{

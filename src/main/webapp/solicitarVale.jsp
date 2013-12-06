@@ -37,6 +37,9 @@
 			<button type="submit">Solicitar Vale</button>
 
 		</form>
+		</div>
+		<br/>
+		<a href="index.jsp">volver</a><br />
 	</center>
 	<script>
 	var validator = new FormValidator('form', [{
