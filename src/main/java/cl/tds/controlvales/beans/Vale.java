@@ -4,6 +4,7 @@
 package cl.tds.controlvales.beans;
 
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -22,8 +23,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "vale")
-public class Vale {
+public class Vale implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8108461368109421057L;
 	@Id
 	@Column(name = "idvale")
 	@GeneratedValue

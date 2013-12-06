@@ -3,6 +3,7 @@
  */
 package cl.tds.controlvales.beans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +21,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "departamento")
-public class Departamento {
+public class Departamento implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 722734777663653199L;
 	@Id
 	@Column(name = "iddepartamento")
 	@GeneratedValue

@@ -7,13 +7,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="./css/style.css" />
+<link rel="stylesheet" type="text/css" href="./css/ivory.css" />
 <title>Home</title>
 </head>
 <body>
 	<center>
-		<div id="mystyle">
-			<h1>Bienvenido</h1>
+			<h1 class="text-center">Bienvenido</h1>
 			<%=new Date()%>
 			<%
 				Usuario usuario = null;
@@ -33,19 +32,17 @@
 				}
 			%>
 
-			<h3>administrador</h3>
+			<h3 class="text-center">administrador</h3>
 			<a href="registrarDepartamento.jsp">Registrar un departamento</a><br />
 			<a href="registrarCentroCosto.jsp">Registrar un centro de costo</a><br />
 			<a href="userlist.jsp">Listar Usarios Registrados (administrar
 				cuentas)</a><br /> <a href=>Ingresar centro de costo</a><br /> <a href=>Mostrar
 				centro de costo</a><br /> <a href=>Ingresar Planilla</a><br />
 
-			<h3>gerente</h3>
+			<h3 class="text-center">gerente</h3>
 			<a href=>Consulta de vales</a><br /> <a href="autorizarVales.jsp">autorizar
 				vales</a><br /> <a href=>informes</a><br /> <a href=>consolidacion
 				de vales</a><br /> <a href=>detalle vale radio taxi</a><br />
-
-		</div>
 	</center>
 </body>
 </html>

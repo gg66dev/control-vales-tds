@@ -5,28 +5,46 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="./css/style.css" />
+<link rel="stylesheet" type="text/css" href="./css/ivory.css" />
+<script type="text/javascript" src="./js/validate.min.js"></script>
 <title>Login</title>
 </head>
 <body>
 	<center>
-		<div id="mystyle" class="myform">
-			<form id="form" name="form" method="post" action="LoginServlet">
-				<h1>Login</h1>
+			<form class="vform" id="form" name="form" method="post" action="LoginServlet">
+				<h1 class="text-center">Login</h1>
 				<p>
 					Por favor ponga su informaci&oacute;n para ingresar <br />¿Nuevo
 					usuario? <a href="registrarUsuario.jsp">Registrese</a>
 				</p>
-				<label>Nombre de usuario <span class="small">Ponga su
-						nombre de usuario</span>
+				<p id="error"></p>
+				
+				<label>Nombre de usuario
 				</label> <input type="text" name="username" id="username" /> <label>Password
-					<span class="small">M&iacute;nimo 6 letras</span>
+					
 				</label> <input type="password" name="password" id="password" />
 
 				<button type="submit">Login</button>
-				<div class="spacer"></div>
 			</form>
-		</div>
 	</center>
+	<script>
+	var validator = new FormValidator('form', [{
+	    name: 'username',
+	    rules: 'required'
+	}, {
+	    name: 'password',
+	    rules: 'required'
+	}], function(errors, event) {
+	    if (errors.length > 0) {
+	        var errorString = '';
+	        
+	        for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+	            errorString += errors[i].message + '<br />';
+	        }
+	        
+	        document.getElementById('error').innerHTML = errorString;
+	    }       
+	});
+	</script>
 </body>
 </html>

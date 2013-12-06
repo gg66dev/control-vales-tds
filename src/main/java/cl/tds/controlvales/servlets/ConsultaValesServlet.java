@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -29,7 +30,7 @@ public class ConsultaValesServlet extends HttpServlet {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 284662960174416441L;
 
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -37,6 +38,8 @@ public class ConsultaValesServlet extends HttpServlet {
 		String input = request.getParameter("input");
 		String desde = request.getParameter("desde");
 		String hasta = request.getParameter("hasta");
+		
+		String seleccionado = request.getParameter("seleccionado"); 
 		
 		ValeController valeController = new ValeController();
 		List<Vale> vales = null;
@@ -59,6 +62,12 @@ public class ConsultaValesServlet extends HttpServlet {
 				}
 				vales = valeController.listarVales(d, h);
 			}
+			request.getSession().setAttribute("vales", vales);
+		}else if( seleccionado != null ){
+			Long id = Long.parseLong(seleccionado);
+			Vale vale = valeController.obtenerVale(id);
+			vales = new ArrayList<Vale>();
+			vales.add(vale);
 			request.getSession().setAttribute("vales", vales);
 		}
 		response.sendRedirect("autorizarVales.jsp");

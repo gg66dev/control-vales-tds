@@ -4,31 +4,41 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="./css/style.css" />
+<link rel="stylesheet" type="text/css" href="./css/ivory.css" />
 <title>Registrar Departamento</title>
-<script src="./js/jquery-1.9.1.js"></script>
-<script src="./js/jquery.validate.js"></script>
+<script type="text/javascript" src="./js/validate.js"></script>
 </head>
 <body>
-<script>
-$("form").validate();
-</script>
 	<center>
-		<div id="mystyle" class="myform">
-			<form id="form" name="form" method="post" action="RegistrarDepartamentoServlet">
+			<form class="vform" id="form" name="form" method="post" action="RegistrarDepartamentoServlet">
 				<h1>Registro de departamentos</h1>
 				<p>Por favor ingrese la siguiente informaci&oacute;n</p>
+				<p id="error"></p>
 
-				<label>Nombre <span class="small">Nombre del depto.</span>
-				</label> <input type="text" name="nombre" id="nombre" required /> <label>Descripcion
-					<span class="small">Descripcion</span>
+				<label>Nombre
+				</label> <input type="text" name="nombre" id="nombre" /> <label>Descripcion
 				</label> <input type="text" name="descripcion" id="descripcion" />
 
-				<button type="submit">Registrar</button>
-				<div class="spacer"></div>
+				<button type="submit">Registrar departamento</button>
 
 			</form>
-		</div>
 	</center>
+	
+	<script>
+	var validator = new FormValidator('form', [{
+	    name: 'nombre',
+	    rules: 'required'
+	}], function(errors, event) {
+	    if (errors.length > 0) {
+	        var errorString = '';
+	        
+	        for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+	            errorString += errors[i].message + '<br />';
+	        }
+	        
+	        document.getElementById('error').innerHTML = errorString;
+	    }       
+	});
+	</script>
 </body>
 </html>

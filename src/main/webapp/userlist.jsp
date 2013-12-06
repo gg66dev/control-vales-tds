@@ -8,13 +8,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="./css/style.css" />
+<link rel="stylesheet" type="text/css" href="./css/ivory.css" />
 <title>Lista de usuarios</title>
 </head>
 <body>
 	<center>
-		<div id="mystyle">
-			<h1>Bienvenido</h1>
+	<div class="c6">
+			<h1 class="text-center">Bienvenido</h1>
 			<p>
 				<%=new Date()%>
 				<%
@@ -40,24 +40,24 @@
 			</p>
 			<table>
 				<thead>
-					<tr>
-						<th>id usuario</th>
-						<th>nombre</th>
-						<th>usuario</th>
-						<th>rut</th>
-						<th>email</th>
+					<tr class="text-center">
+						<th class="text-center">id usuario</th>
+						<th class="text-center">nombre</th>
+						<th class="text-center">usuario</th>
+						<th class="text-center">rut</th>
+						<th class="text-center">email</th>
 					</tr>
 				</thead>
 				<tbody>
 					<%
 						for (Usuario u : list) {
 					%>
-					<tr>
-						<td><%=u.getIdusuario()%></td>
-						<td><%=u.getNombre()%></td>
-						<td><%=u.getUsuario()%></td>
-						<td><%=u.getRut()%></td>
-						<td><%=u.getEmail()%></td>
+					<tr class="text-center">
+						<td class="text-center"><%=u.getIdusuario()%></td>
+						<td class="text-center"><%=u.getNombre()%></td>
+						<td class="text-center"><%=u.getUsuario()%></td>
+						<td class="text-center"><%=u.getRut()%></td>
+						<td ><%=u.getEmail()%></td>
 					</tr>
 					<%
 						}
@@ -70,8 +70,7 @@
 				
 				<tbody>
 			</table>
-			<br />
-		</div>
+</div>
 	</center>
 </body>
 </html>

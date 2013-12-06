@@ -13,132 +13,147 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="./css/style.css" />
+<link rel="stylesheet" type="text/css" href="./css/ivory.css" />
+<link rel="stylesheet"
+	href="./css/smoothness/jquery-ui-1.10.3.custom.css">
+<script src="./js/jquery-1.9.1.js"></script>
+<script src="./js/jquery-ui-1.10.3.custom.js"></script>
 <title>Consultar Vale</title>
 </head>
 <body>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#fecha_inicio").datepicker();
+			$("#fecha_termino").Datepicker();
+		});
+	</script>
 	<center>
-		<div id="mystyle" class="myform">
-			<h1>Consultar Vale</h1>
-			<p>filtros de busqueda</p>
+		<h1 class="text-center">Consultar Vale</h1>
+		<p id="error"></p>
+		<p>filtros de busqueda</p>
 
-			<%
-				String value = request.getParameter("filter");
+
+		<%
+			String value = request.getParameter("filter");
 				if (value == null)
 					value = "";
 				
 				if (value.equals("folio")) {
-			%>
-			<form action="consultarVales.jsp" method="post">
-				<p>
-					<input type="radio" name="filter" value="folio" checked>
-					numero de folio<br>
-				</p>
-				<p>
-					<input type="radio" name="filter" value="estado"> estado
-					del vale<br>
-				</p>
-				<p>
-					<input type="radio" name="filter" value="fecha"> fecha de
-					emisión<br>
-				</p>
-				<p>
-					<input type="submit" name="submit" value="seleccionar"><br>
-				</p>
+		%>
+		<form class="vform" name="f_folio" action="consultarVales.jsp"
+			method="post">
+			<p>
+				<input type="radio" name="filter" value="folio" checked>
+				numero de folio<br>
+			</p>
+			<p>
+				<input type="radio" name="filter" value="estado"> estado del
+				vale<br>
+			</p>
+			<p>
+				<input type="radio" name="filter" value="fecha"> fecha de
+				emisión<br>
+			</p>
+			<p>
+				<input type="submit" name="submit" value="seleccionar"><br>
+			</p>
 
-				<p>
-					<label>Numero de Folio </label><input type="text" name="folio_vale"
-						id="folio_vale" /><br>
-				</p>
-				<p>
-					<input type="submit" name="buscar" value="buscar"><br>
-				</p>
-			</form>
-			<%
-				} if (value.equals("estado")) {
-			%>
-			<form action="consultarVales.jsp" method="post">
-				<p>
-					<input type="radio" name="filter" value="folio"> numero de
-					folio<br>
-				</p>
-				<p>
-					<input type="radio" name="filter" value="estado" checked>
-					estado del vale<br>
-				</p>
-				<p>
-					<input type="radio" name="filter" value="fecha"> fecha de
-					emisión<br>
-				</p>
-				<p>
-					<input type="submit" name="submit" value="seleccionar"><br>
-				</p>
+			<p>
+				<label>Numero de Folio </label><input type="text" name="folio_vale"
+					id="folio_vale" /><br>
+			</p>
+			<p>
+				<input type="submit" name="buscar" value="buscar"><br>
+			</p>
+		</form>
+		<%
+			} if (value.equals("estado")) {
+		%>
+		<form class="vform" name="f_estado" action="consultarVales.jsp"
+			method="post">
+			<p>
+				<input type="radio" name="filter" value="folio"> numero de
+				folio<br>
+			</p>
+			<p>
+				<input type="radio" name="filter" value="estado" checked>
+				estado del vale<br>
+			</p>
+			<p>
+				<input type="radio" name="filter" value="fecha"> fecha de
+				emisión<br>
+			</p>
+			<p>
+				<input type="submit" name="submit" value="seleccionar"><br>
+			</p>
 
-				<p>
-					<label>Estado del vale </label> <SELECT name="estado" SIZE="1">
-						<OPTION value="abierto">abierto</OPTION>
-						<OPTION value="aceptado">aceptado</OPTION>
-						<OPTION value="rechazado">rechazado</OPTION>
-						<OPTION value="consolidado">consolidado</OPTION>
-					</SELECT><br>
-				</p>
-				<p>
-					<input type="submit" name="buscar" value="buscar"><br>
-				</p>
-			</form>
-			<%
-				} if (value.equals("fecha")) {
-			%>
-			<form action="consultarVales.jsp" method="post">
-				<p>
-					<input type="radio" name="filter" value="folio"> numero de
-					folio<br>
-				</p>
-				<p>
-					<input type="radio" name="filter" value="estado"> estado
-					del vale<br>
-				</p>
-				<p>
-					<input type="radio" name="filter" value="fecha" checked>
-					fecha de emisión<br>
-				</p>
-				<p>
-					<input type="submit" name="submit" value="seleccionar"><br>
-				</p>
+			<p>
+				<label>Estado del vale </label> <SELECT name="estado" SIZE="1">
+					<OPTION value="abierto">abierto</OPTION>
+					<OPTION value="aceptado">aceptado</OPTION>
+					<OPTION value="rechazado">rechazado</OPTION>
+					<OPTION value="consolidado">consolidado</OPTION>
+				</SELECT><br>
+			</p>
+			<p>
+				<input type="submit" name="buscar" value="buscar"><br>
+			</p>
+		</form>
+		<%
+			} if (value.equals("fecha")) {
+		%>
+		<form class="vform" name="f_fecha" action="consultarVales.jsp"
+			method="post">
+			<p>
+				<input type="radio" name="filter" value="folio"> numero de
+				folio<br>
+			</p>
+			<p>
+				<input type="radio" name="filter" value="estado"> estado
+				del vale<br>
+			</p>
+			<p>
+				<input type="radio" name="filter" value="fecha" checked>
+				fecha de emisión<br>
+			</p>
+			<p>
+				<input type="submit" name="submit" value="seleccionar"><br>
+			</p>
 
-				<p>
-					<label>Entre </label> <input type="text" name="fecha_inicio"
-						id="fecha_inicio" /> <label>Y </label> <input type="text"
-						name="fecha_termino" id="fecha_termino" /> <span class="small">(ej.
-						24/01/2013)</span>
-				</p>
-				<p>
-					<input type="submit" name="buscar" value="buscar"><br>
-				</p>
-			</form>
-			<%
-				} if (value.equals("")) {
-			%>
-			<form action="consultarVales.jsp" method="post">
-				<p>
-					<input type="radio" name="filter" value="folio"> numero de
-					folio<br>
-				</p>
-				<p>
-					<input type="radio" name="filter" value="estado"> estado
-					del vale<br>
-				</p>
-				<p>
-					<input type="radio" name="filter" value="fecha"> fecha de
-					emisión<br>
-				</p>
-				<p>
-					<input type="submit" name="submit" value="seleccionar"><br>
-				</p>
-			</form>
-			<%
-				}
-			%>
+			<p>
+				<label>Entre </label> <input type="text" name="fecha_inicio"
+					id="fecha_inicio" placeholder="01/12/2013" /> <label>Y </label> <input
+					type="text" name="fecha_termino" id="fecha_termino"
+					placeholder="31/12/2013" />
+			</p>
+			<p>
+				<input type="submit" name="buscar" value="buscar"><br>
+			</p>
+		</form>
+		<%
+			} if (value.equals("")) {
+		%>
+		<form class="vform" name="form" action="consultarVales.jsp"
+			method="post">
+			<p>
+				<input type="radio" name="filter" value="folio"> numero de
+				folio<br>
+			</p>
+			<p>
+				<input type="radio" name="filter" value="estado"> estado
+				del vale<br>
+			</p>
+			<p>
+				<input type="radio" name="filter" value="fecha"> fecha de
+				emisión<br>
+			</p>
+			<p>
+				<input type="submit" name="submit" value="seleccionar"><br>
+			</p>
+		</form>
+		<%
+			}
+		%>
 		<%
 			List<Vale> listavales = null;
 			Vale val = null;
@@ -188,7 +203,8 @@
 			}
 			if (listavales != null) {
 		%>
-		<form method="post" action="SelectValeServlet">
+		<form class="vform" name="vales" method="post"
+			action="ConsultaValesServlet">
 			<table>
 				<tr>
 					<th></th>
@@ -215,7 +231,8 @@
 		<%
 			} else if (val != null) {
 		%>
-		<form method="post" action="SelectValeServlet">
+		<form class="vform" name="vale" method="post"
+			action="ConsultaValesServlet">
 			<table>
 				<tr>
 					<th></th>
@@ -238,7 +255,25 @@
 				out.print("<p>No hay vales para confirmar</p>");
 			}
 		%>
-		</div>
 	</center>
+	<script>
+		var validator = new FormValidator(
+				'form',
+				[ {
+					name : 'filter',
+					rules : 'required'
+				} ],
+				function(errors, event) {
+					if (errors.length > 0) {
+						var errorString = '';
+
+						for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+							errorString += errors[i].message + '<br />';
+						}
+
+						document.getElementById('error').innerHTML = errorString;
+					}
+				});
+	</script>
 </body>
 </html>

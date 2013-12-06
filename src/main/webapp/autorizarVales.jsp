@@ -7,29 +7,23 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="./css/style.css" />
+<link rel="stylesheet" type="text/css" href="./css/ivory.css" />
+<link rel="stylesheet"
+	href="./css/smoothness/jquery-ui-1.10.3.custom.css">
+<script src="./js/jquery-1.9.1.js"></script>
+<script src="./js/jquery-ui-1.10.3.custom.js"></script>
+<script type="text/javascript" src="./js/validate.js"></script>
 <title>Autorizar Vale</title>
 </head>
 <body>
 	<center>
-		<form method="post" action="ConsultaValesServlet">
+		<form class="vform" name="t_filtro" method="post" action="ConsultaValesServlet">
+		<p id="error"></p>
 			<table>
 				<tr>
-					<td><input 
-					onclick="document.getElementById('desde').disabled = false;
-					document.getElementById('hasta').disabled = false;
-					document.getElementById('texto').disabled = true;"
-					type="radio" name="opcion" value="fecha"> Fecha<br></td>
-					<td><input
-					onclick="document.getElementById('desde').disabled = true;
-					document.getElementById('hasta').disabled = true;
-					document.getElementById('texto').disabled = false;" 
-					type="radio" name="opcion" value="rut"> Rut<br></td>
-					<td><input
-					onclick="document.getElementById('desde').disabled = true;
-					document.getElementById('hasta').disabled = true;
-					document.getElementById('texto').disabled = false;"
-					type="radio" name="opcion" value="nombre"> Nombre<br></td>
+					<td><input type="radio" name="opcion" value="fecha"> Fecha<br></td>
+					<td><input type="radio" name="opcion" value="rut"> Rut<br></td>
+					<td><input type="radio" name="opcion" value="nombre"> Nombre<br></td>
 					<!-- <td><input type="radio" name="opcion" value="estado"> Estado<br></td> -->
 					<td><input type="submit" value="Filtrar"></td>
 				</tr>
@@ -38,59 +32,61 @@
 				</tr>
 				<tr>
 					<td colspan="4" align="center">
-						<input id="texto" type="text" name="input" size="35" disabled="disabled">
+						<input id="texto" type="text" name="input" size="35">
 					</td>
 				</tr>
 				<tr>
 					<td colspan="4" align="center">Fecha</td>
 				</tr>
 				<tr>
-					<td colspan="2">Desde <input id="desde" type="text" name="desde" disabled="disabled"></td>
-					<td colspan="2">Hasta <input id="hasta" type="text" name="hasta" disabled="disabled"></td>
+					<td colspan="2">Desde <input id="desde" type="text" name="desde"></td>
+					<td colspan="2">Hasta <input id="hasta" type="text" name="hasta"></td>
 				</tr>
 			</table>
 		</form>
 		<%
-		/* 	ValeController valeController = new ValeController();
-			List<Vale> vales = valeController.listarVales(Estado.esperando_autorizacion); */
 			@SuppressWarnings("unchecked")
 			List<Vale> vales = ( List<Vale> )request.getSession().getAttribute("vales");
 			if( vales != null ){
 				%>
+				<div class="row spce-bot">
+			<div class="c8 centered">
 				<form method="post" action="AutorizarValeServlet">
 					<table>
-						<tr>
-							<th>Usuario</th>
-							<th>Fecha de Uso</th>
-							<th>Origen</th>
-							<th>Destino</th>
-							<th>Motivo de viaje</th>
-							<th>Monto estipulado</th>
-							<th>Aceptar</th>
-							<th>Rechazar</th>
+						<tr class="text-center">
+							<th class="text-center">Usuario</th>
+							<th class="text-center">Fecha de Uso</th>
+							<th class="text-center">Origen</th>
+							<th class="text-center">Destino</th>
+							<th class="text-center">Motivo de viaje</th>
+							<th class="text-center">Monto estipulado</th>
+							<th class="text-center">Aceptar</th>
+							<th class="text-center">Rechazar</th>
 						</tr>
 						<%
 						for ( Vale v : vales ){
 							%>
-							<tr>
-								<td><%= v.getUsuario().getNombre() %></td>
-								<td><%= v.getFecha_uso() %></td>
-								<td><%= v.getOrigen() %></td>
-								<td><%= v.getDestino() %></td>
-								<td><%= v.getMotivo_viaje() %></td>
-								<td><%= v.getMonto_estipulado() %></td>
-								<td><input value="<%= v.getIdvale().toString()+"-"+"aceptado" %>" 
+							<tr class="text-center">
+								<td class="text-center"><%= v.getUsuario().getNombre() %></td>
+								<td class="text-center"><%= v.getFecha_uso() %></td>
+								<td class="text-center"><%= v.getOrigen() %></td>
+								<td class="text-center"><%= v.getDestino() %></td>
+								<td class="text-center"><%= v.getMotivo_viaje() %></td>
+								<td class="text-center"><%= v.getMonto_estipulado() %></td>
+								<td class="text-center"><input value="<%= v.getIdvale().toString()+"-"+"aceptado" %>" 
 								name="<%= "opcion-"+v.getIdvale() %>" type="radio"></td>
-								<td><input value="<%= v.getIdvale().toString()+"-"+"rechazado" %>" 
+								<td class="text-center"><input value="<%= v.getIdvale().toString()+"-"+"rechazado" %>" 
 								name="<%= "opcion-"+v.getIdvale() %>" type="radio"></td>
-								<td></td>
 							</tr>
 							<%
 						}
 						%>
+					
 					</table>
 					<INPUT type="submit" value="Enviar">
 				</form>
+				</div>
+				</div>
 				<%
 			} else {
 				%>
@@ -99,5 +95,21 @@
 			}
 		%>
 	</center>
+	<script>
+	var validator = new FormValidator('t_filtro', [{
+	    name: 'opcion',
+	    rules: 'required'
+	}], function(errors, event) {
+	    if (errors.length > 0) {
+	        var errorString = '';
+	        
+	        for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+	            errorString += errors[i].message + '<br />';
+	        }
+	        
+	        document.getElementById('error').innerHTML = errorString;
+	    }       
+	});
+	</script>
 </body>
 </html>
