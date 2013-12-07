@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="cl.tds.controlvales.controller.ValeController"%>
 <%@ page import="cl.tds.controlvales.beans.Vale"%>
-<%@ page import="cl.tds.controlvales.beans.Estado"%>
 <%@ page import="java.util.List"%>
-<%@ page import="java.util.Locale"%>
-<%@ page import="java.sql.Date"%>
-<%@ page import="java.text.SimpleDateFormat"%>
-
+<%@ page import="cl.tds.controlvales.controller.ValeController"%>
+<%@ page import="cl.tds.controlvales.controller.CentroCostoController"%>
+<%@ page import="cl.tds.controlvales.beans.CentroCosto"%>
+<%@ page import="cl.tds.controlvales.beans.Estado"%>
+<%@ page import="cl.tds.controlvales.beans.Usuario"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,12 +16,8 @@
 	href="./css/smoothness/jquery-ui-1.10.3.custom.css">
 <script src="./js/jquery-1.9.1.js"></script>
 <script src="./js/jquery-ui-1.10.3.custom.js"></script>
-<title>Consultar Vale</title>
-<link rel="stylesheet"
-	href="./css/smoothness/jquery-ui-1.10.3.custom.css">
-<script src="./js/jquery-1.9.1.js"></script>
-<script src="./js/jquery-ui-1.10.3.custom.js"></script>
 <script type="text/javascript" src="./js/validate.js"></script>
+<title>Autorizar Vale</title>
 </head>
 <body>
 	<script type="text/javascript">
@@ -33,107 +28,155 @@
 		});
 	</script>
 	<center>
-		<div class="c6 centered">
-			<form class="vform" name="form" method="post"
-				action="ConsultaValesUsuarioServlet">
-				<h1 class="text-center">Consultar Vale</h1>
-				<p>Por favor ingrese la siguiente informaci&oacute;n</p>
-				<p id="error"></p>
-				<table>
-					<tr>
-						<td class="text-center"><input
-							onclick="document.getElementById('desde').disabled = false;
-					document.getElementById('hasta').disabled = false;
-					document.getElementById('folio').disabled = true;
-					document.getElementById('estado').disabled = true;"
-							type="radio" name="opcion" value="fecha"> Fecha<br></td>
-						<td class="text-center"><input
-							onclick="document.getElementById('desde').disabled = true;
-					document.getElementById('hasta').disabled = true;
-					document.getElementById('folio').disabled = false;
-					document.getElementById('estado').disabled = true;"
-							type="radio" name="opcion" value="folio"> Folio<br></td>
-						<td class="text-center"><input
-							onclick="document.getElementById('desde').disabled = true;
-					document.getElementById('hasta').disabled = true;
-					document.getElementById('folio').disabled = true;
-					document.getElementById('estado').disabled = false;"
-							type="radio" name="opcion" value="estado"> Estado<br></td>
-						<td><button type="submit">Filtrar</button></td>
-					</tr>
-					<tr>
-						<td colspan="4" class="text-center">Folio</td>
-					</tr>
-					<tr>
-						<td colspan="4" class="text-center"><input id="folio" type="text"
-							name="folio" size="35" disabled="disabled"></td>
-					</tr>
-					<tr>
-						<td colspan="4" class="text-center">Estado</td>
-					</tr>
-					<tr>
-						<td colspan="4" class="text-center"><SELECT id="estado"
-							name="estado" SIZE="1" disabled="disabled">
-								<OPTION value="abierto">abierto</OPTION>
-								<OPTION value="autorizado">autorizado</OPTION>
-								<OPTION value="rechazado">rechazado</OPTION>
-								<OPTION value="consolidado">consolidado</OPTION>
-						</SELECT>
-					</tr>
-					<tr>
-						<td colspan="4" class="text-center">Fecha</td>
-					</tr>
-					<tr>
-						<td colspan="2" class="text-center">Desde <input id="desde" type="text"
-							name="desde" disabled="disabled"></td>
-						<td colspan="2" class="text-center">Hasta <input id="hasta" type="text"
-							name="hasta" disabled="disabled"></td>
-					</tr>
-				</table>
-			</form>
-			<%
-				@SuppressWarnings("unchecked")
-				List<Vale> vales = (List<Vale>) request.getSession().getAttribute(
-						"vales");
-				if (vales != null) {
-			%>
-			<form name="form2" method="post" action="confirmarValorVale.jsp">
-				<table>
-					<tr>
-						<th class="text-center"></th>
-						<th class="text-center">Folio</th>
-						<th class="text-center">Fecha de Uso</th>
-						<th class="text-center">Motivo de viaje</th>
-					</tr>
+		<h1 class="text-center">Consultar Vale</h1>
+		<%
+			String opcion = request.getParameter("opcion");
+			if (opcion == null) opcion = "";
+			@SuppressWarnings("unchecked")
+			List<Vale> vales = ( List<Vale> )request.getSession().getAttribute("vales");
+			if( opcion.equals("fecha") ){
+		%>
+		<form class="vform" name="f_filtro" method="post"
+			action="ConsultaValesServlet">
+			<p id="error"></p>
+			<input type="hidden" value="usuario" name="perfil" />
+			<table>
+				<tr>
+					<td colspan="2" class="text-center">Fecha</td>
+				</tr>
+				<tr>
+					<td class="text-center">Desde <input id="desde" type="text"
+						name="desde" placeholder="01/01/2013"></td>
+					<td class="text-center">Hasta <input id="hasta" type="text"
+						name="hasta" placeholder="31/12/2013"></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="text-center"><button type="submit">Buscar</button></td>
+				</tr>
+			</table>
+		</form>
+		<%
+			} else if( opcion.equals("estado") ){
+		%>
+		<form class="vform" name="f_filtro" method="post"
+			action="ConsultaValesServlet">
+			<p id="error"></p>
+			<input type="hidden" value="usuario" name="perfil" />
+			<table>
+				<tr>
+					<td class="text-center">Estado</td>
+				</tr>
+				<tr>
+					<td class="text-center">
+					<select size=1 name="estado">
 					<%
-						for (Vale v : vales) {
+						for( Estado e : Estado.values() ){
 					%>
-					<tr>
-						<td class="text-center"><input value="<%=v.getIdvale()%>" name="id_vale"
-							type="radio" width=10 checked></td>
-						<td class="text-center"><%=v.getFolio()%></td>
-						<td class="text-center"><%=v.getFecha_uso()%></td>
-						<td class="text-center"><%=v.getMotivo_viaje()%></td>
-					</tr>
+						<option value="<%= e %>"><%= e %></option>
 					<%
 						}
 					%>
-				</table>
-				<button type="submit">Ingresar valor del Vale</button>
-			</form>
+					</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="text-center"><button type="submit">Buscar</button></td>
+				</tr>
+			</table>
+		</form>
+		<%
+			} else if( opcion.equals("folio") ){
+		%>
+		<form class="vform" name="f_filtro" method="post"
+			action="ConsultaValesServlet">
+			<p id="error"></p>
+			<input type="hidden" value="usuario" name="perfil" />
+			<table>
+				<tr>
+					<td class="text-center">Folio</td>
+				</tr>
+				<tr>
+					<td class="text-center"><input id="texto" type="text"
+						name="folio"></td>
+				</tr>
+				<tr>
+					<td class="text-center"><button type="submit">Buscar</button></td>
+				</tr>
+			</table>
+		</form>
+		<% 
+			} else if ( vales != null ) {
+				
+		%>
+		<div class="row spce-bot">
+			<div class="c8 centered">
+					<table>
+						<tr class="text-center">
+							<th class="text-center">Usuario</th>
+							<th class="text-center">Fecha de Uso</th>
+							<th class="text-center">Origen</th>
+							<th class="text-center">Destino</th>
+							<th class="text-center">Motivo de viaje</th>
+							<th class="text-center">Estado</th>
+							<th class="text-center">Monto estipulado</th>
+						</tr>
+						<%
+							Usuario usuario = null;
+							if (session.getAttribute("usuario") != null) {
+								usuario = (Usuario) session.getAttribute("usuario");
+							}
+							for ( Vale v : vales ){
+								if ( usuario != null 
+										&& v.getUsuario().getIdusuario().equals(usuario.getIdusuario()) ){
+						%>
+						<tr class="text-center">
+							<td class="text-center"><%= v.getUsuario().getNombre() %></td>
+							<td class="text-center"><%= v.getFecha_uso() %></td>
+							<td class="text-center"><%= v.getOrigen() %></td>
+							<td class="text-center"><%= v.getDestino() %></td>
+							<td class="text-center"><%= v.getMotivo_viaje() %></td>
+							<td class="text-center"><%= v.getEstado() %></td>
+							<td class="text-center"><%= v.getMonto_estipulado() %></td>
+						</tr>
+						<%
+								}
+							}
+						%>
+					</table>
+			</div>
 		</div>
 		<%
 			} else {
 		%>
-		<p>No hay vales para confirmar</p>
+		<form class="vform" name="f_opcion" method="post"
+			action="consultarVales.jsp">
+			<p id="error"></p>
+			<table>
+				<tr>
+					<td><input type="radio" name="opcion" value="estado">
+						Estado<br></td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="opcion" value="folio">
+						Folio<br></td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="opcion" value="fecha">
+						Fecha<br></td>
+				</tr>
+				<tr>
+					<td class="text-center"><button type="submit">Seleccionar</button></td>
+				</tr>
+			</table>
+		</form>
 		<%
 			}
 		%>
-		<br /> <a href="index.jsp">index</a><br />
+		<br /> <a href="index.jsp">volver</a><br />
 	</center>
 	<script>
 		var validator = new FormValidator(
-				'form',
+				't_filtro',
 				[ {
 					name : 'opcion',
 					rules : 'required'

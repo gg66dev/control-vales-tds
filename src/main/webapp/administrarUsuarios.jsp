@@ -22,7 +22,7 @@
 					List<Usuario> list = usuarioController.obtenerListaUsuario();
 					if (!list.isEmpty()) {
 				%>
-				<form method="post" action="detalleUsuario.jsp">
+				<form class="vform" name="form" method="post" action="detalleUsuario.jsp">
 					<table>
 						<tr class="text-center">
 							<th class="text-center">Usuario</th>

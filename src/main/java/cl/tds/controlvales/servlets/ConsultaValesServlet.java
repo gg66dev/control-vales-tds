@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cl.tds.controlvales.beans.Estado;
 import cl.tds.controlvales.beans.Vale;
 import cl.tds.controlvales.controller.ValeController;
 import cl.tds.controlvales.util.NumberUtil;
@@ -39,6 +40,7 @@ public class ConsultaValesServlet extends HttpServlet {
 		String desde = request.getParameter("desde");
 		String hasta = request.getParameter("hasta");
 		String folio = request.getParameter("folio");
+		String estado = request.getParameter("estado");
 		String centro_costo = request.getParameter("centro_costo");
 
 		ValeController valeController = new ValeController();
@@ -68,9 +70,16 @@ public class ConsultaValesServlet extends HttpServlet {
 			}
 		} else if ( centro_costo != null && NumberUtil.isLong(centro_costo) ){
 			vales = valeController.listarVales(Long.parseLong(centro_costo));
+		} else if ( estado != null ){
+			vales = valeController.listarVales(Estado.valueOf(estado));
 		}
+		String perfil = request.getParameter("perfil");
 		request.getSession().setAttribute("vales", vales);
-		response.sendRedirect("autorizarVales.jsp");
+		if( perfil != null && perfil.equals("usuario")){
+			response.sendRedirect("consultarVales.jsp");
+		}else{
+			response.sendRedirect("autorizarVales.jsp");
+		}
 	}
 
 	@Override
