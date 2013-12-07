@@ -8,7 +8,6 @@
 <%@ page import="java.sql.Date"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,114 +22,106 @@
 	href="./css/smoothness/jquery-ui-1.10.3.custom.css">
 <script src="./js/jquery-1.9.1.js"></script>
 <script src="./js/jquery-ui-1.10.3.custom.js"></script>
+<script type="text/javascript" src="./js/validate.js"></script>
 </head>
 <body>
 	<script type="text/javascript">
-		$(document).ready(
-				function() {
-					$("#desde,#hasta").datepicker(
-							{
-								dateFormat : "dd/mm/yy",
-								dayNames : [ "Domingo", "Lunes", "Martes",
-										"Miércoles", "Jueves", "Viernes",
-										"Sábado" ],
-								dayNamesMin : [ "Do", "Lu", "Ma", "Mi", "Ju",
-										"Vi", "Sa" ],
-								monthNames : [ "Enero", "Febrero", "Marzo",
-										"Abril", "Mayo", "Junio", "Julio",
-										"Agosto", "Septiembre", "Octubre",
-										"Noviembre", "Diciembre" ],
-								monthNamesShort : [ "Ene", "Feb", "Mar", "Abr",
-										"May", "Jun", "Jul", "Ago", "Sep",
-										"Oct", "Nov", "Dic" ]
-							});
-				});
+		$(document).ready(function() {
+			$("#desde,#hasta").datepicker({
+				dateFormat : "dd/mm/yy"
+			});
+		});
 	</script>
 	<center>
-		<form method="post" action="ConsultaValesUsuarioServlet">
-			<table>
-				<tr>
-					<td><input
-						onclick="document.getElementById('desde').disabled = false;
+		<div class="c6 centered">
+			<form class="vform" name="form" method="post"
+				action="ConsultaValesUsuarioServlet">
+				<h1 class="text-center">Consultar Vale</h1>
+				<p>Por favor ingrese la siguiente informaci&oacute;n</p>
+				<p id="error"></p>
+				<table>
+					<tr>
+						<td class="text-center"><input
+							onclick="document.getElementById('desde').disabled = false;
 					document.getElementById('hasta').disabled = false;
 					document.getElementById('folio').disabled = true;
 					document.getElementById('estado').disabled = true;"
-						type="radio" name="opcion" value="fecha"> Fecha<br></td>
-					<td><input
-						onclick="document.getElementById('desde').disabled = true;
+							type="radio" name="opcion" value="fecha"> Fecha<br></td>
+						<td class="text-center"><input
+							onclick="document.getElementById('desde').disabled = true;
 					document.getElementById('hasta').disabled = true;
 					document.getElementById('folio').disabled = false;
 					document.getElementById('estado').disabled = true;"
-						type="radio" name="opcion" value="folio"> Folio<br></td>
-					<td><input
-						onclick="document.getElementById('desde').disabled = true;
+							type="radio" name="opcion" value="folio"> Folio<br></td>
+						<td class="text-center"><input
+							onclick="document.getElementById('desde').disabled = true;
 					document.getElementById('hasta').disabled = true;
 					document.getElementById('folio').disabled = true;
 					document.getElementById('estado').disabled = false;"
-						type="radio" name="opcion" value="estado"> Estado<br></td>
-					<!-- <td><input type="radio" name="opcion" value="estado"> Estado<br></td> -->
-					<td><input type="submit" value="Filtrar"></td>
-				</tr>
-				<tr>
-					<td colspan="4" align="center">Folio</td>
-				</tr>
-				<tr>
-					<td colspan="4" align="center"><input id="folio" type="text"
-						name="folio" size="35" disabled="disabled"></td>
-				</tr>
-				<tr>
-					<td colspan="4" align="center">Estado</td>
-				</tr>
-				<tr>
-					<td colspan="4" align="center"><SELECT id="estado"
-						name="estado" SIZE="1" disabled="disabled">
-							<OPTION value="abierto">abierto</OPTION>
-							<OPTION value="autorizado">autorizado</OPTION>
-							<OPTION value="rechazado">rechazado</OPTION>
-							<OPTION value="consolidado">consolidado</OPTION>
-					</SELECT>
-				</tr>
-				<tr>
-					<td colspan="4" align="center">Fecha</td>
-				</tr>
-				<tr>
-					<td colspan="2">Desde <input id="desde" type="text"
-						name="desde" disabled="disabled"></td>
-					<td colspan="2">Hasta <input id="hasta" type="text"
-						name="hasta" disabled="disabled"></td>
-				</tr>
-			</table>
-		</form>
-		<%
-			@SuppressWarnings("unchecked")
-			List<Vale> vales = (List<Vale>) request.getSession().getAttribute(
-					"vales");
-			if (vales != null) {
-		%>
-		<form method="post" action="confirmarValorVale.jsp">
-			<table>
-				<tr>
-					<th></th>
-					<th>Folio</th>
-					<th>Fecha de Uso</th>
-					<th>Motivo de viaje</th>
-				</tr>
-				<%
-					for (Vale v : vales) {
-				%>
-				<tr>
-					<td><input value="<%=v.getIdvale()%>" name="id_vale"
-						type="radio" width=10 checked></td>
-					<td><%=v.getFolio()%></td>
-					<td><%=v.getFecha_uso()%></td>
-					<td><%=v.getMotivo_viaje()%></td>
-				</tr>
-				<%
-					}
-				%>
-			</table>
-			<INPUT type="submit" value="Ingresar valor del vale">
-		</form>
+							type="radio" name="opcion" value="estado"> Estado<br></td>
+						<td><button type="submit">Filtrar</button></td>
+					</tr>
+					<tr>
+						<td colspan="4" class="text-center">Folio</td>
+					</tr>
+					<tr>
+						<td colspan="4" class="text-center"><input id="folio" type="text"
+							name="folio" size="35" disabled="disabled"></td>
+					</tr>
+					<tr>
+						<td colspan="4" class="text-center">Estado</td>
+					</tr>
+					<tr>
+						<td colspan="4" class="text-center"><SELECT id="estado"
+							name="estado" SIZE="1" disabled="disabled">
+								<OPTION value="abierto">abierto</OPTION>
+								<OPTION value="autorizado">autorizado</OPTION>
+								<OPTION value="rechazado">rechazado</OPTION>
+								<OPTION value="consolidado">consolidado</OPTION>
+						</SELECT>
+					</tr>
+					<tr>
+						<td colspan="4" class="text-center">Fecha</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="text-center">Desde <input id="desde" type="text"
+							name="desde" disabled="disabled"></td>
+						<td colspan="2" class="text-center">Hasta <input id="hasta" type="text"
+							name="hasta" disabled="disabled"></td>
+					</tr>
+				</table>
+			</form>
+			<%
+				@SuppressWarnings("unchecked")
+				List<Vale> vales = (List<Vale>) request.getSession().getAttribute(
+						"vales");
+				if (vales != null) {
+			%>
+			<form name="form2" method="post" action="confirmarValorVale.jsp">
+				<table>
+					<tr>
+						<th class="text-center"></th>
+						<th class="text-center">Folio</th>
+						<th class="text-center">Fecha de Uso</th>
+						<th class="text-center">Motivo de viaje</th>
+					</tr>
+					<%
+						for (Vale v : vales) {
+					%>
+					<tr>
+						<td class="text-center"><input value="<%=v.getIdvale()%>" name="id_vale"
+							type="radio" width=10 checked></td>
+						<td class="text-center"><%=v.getFolio()%></td>
+						<td class="text-center"><%=v.getFecha_uso()%></td>
+						<td class="text-center"><%=v.getMotivo_viaje()%></td>
+					</tr>
+					<%
+						}
+					%>
+				</table>
+				<button type="submit">Ingresar valor del Vale</button>
+			</form>
+		</div>
 		<%
 			} else {
 		%>
@@ -144,7 +135,7 @@
 		var validator = new FormValidator(
 				'form',
 				[ {
-					name : 'filter',
+					name : 'opcion',
 					rules : 'required'
 				} ],
 				function(errors, event) {

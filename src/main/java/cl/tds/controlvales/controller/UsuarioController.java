@@ -56,6 +56,23 @@ public class UsuarioController {
 	}
 
 	/**
+	 * 
+	 */
+	public boolean actualiza(Usuario usuario){
+		boolean actualizado = false;
+		if( this.usuarioDao.obtenUsuario(usuario.getIdusuario()) != null ){
+			if( usuario.getNombre() != null 
+					&& usuario.getUsuario() != null
+					&& usuario.getPerfil() != null 
+					&& usuario.getCentroCosto() != null ){
+				this.usuarioDao.actualizaUsuario(usuario);
+				actualizado = true;
+			}
+		}
+		return actualizado;
+	}
+	
+	/**
 	 * Retorna el usuario que tiene por nombre de usuario username, si no lo
 	 * encuentra retorna null
 	 * 
@@ -67,10 +84,7 @@ public class UsuarioController {
 	}
 	
 	/**
-	 * Retorna lista de usuarios , si no hat
-	 * encuentra retorna null
-	 * 
-	 * @param 
+	 * Retorna lista de usuarios , si no hay retorna null
 	 *           
 	 * @return lista de usuario o null
 	 */
@@ -89,5 +103,7 @@ public class UsuarioController {
 		return usuarioDao.obtenUsuarioUsername(username);
 	}
 	
-
+	public Usuario obtenUsuario(Long id) {
+		return usuarioDao.obtenUsuario(id);
+	}
 }

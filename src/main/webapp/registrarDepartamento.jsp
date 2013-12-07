@@ -22,6 +22,7 @@
 				<button type="submit">Registrar departamento</button>
 
 			</form>
+			<br /> <a href="index.jsp">volver</a><br />
 	</center>
 	
 	<script>

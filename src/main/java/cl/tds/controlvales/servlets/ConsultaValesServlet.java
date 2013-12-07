@@ -18,11 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import cl.tds.controlvales.beans.Vale;
 import cl.tds.controlvales.controller.ValeController;
+import cl.tds.controlvales.util.NumberUtil;
 import cl.tds.controlvales.util.ValidacionUtil;
 
 /**
  * @author "Fernando Valencia"
- *
+ * 
  */
 @WebServlet(name = "ConsultaValesServlet", urlPatterns = { "/ConsultaValesServlet" })
 public class ConsultaValesServlet extends HttpServlet {
@@ -34,42 +35,41 @@ public class ConsultaValesServlet extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String opcion = request.getParameter("opcion");
 		String input = request.getParameter("input");
 		String desde = request.getParameter("desde");
 		String hasta = request.getParameter("hasta");
-		
-		String seleccionado = request.getParameter("seleccionado"); 
-		
+		String folio = request.getParameter("folio");
+		String centro_costo = request.getParameter("centro_costo");
+
 		ValeController valeController = new ValeController();
 		List<Vale> vales = null;
-		if( opcion != null ){
-			if ( opcion.equals("rut") && input != null && ValidacionUtil.validarRut(input) ){
-				vales = valeController.listarVales(input);
-			}else if( opcion.equals("nombre") && input != null ){
-				vales = valeController.listarVales(input);
-			}else if( opcion.equals("fecha") && desde != null && hasta != null 
-					&& ValidacionUtil.validaFechaMascara(desde, "dd/MM/yyyy")
-					&& ValidacionUtil.validaFechaMascara(hasta, "dd/MM/yyyy")){
-				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-				Date d = null, h = null;
-				try {
-					d = new Date(sdf.parse(desde).getTime());
-					h = new Date(sdf.parse(hasta).getTime());
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				vales = valeController.listarVales(d, h);
+		if (input != null && ValidacionUtil.validarRut(input)) {
+			vales = valeController.listarVales(input);
+		} else if (input != null) {
+			vales = valeController.listarVales(input);
+		} else if (desde != null && hasta != null
+				&& ValidacionUtil.validaFechaMascara(desde, "dd/MM/yyyy")
+				&& ValidacionUtil.validaFechaMascara(hasta, "dd/MM/yyyy")) {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			Date d = null, h = null;
+			try {
+				d = new Date(sdf.parse(desde).getTime());
+				h = new Date(sdf.parse(hasta).getTime());
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			request.getSession().setAttribute("vales", vales);
-		}else if( seleccionado != null ){
-			Long id = Long.parseLong(seleccionado);
-			Vale vale = valeController.obtenerVale(id);
-			vales = new ArrayList<Vale>();
-			vales.add(vale);
-			request.getSession().setAttribute("vales", vales);
+			vales = valeController.listarVales(d, h);
+		} else if ( folio != null && NumberUtil.isLong(folio) ){
+			Vale vale =  valeController.obtenerValeFolio(Long.parseLong(folio));
+			if ( vale != null ){
+				vales = new ArrayList<Vale>();
+				vales.add(vale);
+			}
+		} else if ( centro_costo != null && NumberUtil.isLong(centro_costo) ){
+			vales = valeController.listarVales(Long.parseLong(centro_costo));
 		}
+		request.getSession().setAttribute("vales", vales);
 		response.sendRedirect("autorizarVales.jsp");
 	}
 

@@ -41,14 +41,16 @@
 			<h3 class="text-center">administrador</h3>
 			<a href="registrarDepartamento.jsp">Registrar un departamento</a><br />
 			<a href="registrarCentroCosto.jsp">Registrar un centro de costo</a><br />
-			<a href="userlist.jsp">Listar Usarios Registrados (administrar
-				cuentas)</a><br /> <a href=>Ingresar centro de costo</a><br /> <a href=>Mostrar
-				centro de costo</a><br /> <a href=>Ingresar Planilla</a><br />
+			<a href="administrarUsuarios.jsp">Listar Usarios Registrados (administrar
+				cuentas)</a><br /> 
+			<a href=>Ingresar centro de costo</a><br /> 
+			<a href=>Mostrar centro de costo</a><br /> <a href=>Ingresar Planilla</a><br />
 
 			<h3 class="text-center">gerente</h3>
-			<a href=>Consulta de vales</a><br /> <a href="autorizarVales.jsp">autorizar
-				vales</a><br /> <a href=>informes</a><br /> <a href=>consolidacion
-				de vales</a><br /> <a href=>detalle vale radio taxi</a><br />
+			<a href="autorizarVales.jsp">Consulta vales</a><br /> 
+			<a href=>informes</a><br /> 
+			<a href=>consolidacion de vales</a><br /> 
+			<a href=>detalle vale radio taxi</a><br />
 	</center>
 </body>
 </html>

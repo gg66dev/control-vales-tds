@@ -36,8 +36,8 @@ public class ConsultaValesUsuarioServlet extends HttpServlet {
 		String hasta = request.getParameter("hasta");
 		ValeController valeController = new ValeController();
 		List<Vale> vales = null;
-		if( opcion != null ){
-			if ( opcion.equals("folio") && folio != null ){
+		if( opcion != null && !opcion.equals("") ){
+			if ( opcion.equals("folio") && !folio.equals("") &&folio != null ){
 				vales = valeController.listarValesUsuario(Long.parseLong(folio),usuario.getIdusuario());
 			}else if( opcion.equals("estado") && estado != null ){
 				vales = valeController.listarValesUsuario(Estado.valueOf(estado),usuario.getIdusuario());

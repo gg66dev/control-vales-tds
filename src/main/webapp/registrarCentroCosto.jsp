@@ -44,6 +44,7 @@
 			%>
 			<button type="submit">Registrar</button>
 		</form>
+		<br /> <a href="index.jsp">volver</a><br />
 	</center>
 	<script>
 		var validator = new FormValidator(

@@ -94,6 +94,7 @@ public class UsuarioDAO implements Serializable {
 		return u;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Usuario obtenUsuarioRut(String rut) throws HibernateException {
 		Usuario u = null;
 		try {
@@ -101,8 +102,11 @@ public class UsuarioDAO implements Serializable {
 			Query q = sesion
 					.createQuery("from Usuario where :rut=rut order by usuario DESC LIMIT 1");
 			q.setParameter("rut", rut);
-			u = (Usuario) q.list().get(0);
-			Hibernate.initialize(u.getVales());
+			List<Usuario> usuarios = (List<Usuario>) q.list();
+			if( usuarios.size() > 0 ){
+				u = usuarios.get(0);
+				Hibernate.initialize(u.getVales());
+			}
 		} finally {
 			if (sesion != null)
 				sesion.close();

@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -85,7 +84,26 @@ public class ValeDAO implements Serializable {
 		try {
 			iniciaOperacion();
 			vale = (Vale) sesion.get(Vale.class, id_vale);
-			Hibernate.initialize(vale.getUsuario());
+		} finally {
+			if (sesion != null)
+				sesion.close();
+		}
+
+		return vale;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Vale obtenValeFolio(Long folio) throws HibernateException {
+		Vale vale = null;
+		try {
+			iniciaOperacion();
+			Query q = sesion
+					.createQuery("from Vale where :folio=folio order by folio DESC LIMIT 1");
+			q.setParameter("folio", folio);
+			List<Vale> listaVales = q.list();
+			if( listaVales.size() > 0 ){
+				vale = listaVales.get(0);
+			}
 		} finally {
 			if (sesion != null)
 				sesion.close();

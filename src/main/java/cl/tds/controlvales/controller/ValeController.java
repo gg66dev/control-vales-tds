@@ -6,8 +6,10 @@ package cl.tds.controlvales.controller;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
+import cl.tds.controlvales.beans.CentroCosto;
 import cl.tds.controlvales.beans.Estado;
 import cl.tds.controlvales.beans.Usuario;
 import cl.tds.controlvales.beans.Vale;
@@ -69,6 +71,22 @@ public class ValeController {
 	public List<Vale> listarVales( Estado estado ){
 		return valeDao.obtenListaVales(estado);
 	}
+	
+	public List<Vale> listarVales( Long idCentroCosto ){
+		CentroCostoController ccController = new CentroCostoController();
+		CentroCosto cc = ccController.obtenCentroCosto(idCentroCosto);
+		if ( cc != null ){
+			List<Vale> vales = new ArrayList<Vale>();
+			for( Usuario u : cc.getUsuarios() ){
+				for( Vale v : u.getVales() ){
+					vales.add(v);
+				}
+			}
+			return vales;
+		}else{
+			return null;
+		}
+	}
 
 	public List<Vale> listarValesUsuario( Estado estado , long idUsuario){
 		return valeDao.obtenListaVales(estado, idUsuario);
@@ -79,7 +97,6 @@ public class ValeController {
 	public List<Vale> listarValesUsuario( long folio, long idUsuario){
 		return valeDao.obtenListaVales(folio, idUsuario);
 	}
-	
 	
 	public boolean autorizarVale(Vale vale, Estado estado) {
 		boolean confirmado = false;
@@ -104,8 +121,11 @@ public class ValeController {
 		return confirmado;
 	}
 	
-	
 	public Vale obtenerVale(long id){
 		return valeDao.obtenVale(id);
+	}
+	
+	public Vale obtenerValeFolio(Long folio){
+		return valeDao.obtenValeFolio(folio);
 	}
 }

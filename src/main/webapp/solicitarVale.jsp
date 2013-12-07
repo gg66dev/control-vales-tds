@@ -16,7 +16,9 @@
 <body>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$("#fecha_uso").datepicker();
+			$("#fecha_uso").datepicker({
+				dateFormat : "dd/mm/yy"
+			});
 		});
 	</script>
 	<center>
@@ -37,7 +39,6 @@
 			<button type="submit">Solicitar Vale</button>
 
 		</form>
-		</div>
 		<br/>
 		<a href="index.jsp">volver</a><br />
 	</center>
