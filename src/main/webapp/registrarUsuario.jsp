@@ -41,7 +41,10 @@
 				password </label> <input type="password" name="password2" id="password2" />
 			<label>Email </label> <input type="text" name="email" id="email"
 				placeholder="eric20@gmail.com" /> <label>Rut </label> <input
-				type="text" name="rut" id="rut" placeholder="156663557" /> <label>Perfil
+				type="text" name="rut" id="rut" placeholder="156663557" />
+				<label>Domicilio </label> <input
+				type="text" name="domicilio" id="domicilio" /> 
+				<label>Perfil
 			</label> <select size=1 name="perfil">
 				<%
 					for(Perfil p : Perfil.values()){

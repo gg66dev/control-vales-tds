@@ -39,9 +39,10 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 		String password1 = request.getParameter("password1");
 		String password2 = request.getParameter("password2");
 		String rut = request.getParameter("rut");
+		String domicilio = request.getParameter("domicilio");
 		String email = request.getParameter("email");
 		String perfil = request.getParameter("perfil");
-		Usuario user = new Usuario(nombre, usuario, password1, rut, email);
+		Usuario user = new Usuario(nombre, usuario, password1, rut, domicilio, email);
 		for(Perfil p : Perfil.values()){
 			if( p.toString().toLowerCase().equals(perfil) ){
 				user.setPerfil(p);

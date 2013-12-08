@@ -129,6 +129,7 @@ public class UsuarioDAO implements Serializable {
 		return usuario;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Usuario obtenUsuario(String nombre) throws HibernateException {
 		Usuario u = null;
 		try {
@@ -136,8 +137,11 @@ public class UsuarioDAO implements Serializable {
 			Query q = sesion
 					.createQuery("from Usuario where :nombre=nombre order by usuario DESC LIMIT 1");
 			q.setParameter("nombre", nombre);
-			u = (Usuario) q.list().get(0);
-			Hibernate.initialize(u.getVales());
+			List<Usuario> usuarios = q.list();
+			if( usuarios.size() > 0){
+				u = usuarios.get(0);
+				Hibernate.initialize(u.getVales());
+			}
 		} catch (IndexOutOfBoundsException e) {
 			// TODO
 		} finally {

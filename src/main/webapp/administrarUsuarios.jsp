@@ -9,61 +9,87 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="./css/ivory.css" />
-<title>Lista de usuarios</title>
+<title>Administrar usuarios</title>
 </head>
 <body>
-	<center>
-		<div class="row spce-bot">
-			<div class="c8 centered">
-				<h1 class="text-center">Lista de usuarios</h1>
-				<p>Por favor seleccione un usuario a modificar</p>
-				<%
-					UsuarioController usuarioController = new UsuarioController();
-					List<Usuario> list = usuarioController.obtenerListaUsuario();
-					if (!list.isEmpty()) {
-				%>
-				<form class="vform" name="form" method="post" action="detalleUsuario.jsp">
-					<table>
-						<tr class="text-center">
-							<th class="text-center">Usuario</th>
-							<th class="text-center">Nombre</th>
-							<th class="text-center">Nombre de usuario</th>
-							<th class="text-center">Rut</th>
-							<th class="text-center">Email</th>
-						</tr>
-						<%
-							for (Usuario u : list) {
-						%>
-						<tr>
-							<td class="text-center"><input
-								value="<%=u.getIdusuario()%>" name="usuario" type="radio">
-							</td>
-							<td class="text-center"><%=u.getNombre()%></td>
-							<td class="text-center"><%=u.getUsuario()%></td>
-							<td class="text-center"><%=u.getRut()%></td>
-							<td><%=u.getEmail()%></td>
-						</tr>
-						<%
-							}
-						%>
-						<tr>
-						<td colspan=5 class="text-center">
-							<button type="submit">Seleccionar</button>
-						</td>
-						</tr>
-					</table>
-				</form>
-				<%
-					} else {
-				%>
-				No hay usuarios registrados.
-				<%
-					}
-				%>
+	<div class="row">
+		<h1 class="text-center">Administrar usuarios</h1>
+	</div>
+	<div class="content">
+		<div class="grid">
+			<%
+				UsuarioController usuarioController = new UsuarioController();
+				List<Usuario> list = usuarioController.obtenerListaUsuario();
+				if (!list.isEmpty()) {
+			%>
+			<hr>
+			<div class="row space-bot">
+				<div class="c2 first"></div>
+				<div class="c8">
+					<form name="form" method="post" action="detalleUsuario.jsp">
+						<p class="note text-center">Por favor seleccione un usuario a
+							modificar</p>
+						<p id="error"></p>
+						<table>
+							<tr>
+								<th class="text-center">Usuario</th>
+								<th class="text-center">Nombre</th>
+								<th class="text-center">Nombre de usuario</th>
+								<th class="text-center">Rut</th>
+								<th class="text-center">Email</th>
+							</tr>
+							<%
+								int i = 0;
+									for (Usuario u : list) {
+										if (i % 2 == 1) {
+							%>
+							<tr class="even">
+								<%
+									} else {
+								%>
+							
+							<tr>
+								<%
+									}
+								%>
 
+								<td class="text-center"><input
+									value="<%=u.getIdusuario()%>" name="usuario" type="radio">
+								</td>
+								<td class="text-center"><%=u.getNombre()%></td>
+								<td class="text-center"><%=u.getUsuario()%></td>
+								<td class="text-center"><%=u.getRut()%></td>
+								<td class="text-center"><%=u.getEmail()%></td>
+							</tr>
+							<%
+								}
+							%>
+							<tr>
+								<td colspan=5 class="text-center">
+									<button type="submit">Seleccionar</button>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div class="c2 last"></div>
+			</div>
+			<%
+				} else {
+			%>
+			<div class="row space-bot">
+				<p class="note text-center">No hay usuarios registrados.</p>
+			</div>
+			<%
+				}
+			%>
+			<hr>
+			<div class="row">
+				<p class="note text-center">
+					<a href="index.jsp">volver</a>
+				</p>
 			</div>
 		</div>
-		<br /> <a href="index.jsp">volver</a><br />
-	</center>
+	</div>
 </body>
 </html>

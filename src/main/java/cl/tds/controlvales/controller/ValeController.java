@@ -75,10 +75,13 @@ public class ValeController {
 	public List<Vale> listarVales( Long idCentroCosto ){
 		CentroCostoController ccController = new CentroCostoController();
 		CentroCosto cc = ccController.obtenCentroCosto(idCentroCosto);
+		
+		UsuarioController uc = new UsuarioController();
 		if ( cc != null ){
 			List<Vale> vales = new ArrayList<Vale>();
 			for( Usuario u : cc.getUsuarios() ){
-				for( Vale v : u.getVales() ){
+				Usuario buff = uc.obtenUsuario(u.getIdusuario());
+				for( Vale v : buff.getVales() ){
 					vales.add(v);
 				}
 			}

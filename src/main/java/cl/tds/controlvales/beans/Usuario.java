@@ -39,6 +39,7 @@ public class Usuario implements Serializable{
 	private String usuario;
 	private String password;
 	private String rut;
+	private String domicilio;
 	private String email;
 	@Column(columnDefinition = "enum('usuario','gerente', 'administrador')")
 	@Enumerated(EnumType.STRING)
@@ -60,13 +61,15 @@ public class Usuario implements Serializable{
 	 * @param usuario
 	 * @param password
 	 * @param rut
+	 * @param domicilio
 	 * @param email
 	 */
-	public Usuario(String nombre, String usuario, String password, String rut, String email){
+	public Usuario(String nombre, String usuario, String password, String rut, String domicilio, String email){
 		this.nombre = nombre;
 		this.usuario = usuario;
 		this.password = password;
 		this.rut = rut;
+		this.domicilio = domicilio;
 		this.email = email;
 	}
 	
@@ -138,6 +141,20 @@ public class Usuario implements Serializable{
 	 */
 	public void setRut(String rut) {
 		this.rut = rut;
+	}
+
+	/**
+	 * @return the domicilio
+	 */
+	public String getDomicilio() {
+		return domicilio;
+	}
+
+	/**
+	 * @param domicilio the domicilio to set
+	 */
+	public void setDomicilio(String domicilio) {
+		this.domicilio = domicilio;
 	}
 
 	/**

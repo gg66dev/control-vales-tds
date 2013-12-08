@@ -38,6 +38,7 @@ public class ModificarUsuarioServlet extends HttpServlet {
 		String nombre = request.getParameter("nombre");
 		String usuario = request.getParameter("usuario");
 		String rut = request.getParameter("rut");
+		String domicilio = request.getParameter("domicilio");
 		String email = request.getParameter("email");
 		String perfil = request.getParameter("perfil");
 		
@@ -65,6 +66,7 @@ public class ModificarUsuarioServlet extends HttpServlet {
 			user.setEmail(email);
 			user.setUsuario(usuario);
 			user.setRut(rut);
+			user.setDomicilio(domicilio);
 			boolean result = usuarioController.actualiza(user);
 			out.println("<html>");
 			out.println("<head>");

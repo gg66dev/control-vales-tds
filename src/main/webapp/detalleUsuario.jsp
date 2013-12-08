@@ -31,6 +31,8 @@
 		$("form").validate();
 	</script>
 	<center>
+	<h1 class="text-center">Administrar usuario</h1>
+	<p>Por favor ingrese la siguiente informaci&oacute;n</p>
 		<%
 			String id = request.getParameter("usuario");
 			if( id != null && NumberUtil.isLong(id) ){
@@ -40,8 +42,6 @@
 		%>
 		<form class="vform" id="form" name="form" method="post"
 			action="ModificarUsuarioServlet">
-			<h1 class="text-center">Administrar usuario</h1>
-			<p>Por favor ingrese la siguiente informaci&oacute;n</p>
 			<p id="error"></p>
 
 			<input type="hidden" value="<%= usuario.getIdusuario() %>" name="id" />
@@ -53,6 +53,8 @@
 				value="<%= usuario.getEmail() %>" /> 
 			<label>Rut</label> <input type="text" name="rut" id="rut" 
 				value="<%= usuario.getRut() %>" /> 
+			<label>Domicilio</label> <input type="text" name="domicilio" id="domicilio" 
+				value="<%= usuario.getDomicilio() %>" /> 
 			<label>Perfil </label> <select size=1 name="perfil">
 				<%
 					for( Perfil p : Perfil.values() ) {

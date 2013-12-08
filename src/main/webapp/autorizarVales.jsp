@@ -26,200 +26,259 @@
 			});
 		});
 	</script>
-	<center>
+	<div class="row">
 		<h1 class="text-center">Consultar Vale</h1>
-		<%
-			String opcion = request.getParameter("opcion");
-			if (opcion == null) opcion = "";
-			@SuppressWarnings("unchecked")
-			List<Vale> vales = ( List<Vale> )request.getSession().getAttribute("vales");
-			if( opcion.equals("rut") || opcion.equals("nombre") ){
-				
-		%>
-		<form class="vform" name="f_filtro" method="post"
-			action="ConsultaValesServlet">
-			<p>filtros de busqueda</p>
-			<p id="error"></p>
-			<table>
-				<tr>
-					<td class="text-center">Nombre o rut</td>
-				</tr>
-				<tr>
-					<td class="text-center"><input id="texto" type="text"
-						name="input"></td>
-				</tr>
-				<tr>
-					<td class="text-center"><button type="submit">Buscar</button></td>
-				</tr>
-			</table>
-		</form>
-		<%
-			} else if( opcion.equals("fecha") ){
-		%>
-		<form class="vform" name="f_filtro" method="post"
-			action="ConsultaValesServlet">
-			<p id="error"></p>
-			<table>
-				<tr>
-					<td colspan="2" class="text-center">Fecha</td>
-				</tr>
-				<tr>
-					<td class="text-center">Desde <input id="desde" type="text"
-						name="desde" placeholder="01/01/2013"></td>
-					<td class="text-center">Hasta <input id="hasta" type="text"
-						name="hasta" placeholder="31/12/2013"></td>
-				</tr>
-				<tr>
-					<td colspan="2" class="text-center"><button type="submit">Buscar</button></td>
-				</tr>
-			</table>
-		</form>
-		<%
-			} else if( opcion.equals("centro_costo") ){
-		%>
-		<form class="vform" name="f_filtro" method="post"
-			action="ConsultaValesServlet">
-			<p id="error"></p>
-			<table>
-				<tr>
-					<td class="text-center">Centro de costo</td>
-				</tr>
-				<tr>
-					<%
-						CentroCostoController centroCostoController = new CentroCostoController();
-						List<CentroCosto> centroCostos = centroCostoController.listarCentroCostos();
-						if( centroCostos != null && centroCostos.size() != 0 ){
-					%>
-					<td class="text-center">
-					<select size=1 name="centro_costo">
-					<%
-						for( CentroCosto c : centroCostos ){
-					%>
-						<option value="<%=c.getIdcentro_costo()%>"><%=c.getNombre()%></option>
-					<%
-						}
-					%>
-					</select>
-					</td>
-				</tr>
-				<tr>
-					<td class="text-center"><button type="submit">Buscar</button></td>
-					<%
-						} else {
-					%>
-					<td class="text-center"> No hay centros de costo registrados en el sistema. 
-					<a href="index.jsp">Volver</a>.
-					</td>
-					<%
-						}
-					%>
-				</tr>
-			</table>
-		</form>
-		<%
-			} else if( opcion.equals("folio") ){
-		%>
-		<form class="vform" name="f_filtro" method="post"
-			action="ConsultaValesServlet">
-			<p id="error"></p>
-			<table>
-				<tr>
-					<td class="text-center">Folio</td>
-				</tr>
-				<tr>
-					<td class="text-center"><input id="texto" type="text"
-						name="folio"></td>
-				</tr>
-				<tr>
-					<td class="text-center"><button type="submit">Buscar</button></td>
-				</tr>
-			</table>
-		</form>
-		<% 
-			} else if ( vales != null ) {
-				
-		%>
-		<div class="row spce-bot">
-			<div class="c8 centered">
-				<form method="post" action="AutorizarValeServlet">
-					<table>
-						<tr class="text-center">
-							<th class="text-center">Usuario</th>
-							<th class="text-center">Fecha de Uso</th>
-							<th class="text-center">Origen</th>
-							<th class="text-center">Destino</th>
-							<th class="text-center">Motivo de viaje</th>
-							<th class="text-center">Monto estipulado</th>
-							<th class="text-center">Aceptar</th>
-							<th class="text-center">Rechazar</th>
-						</tr>
-						<%
-							for ( Vale v : vales ){
-								if ( v.getEstado().equals(Estado.abierto) ){
-						%>
-						<tr class="text-center">
-							<td class="text-center"><%= v.getUsuario().getNombre() %></td>
-							<td class="text-center"><%= v.getFecha_uso() %></td>
-							<td class="text-center"><%= v.getOrigen() %></td>
-							<td class="text-center"><%= v.getDestino() %></td>
-							<td class="text-center"><%= v.getMotivo_viaje() %></td>
-							<td class="text-center"><%= v.getMonto_estipulado() %></td>
-							<td class="text-center"><input
-								value="<%= v.getIdvale().toString()+"-"+"aceptado" %>"
-								name="<%= "opcion-"+v.getIdvale() %>" type="radio"></td>
-							<td class="text-center"><input
-								value="<%= v.getIdvale().toString()+"-"+"rechazado" %>"
-								name="<%= "opcion-"+v.getIdvale() %>" type="radio"></td>
-						</tr>
-						<%
+	</div>
+	<div class="content">
+		<div class="grid">
+			<%
+				String opcion = request.getParameter("opcion");
+				if (opcion == null) opcion = "";
+				@SuppressWarnings("unchecked")
+				List<Vale> vales = ( List<Vale> )request.getSession().getAttribute("vales");
+				if( opcion.equals("rut") || opcion.equals("nombre") ){
+			%>
+			<hr>
+			<div class="row space-bot">
+				<div class="c4 first"></div>
+				<div class="c4">
+					<form class="hform" name="f_filtro" method="post"
+						action="ConsultaValesServlet">
+						<p id="error"></p>
+						<table>
+							<tr>
+								<th class="text-center">Nombre o rut</th>
+							</tr>
+							<tr>
+								<td class="text-center">
+									<center>
+										<input id="texto" type="text" name="input">
+									</center>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-center"><button type="submit">Buscar</button></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div class="c4 last"></div>
+			</div>
+			<%
+				} else if( opcion.equals("fecha") ){
+			%>
+			<hr>
+			<div class="row space-bot">
+				<div class="c4 first"></div>
+				<div class="c4">
+					<form class="hform" name="f_filtro" method="post" action="ConsultaValesServlet">
+						<p id="error"></p>
+						<table>
+							<tr>
+								<th class="text-center">Desde</th>
+								<th class="text-center">Hasta</th>
+							</tr>
+							<tr>
+								<td class="text-center">
+									<center>
+										<input id="desde" type="text" name="desde" placeholder="01/01/2013">
+									</center>
+								</td>
+								<td class="text-center">
+									<center>
+										<input id="hasta" type="text" name="hasta" placeholder="31/12/2013">
+									</center>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="text-center"><button type="submit">Buscar</button></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div class="c4 last"></div>
+			</div>
+			<%
+				} else if( opcion.equals("centro_costo") ){
+			%>
+			<hr>
+			<div class="row space-bot">
+				<div class="c4 first"></div>
+				<div class="c4">
+					<form class="hform" name="f_filtro" method="post" action="ConsultaValesServlet">
+						<p id="error"></p>
+						<table>
+							<tr>
+								<th class="text-center">Centro de costo</th>
+							</tr>
+							<tr>
+								<%
+									CentroCostoController centroCostoController = new CentroCostoController();
+												List<CentroCosto> centroCostos = centroCostoController.listarCentroCostos();
+												if( centroCostos != null && centroCostos.size() != 0 ){
+								%>
+								<td class="text-center">
+								<center>
+								<select size=1 name="centro_costo">
+										<%
+											for( CentroCosto c : centroCostos ){
+										%>
+										<option value="<%=c.getIdcentro_costo()%>"><%=c.getNombre()%></option>
+										<%
+											}
+										%>
+								</select>
+								</center>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-center"><button type="submit">Buscar</button></td>
+								<%
+									} else {
+								%>
+								<td class="text-center">No hay centros de costo registrados
+									en el sistema. <a href="index.jsp">Volver</a>.
+								</td>
+								<%
+									}
+								%>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div class="c4 last"></div>
+			</div>
+			<%
+				} else if( opcion.equals("folio") ){
+			%>
+			<hr>
+			<div class="row space-bot">
+				<div class="c4 first"></div>
+				<div class="c4">
+					<form class="hform" name="f_filtro" method="post" action="ConsultaValesServlet">
+						<p id="error"></p>
+						<table>
+							<tr>
+								<th class="text-center">Folio</th>
+							</tr>
+							<tr>
+								<td class="text-center">
+									<center>
+										<input id="texto" type="text" name="folio">
+									</center>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-center"><button type="submit">Buscar</button></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div class="c4 last"></div>
+			</div>
+			<%
+				} else if ( vales != null ) {
+			%>
+			<hr>
+			<div class="row space-bot">
+				<div class="c2 first"></div>
+				<div class="c8">
+					<form method="post" action="AutorizarValeServlet">
+						<table>
+							<tr class="text-center">
+								<th class="text-center">Usuario</th>
+								<th class="text-center">Fecha de Uso</th>
+								<th class="text-center">Origen</th>
+								<th class="text-center">Destino</th>
+								<th class="text-center">Motivo de viaje</th>
+								<th class="text-center">Monto estipulado</th>
+								<th class="text-center">Aceptar</th>
+								<th class="text-center">Rechazar</th>
+							</tr>
+							<%
+								for ( Vale v : vales ){
+													if ( v.getEstado().equals(Estado.abierto) ){
+							%>
+							<tr class="text-center">
+								<td class="text-center"><%=v.getUsuario().getNombre()%></td>
+								<td class="text-center"><%=v.getFecha_uso()%></td>
+								<td class="text-center"><%=v.getOrigen()%></td>
+								<td class="text-center"><%=v.getDestino()%></td>
+								<td class="text-center"><%=v.getMotivo_viaje()%></td>
+								<td class="text-center"><%=v.getMonto_estipulado()%></td>
+								<td class="text-center"><input
+									value="<%=v.getIdvale().toString()+"-"+"aceptado"%>"
+									name="<%="opcion-"+v.getIdvale()%>" type="radio"></td>
+								<td class="text-center"><input
+									value="<%=v.getIdvale().toString()+"-"+"rechazado"%>"
+									name="<%="opcion-"+v.getIdvale()%>" type="radio"></td>
+							</tr>
+							<%
 								}
-							}
-						%>
-						<tr>
-							<td colspan=8 class="text-center">
-								<button type="submit">Enviar</button>
-							</td>
-						</tr>
-					</table>
-				</form>
+												}
+							%>
+							<tr>
+								<td colspan=8 class="text-center">
+									<button type="submit">Enviar</button>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div class="c2 last"></div>
+			</div>
+			<%
+				} else {
+			%>
+			<hr>
+			<div class="row space-bot">
+				<div class="c4 first"></div>
+				<div class="c4">
+					<form class="hform" name="f_opcion" method="post" action="autorizarVales.jsp">
+						<p id="error"></p>
+						<table>
+							<tr>
+								<th>Escoja opci&oacute;n</th>
+							</tr>
+							<tr>
+								<td><input type="radio" name="opcion" value="centro_costo">
+									Centro de costo<br></td>
+							</tr>
+							<tr>
+								<td><input type="radio" name="opcion" value="folio">
+									Folio<br></td>
+							</tr>
+							<tr>
+								<td><input type="radio" name="opcion" value="fecha">
+									Fecha<br></td>
+							</tr>
+							<tr>
+								<td><input type="radio" name="opcion" value="rut">
+									Rut<br></td>
+							</tr>
+							<tr>
+								<td><input type="radio" name="opcion" value="nombre">
+									Nombre<br></td>
+							</tr>
+							<tr>
+								<td class="text-center"><button type="submit">Seleccionar</button></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div class="c4 last"></div>
+			</div>
+			<%
+				}
+			%>
+			<hr>
+			<div class="row">
+				<p class="note text-center">
+					<a href="index.jsp">volver</a>
+				</p>
 			</div>
 		</div>
-		<%
-			} else {
-		%>
-		<form class="vform" name="f_opcion" method="post"
-			action="autorizarVales.jsp">
-			<p id="error"></p>
-			<table>
-				<tr>
-					<td><input type="radio" name="opcion" value="centro_costo">
-						Centro de costo<br></td>
-				</tr>
-				<tr>
-					<td><input type="radio" name="opcion" value="folio">
-						Folio<br></td>
-				</tr>
-				<tr>
-					<td><input type="radio" name="opcion" value="fecha">
-						Fecha<br></td>
-				</tr>
-				<tr>
-					<td><input type="radio" name="opcion" value="rut"> Rut<br></td>
-				</tr>
-				<tr>
-					<td><input type="radio" name="opcion" value="nombre">
-						Nombre<br></td>
-				</tr>
-				<tr>
-					<td class="text-center"><button type="submit">Seleccionar</button></td>
-				</tr>
-			</table>
-		</form>
-		<%
-			}
-		%>
-		<br /> <a href="index.jsp">volver</a><br />
-	</center>
+	</div>
 	<script>
 		var validator = new FormValidator(
 				't_filtro',

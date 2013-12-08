@@ -17,95 +17,112 @@
 <script src="./js/jquery-ui-1.10.3.custom.js"></script>
 </head>
 <body>
-	<center>
-		<div class="row spce-bot">
-			<div class="c8 centered">
-				<h1 class="text-center">Confirmar Valor del Vale</h1>
-				<p>Por favor ingrese el valor del monto real</p>
-				<%
-					String id = request.getParameter("id_vale");
-					ValeController valeController = new ValeController();
-					Vale v = valeController.obtenerVale(Long.parseLong(id));
-					request.getSession().setAttribute("vale", v);
-				%>
-				<form class="vform" id="form" name="form" method="post"
-					action="ConfirmarMontoServlet">
-					<table>
-						<tr>
-							<td>Folio</td>
-							<td><%=v.getFolio()%></td>
-						</tr>
-						<tr>
-							<td>Fecha de Uso</td>
-							<td><%=v.getFecha_uso()%></td>
-						</tr>
-						<tr>
-							<td>Origen</td>
-							<td><%=v.getOrigen()%></td>
-						</tr>
-						<tr>
-							<td>Destino</td>
-							<td><%=v.getDestino()%></td>
-						</tr>
-						<tr>
-							<td>Motivo de viaje</td>
-							<td><%=v.getMotivo_viaje()%></td>
-						</tr>
-						<tr>
-							<td>Monto estipulado</td>
-							<td><%=v.getMonto_estipulado()%></td>
-						</tr>
-						<%
-							if (v.getEstado() == Estado.consolidado) {
-						%>
-						<tr>
-							<td>Monto Real</td>
-							<td><%=v.getMonto_real()%></td>
-						</tr>
-						<tr>
-							<td>Fecha Confirmacion</td>
-							<td><%=v.getFecha_confirmacion()%></td>
-						</tr>
-						<%
-							} else if (v.getEstado() == Estado.autorizado) {
-						%>
-						<tr>
-							<td>monto Real</td>
-							<td>
-								<input type="text" name="monto_real" id="monto_real" />
-							</td>
-						</tr>
-						<tr>
-							<td colspan=2 class="text-center">
-								<button type="submit">Confirmar Valor</button>
-							</td>
-						</tr>
-						<%
-							} else if (v.getEstado() == Estado.abierto) {
-						%>
-						<tr>
-							<td colspan=2>El vale aun no ha sido autorizado</td>
-						</tr>
-						<%
-							} else if (v.getEstado() == Estado.rechazado) {
-						%>
-						<tr>
-							<td colspan=2>El vale a sido rechazado</td>
-						</tr>
-						<%
-							} else {
-						%>
-						<tr>
-							<td colspan=2>Problema al mostrar el vañe</td>
-						</tr>
-						<%
-							}
-						%>
-					</table>
-				</form>
+	<div class="row">
+		<h1 class="text-center">Confirmar Valor del Vale</h1>
+	</div>
+	<div class="content">
+		<div class="grid">
+			<div class="row space-bot">
+				<div class="c4 first"></div>
+				<div class="c4">
+					<p class="note text-center">Por favor ingrese el valor del
+						monto real</p>
+					<%
+						String id = request.getParameter("id_vale");
+						ValeController valeController = new ValeController();
+						Vale v = valeController.obtenerVale(Long.parseLong(id));
+						request.getSession().setAttribute("vale", v);
+					%>
+					<form id="form" name="form" method="post"
+						action="ConfirmarMontoServlet">
+						<table>
+							<tr>
+								<th>Campo</th>
+								<th>Valor</th>
+							</tr>
+							<tr>
+								<td>Folio</td>
+								<td><%=v.getFolio()%></td>
+							</tr>
+							<tr>
+								<td>Fecha de Uso</td>
+								<td><%=v.getFecha_uso()%></td>
+							</tr>
+							<tr>
+								<td>Origen</td>
+								<td><%=v.getOrigen()%></td>
+							</tr>
+							<tr>
+								<td>Destino</td>
+								<td><%=v.getDestino()%></td>
+							</tr>
+							<tr>
+								<td>Motivo de viaje</td>
+								<td><%=v.getMotivo_viaje()%></td>
+							</tr>
+							<tr>
+								<td>Monto estipulado</td>
+								<td><%=v.getMonto_estipulado()%></td>
+							</tr>
+							<%
+								if (v.getEstado() == Estado.consolidado) {
+							%>
+							<tr>
+								<td>Monto Real</td>
+								<td><%=v.getMonto_real()%></td>
+							</tr>
+							<tr>
+								<td>Fecha Confirmacion</td>
+								<td><%=v.getFecha_confirmacion()%></td>
+							</tr>
+							<%
+								} else if (v.getEstado() == Estado.autorizado) {
+							%>
+							<tr>
+								<td>monto Real</td>
+								<td><input type="text" name="monto_real" id="monto_real" />
+								</td>
+							</tr>
+							<tr>
+								<td colspan=2 class="text-center">
+									<button type="submit">Confirmar Valor</button>
+								</td>
+							</tr>
+							<%
+								} else if (v.getEstado() == Estado.abierto) {
+							%>
+							<tr>
+								<td colspan=2>El vale aun no ha sido autorizado</td>
+							</tr>
+							<%
+								} else if (v.getEstado() == Estado.rechazado) {
+							%>
+							<tr>
+								<td colspan=2>El vale a sido rechazado</td>
+							</tr>
+							<%
+								} else {
+							%>
+							<tr>
+								<td colspan=2>Problema al mostrar el vañe</td>
+							</tr>
+							<%
+								}
+							%>
+						</table>
+					</form>
+				</div>
+				<div class="c4 last"></div>
 			</div>
 		</div>
-		<a href="consultarVales.jsp">Volver</a><br /> <a href="index.jsp">index</a><br />
-	</center>
+		<div class="row">
+			<p class="note text-center">
+				<a href="consultarVales.jsp">Volver</a>
+			</p>
+			<p class="note text-center">
+				<a href="index.jsp">index</a>
+			</p>
+		</div>
+	</div>
 </body>
 </html>
