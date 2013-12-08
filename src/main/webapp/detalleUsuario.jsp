@@ -30,82 +30,99 @@
 	<script>
 		$("form").validate();
 	</script>
-	<center>
-	<h1 class="text-center">Administrar usuario</h1>
-	<p>Por favor ingrese la siguiente informaci&oacute;n</p>
-		<%
-			String id = request.getParameter("usuario");
-			if( id != null && NumberUtil.isLong(id) ){
-				UsuarioController uc = new UsuarioController();				
-				Usuario usuario = uc.obtenUsuario(Long.parseLong(id));
-				if( usuario != null ){
-		%>
-		<form class="vform" id="form" name="form" method="post"
-			action="ModificarUsuarioServlet">
-			<p id="error"></p>
-
-			<input type="hidden" value="<%= usuario.getIdusuario() %>" name="id" />
-			<label>Nombre </label> <input type="text" name="nombre" id="nombre" 
-				value="<%= usuario.getNombre() %>"/>
-			<label>Nombre de usuario </label> <input type="text" name="usuario"
-				id="usuario" value="<%= usuario.getUsuario() %>"/>
-			<label>Email</label> <input type="text" name="email" id="email" 
-				value="<%= usuario.getEmail() %>" /> 
-			<label>Rut</label> <input type="text" name="rut" id="rut" 
-				value="<%= usuario.getRut() %>" /> 
-			<label>Domicilio</label> <input type="text" name="domicilio" id="domicilio" 
-				value="<%= usuario.getDomicilio() %>" /> 
-			<label>Perfil </label> <select size=1 name="perfil">
-				<%
-					for( Perfil p : Perfil.values() ) {
-						if( usuario.getPerfil().equals(p) ) {
-				%>
-					<option value="<%=p.toString().toLowerCase()%>" selected="selected">
-						<%=p.toString()%>
-					</option>
-				<%
-						}else{
-				%>
-					<option value="<%=p.toString().toLowerCase()%>"><%=p.toString()%></option>
-				<%
-						}
-					}
-				%>
-			</select>
+	<div class="row">
+		<h1 class="text-center">Administrar usuario</h1>
+	</div>
+	<div class="content">
+		<div class="grid">
 			<%
-				CentroCostoController centroCostoController = new CentroCostoController();
-							List<CentroCosto> centroCostos = centroCostoController.listarCentroCostos();
-							if( centroCostos != null && centroCostos.size() != 0 ){
+				String id = request.getParameter("usuario");
+				if( id != null && NumberUtil.isLong(id) ){
+					UsuarioController uc = new UsuarioController();				
+					Usuario usuario = uc.obtenUsuario(Long.parseLong(id));
+					if( usuario != null ){
 			%>
-			<label>Centro de costo</label> <select size=1 name="centro_costo">
-				<%
-					for( CentroCosto c : centroCostos ){
-						if( usuario.getCentroCosto() != null && usuario.getCentroCosto().equals(c) ){
-				%>
-					<option value="<%=c.getIdcentro_costo()%>" selected="selected">
-						<%=c.getNombre()%>
-					</option>
-				<%
-						}else{
-				%>
-					<option value="<%=c.getIdcentro_costo()%>"><%=c.getNombre()%></option>
-				<%
-						}
-					}
-				%>
-			</select>
+			<hr>
+			<div class="row space-bot">
+				<div class="c4 first"></div>
+				<div class="c4">
+					<form class="vform" id="form" name="form" method="post"
+						action="ModificarUsuarioServlet">
+						<p id="error"></p>
+
+						<input type="hidden" value="<%=usuario.getIdusuario()%>"
+							name="id" /> <label>Nombre </label> <input type="text"
+							name="nombre" id="nombre" value="<%=usuario.getNombre()%>" /> <label>Nombre
+							de usuario </label> <input type="text" name="usuario" id="usuario"
+							value="<%=usuario.getUsuario()%>" /> <label>Email</label> <input
+							type="text" name="email" id="email"
+							value="<%=usuario.getEmail()%>" /> <label>Rut</label> <input
+							type="text" name="rut" id="rut" value="<%=usuario.getRut()%>" />
+						<label>Domicilio</label> <input type="text" name="domicilio"
+							id="domicilio" value="<%=usuario.getDomicilio()%>" /> <label>Perfil
+						</label> <select size=1 name="perfil">
+							<%
+								for( Perfil p : Perfil.values() ) {
+											if( usuario.getPerfil().equals(p) ) {
+							%>
+							<option value="<%=p.toString().toLowerCase()%>"
+								selected="selected">
+								<%=p.toString()%>
+							</option>
+							<%
+								}else{
+							%>
+							<option value="<%=p.toString().toLowerCase()%>"><%=p.toString()%></option>
+							<%
+								}
+										}
+							%>
+						</select>
+						<%
+							CentroCostoController centroCostoController = new CentroCostoController();
+											List<CentroCosto> centroCostos = centroCostoController.listarCentroCostos();
+											if( centroCostos != null && centroCostos.size() != 0 ){
+						%>
+						<label>Centro de costo</label> <select size=1 name="centro_costo">
+							<%
+								for( CentroCosto c : centroCostos ){
+											if( usuario.getCentroCosto() != null && usuario.getCentroCosto().equals(c) ){
+							%>
+							<option value="<%=c.getIdcentro_costo()%>" selected="selected">
+								<%=c.getNombre()%>
+							</option>
+							<%
+								}else{
+							%>
+							<option value="<%=c.getIdcentro_costo()%>"><%=c.getNombre()%></option>
+							<%
+								}
+										}
+							%>
+						</select>
+						<%
+							}
+						%>
+						<button type="submit">Actualizar usuario</button>
+					</form>
+				</div>
+				<div class="c4 last"></div>
+			</div>
 			<%
+					}
 				}
 			%>
-			<button type="submit">Actualizar usuario</button>
-		</form>
-		<%
-			}
-			}
-		%>
-		<br/>
-		<a href="index.jsp">volver</a><br />
-	</center>
+			<hr>
+			<div class="row">
+				<p class="note text-center">
+					<a href="administrarUsuarios.jsp">Volver</a>
+				</p>
+				<p class="note text-center">
+					<a href="index.jsp">Inicio</a>
+				</p>
+			</div>
+		</div>
+	</div>
 	<script>
 		var validator = new FormValidator(
 				'form',

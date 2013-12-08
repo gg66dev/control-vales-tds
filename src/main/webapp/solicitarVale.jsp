@@ -40,7 +40,7 @@
 
 		</form>
 		<br/>
-		<a href="index.jsp">volver</a><br />
+		<a href="index.jsp">Inicio</a><br />
 	</center>
 	<script>
 	var validator = new FormValidator('form', [{

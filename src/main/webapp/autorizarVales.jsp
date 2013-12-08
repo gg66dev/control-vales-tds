@@ -183,35 +183,31 @@
 			<div class="row space-bot">
 				<div class="c2 first"></div>
 				<div class="c8">
-					<form method="post" action="AutorizarValeServlet">
+					<form method="post" action="detalleVale.jsp">
 						<table>
 							<tr class="text-center">
+								<th class="text-center">Vale</th>
 								<th class="text-center">Usuario</th>
 								<th class="text-center">Fecha de Uso</th>
 								<th class="text-center">Origen</th>
 								<th class="text-center">Destino</th>
 								<th class="text-center">Motivo de viaje</th>
 								<th class="text-center">Monto estipulado</th>
-								<th class="text-center">Aceptar</th>
-								<th class="text-center">Rechazar</th>
 							</tr>
 							<%
 								for ( Vale v : vales ){
 													if ( v.getEstado().equals(Estado.abierto) ){
 							%>
 							<tr class="text-center">
+								<td class="text-center">
+									<input value="<%=v.getIdvale()%>" name="id_vale" type="radio">
+								</td>
 								<td class="text-center"><%=v.getUsuario().getNombre()%></td>
 								<td class="text-center"><%=v.getFecha_uso()%></td>
 								<td class="text-center"><%=v.getOrigen()%></td>
 								<td class="text-center"><%=v.getDestino()%></td>
 								<td class="text-center"><%=v.getMotivo_viaje()%></td>
 								<td class="text-center"><%=v.getMonto_estipulado()%></td>
-								<td class="text-center"><input
-									value="<%=v.getIdvale().toString()+"-"+"aceptado"%>"
-									name="<%="opcion-"+v.getIdvale()%>" type="radio"></td>
-								<td class="text-center"><input
-									value="<%=v.getIdvale().toString()+"-"+"rechazado"%>"
-									name="<%="opcion-"+v.getIdvale()%>" type="radio"></td>
 							</tr>
 							<%
 								}
@@ -274,7 +270,7 @@
 			<hr>
 			<div class="row">
 				<p class="note text-center">
-					<a href="index.jsp">volver</a>
+					<a href="index.jsp">Inicio</a>
 				</p>
 			</div>
 		</div>

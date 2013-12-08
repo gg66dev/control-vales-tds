@@ -8,7 +8,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="./css/style.css" />
 <title>Confirmar valor del vale</title>
 <link rel="stylesheet" type="text/css" href="./css/ivory.css" />
 <link rel="stylesheet"
@@ -120,7 +119,7 @@
 				<a href="consultarVales.jsp">Volver</a>
 			</p>
 			<p class="note text-center">
-				<a href="index.jsp">index</a>
+				<a href="index.jsp">Inicio</a>
 			</p>
 		</div>
 	</div>

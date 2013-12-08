@@ -5,7 +5,6 @@ package cl.tds.controlvales.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cl.tds.controlvales.beans.Estado;
-import cl.tds.controlvales.beans.Usuario;
 import cl.tds.controlvales.beans.Vale;
 import cl.tds.controlvales.controller.ValeController;
 
@@ -28,36 +26,23 @@ public class AutorizarValeServlet extends HttpServlet {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 814556017658012777L;
 
-	@SuppressWarnings("unchecked")
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
-
-		List<Vale> vales = (List<Vale>) request.getSession().getAttribute("vales");
-		// para no perder al usuario
-		Usuario u = ((Usuario ) request.getSession().getAttribute("usuario"));
 		
+		Vale vale = (Vale) request.getSession().getAttribute("vale");
+		String autorizado = request.getParameter("autorizado");
 		PrintWriter out = response.getWriter();
 
 		try {
 			ValeController valeController = new ValeController();
 			
-			if( vales != null
-					&& u != null ){
-				
-				for( Vale v : vales ){
-					//si se ha enviado informacion del formulario por post
-					if( request.getParameter("opcion-"+v.getIdvale()) != null ){
-						String[] opcion = request.getParameter("opcion-"+v.getIdvale()).split("-");
-						if( opcion[1] != null && opcion[1].equals("aceptado") ){
-							valeController.autorizarVale(v, Estado.autorizado);
-						}else if ( opcion[1] != null && opcion[1].equals("rechazado")){
-							valeController.autorizarVale(v, Estado.rechazado);
-						}
-					}
-				}
+			if( autorizado != null && autorizado.equals("aceptado") ){
+				valeController.autorizarVale(vale, Estado.autorizado);
+			}else if ( autorizado != null && autorizado.equals("rechazado")){
+				valeController.autorizarVale(vale, Estado.rechazado);
 			}
 			
 			out.println("<html>");

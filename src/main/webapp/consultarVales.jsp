@@ -232,7 +232,7 @@
 			<hr>
 			<div class="row">
 				<p class="note text-center">
-					<a href="index.jsp">volver</a>
+					<a href="index.jsp">Inicio</a>
 				</p>
 			</div>
 		</div>

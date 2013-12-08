@@ -44,7 +44,7 @@
 			<a href="administrarUsuarios.jsp">Listar Usarios Registrados (administrar
 				cuentas)</a><br /> 
 			<a href=>Mostrar centro de costo</a><br /> 
-			<a href=>Ingresar Planilla</a><br />
+			<a href="ingresoPlanilla.jsp">Ingresar Planilla</a><br />
 
 			<h3 class="text-center">gerente</h3>
 			<a href="autorizarVales.jsp">Consulta vales</a><br /> 
