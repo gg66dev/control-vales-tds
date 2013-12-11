@@ -21,6 +21,7 @@
 				<form  class="hform" action="IngresarPlanillaServlet" method="post" enctype="multipart/form-data">
 				<p class="note text-center">Por favor seleccione un archivo</p>
 				<p class="text-center"><input type="file" name="file" style="width:350px"/></p> 
+				<span>el nombre del archivo debe ser 'mes-año', para indicar el periodo de los vales a cargar</span>
 				<br /> 
 				<p class="text-center"><button type="submit">Seleccionar</button></p>
 				</form>

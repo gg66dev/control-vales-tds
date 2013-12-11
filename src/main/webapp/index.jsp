@@ -15,15 +15,16 @@
 			<h1 class="text-center">Bienvenido</h1>
 			<%=new Date()%>
 			<%
+			//para que al seleccionar una vista no inicie con el resultado de otra
+			//vista la cual no tiene relacion 
+			if (session.getAttribute("vales") != null)
+				session.removeAttribute("vales");
+			if (session.getAttribute("valesXls") != null)
+				session.removeAttribute("valesXls");
+			
 				Usuario usuario = null;
 				if (session.getAttribute("usuario") != null) {
 					usuario = (Usuario) session.getAttribute("usuario");
-				
-				//para que al seleccionar una vista no inicie con el resultado de otra
-				//vista la cual no tiene relacion 
-				if (session.getAttribute("vales") != null)
-					session.removeAttribute("vales");
-					
 			%>
 			<b><%=usuario.getUsuario()%></b> <br /> <a href="logout.jsp">Logout</a>
 			<br /> <a href="solicitarVale.jsp">Solicitar un Vale</a> <br /> <a
@@ -48,8 +49,9 @@
 
 			<h3 class="text-center">gerente</h3>
 			<a href="autorizarVales.jsp">Consulta vales</a><br /> 
-			<a href=>informes</a><br /> 
-			<a href=>consolidacion de vales</a><br /> 
+			<a href="consolidacionVales.jsp">consolidacion de vales</a><br /> 
+			<a href="moduloInformes.jsp">informes</a><br /> 
+			
 	</center>
 </body>
 </html>

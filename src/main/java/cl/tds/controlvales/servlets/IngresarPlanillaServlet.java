@@ -32,7 +32,7 @@ public class IngresarPlanillaServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1732597084276799693L;
 	
-	private final String ruta = "./planillas/";
+	private final String ruta = "C:/Apache-tomcat-7.0.47/webapps/data/planillas/";
 	private final String[] tiposPermitidos = {
 			"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
 			"application/vnd.oasis.opendocument.spreadsheet"

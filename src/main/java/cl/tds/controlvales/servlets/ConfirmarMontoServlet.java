@@ -37,11 +37,9 @@ public class ConfirmarMontoServlet extends HttpServlet {
 			try {
 				ValeController valeController = new ValeController();
 				valeController.actualizarVale(vale, Integer.parseInt(monto_real));
-				valeController.autorizarVale(vale, Estado.consolidado);
 				//obtiene fecha actual de cuando se confirma
 				java.util.Calendar cal = java.util.Calendar.getInstance(); 
 				Date timeNow = new Date(cal.getTimeInMillis()); 
-				
 				valeController.actualizarVale(vale,timeNow);
 				
 				out.println("<html>");
