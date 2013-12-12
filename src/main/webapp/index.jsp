@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@page import="cl.tds.controlvales.beans.Usuario"%>
 <%@page import="cl.tds.controlvales.beans.Perfil"%>
 <%@page import="java.util.Date"%>
@@ -25,7 +25,7 @@
 		-webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
 	}
 </style>
-<title>Home</title>
+<title>Inicio</title>
 </head>
 <body>
 <%
@@ -36,12 +36,12 @@
 	if (session.getAttribute("valesXls") != null)
 		session.removeAttribute("valesXls");
 	Usuario usuario = null;
-	if (session.getAttribute("usuario") != null) {
-		usuario = (Usuario) session.getAttribute("usuario");
+	if (session.getAttribute("login") != null) {
+		usuario = (Usuario) session.getAttribute("login");
 %>
 <div class="row space-bot">
 	<h1 class="text-center">Bienvenido</h1>
-	<p class="text-center">Usted ha ingresado como <b><%=usuario.getUsuario()%></b> </p>
+	<p class="text-center">Usted ha ingresado como <b><%=usuario.getNombre()%></b> </p>
 </div> 
 <%
 	if( usuario.getPerfil().equals(Perfil.usuario)){

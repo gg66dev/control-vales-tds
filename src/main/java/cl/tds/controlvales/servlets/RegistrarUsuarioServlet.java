@@ -18,6 +18,8 @@ import cl.tds.controlvales.beans.Usuario;
 import cl.tds.controlvales.controller.CentroCostoController;
 import cl.tds.controlvales.controller.UsuarioController;
 
+import org.springframework.web.util.HtmlUtils;
+
 /**
  * @author "Fernando Valencia"
  * 
@@ -34,12 +36,12 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 
-		String nombre = request.getParameter("nombre");
-		String usuario = request.getParameter("usuario");
-		String password1 = request.getParameter("password1");
-		String password2 = request.getParameter("password2");
+		String nombre = HtmlUtils.htmlEscape( request.getParameter("nombre") );
+		String usuario = HtmlUtils.htmlEscape( request.getParameter("usuario") );
+		String password1 = HtmlUtils.htmlEscape( request.getParameter("password1") );
+		String password2 = HtmlUtils.htmlEscape( request.getParameter("password2") );
 		String rut = request.getParameter("rut");
-		String domicilio = request.getParameter("domicilio");
+		String domicilio = HtmlUtils.htmlEscape( request.getParameter("domicilio") );
 		String email = request.getParameter("email");
 		String perfil = request.getParameter("perfil");
 		Usuario user = new Usuario(nombre, usuario, password1, rut, domicilio, email);

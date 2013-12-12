@@ -18,6 +18,8 @@ import cl.tds.controlvales.beans.Usuario;
 import cl.tds.controlvales.controller.CentroCostoController;
 import cl.tds.controlvales.controller.UsuarioController;
 
+import org.springframework.web.util.HtmlUtils;
+
 /**
  * @author "Fernando Valencia"
  * 
@@ -34,11 +36,11 @@ public class ModificarUsuarioServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 
-		String id = request.getParameter("id");
-		String nombre = request.getParameter("nombre");
-		String usuario = request.getParameter("usuario");
+		String id = HtmlUtils.htmlEscape( request.getParameter("id") );
+		String nombre = HtmlUtils.htmlEscape( request.getParameter("nombre") );
+		String usuario = HtmlUtils.htmlEscape( request.getParameter("usuario") );
 		String rut = request.getParameter("rut");
-		String domicilio = request.getParameter("domicilio");
+		String domicilio = HtmlUtils.htmlEscape( request.getParameter("domicilio") );
 		String email = request.getParameter("email");
 		String perfil = request.getParameter("perfil");
 		

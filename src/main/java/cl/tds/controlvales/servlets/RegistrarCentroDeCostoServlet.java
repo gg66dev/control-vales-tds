@@ -17,6 +17,8 @@ import cl.tds.controlvales.beans.Departamento;
 import cl.tds.controlvales.controller.CentroCostoController;
 import cl.tds.controlvales.controller.DepartamentoController;
 
+import org.springframework.web.util.HtmlUtils;
+
 /**
  * @author "Fernando Valencia"
  *
@@ -33,8 +35,8 @@ public class RegistrarCentroDeCostoServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 
-		String nombre = request.getParameter("nombre");
-		String descripcion = request.getParameter("descripcion");
+		String nombre = HtmlUtils.htmlEscape( request.getParameter("nombre") );
+		String descripcion = HtmlUtils.htmlEscape( request.getParameter("descripcion") );
 		String id_departamento = request.getParameter("departamento");
 		long id = Long.parseLong(id_departamento);
 		DepartamentoController deptoController = new DepartamentoController();

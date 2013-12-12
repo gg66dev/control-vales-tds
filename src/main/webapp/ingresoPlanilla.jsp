@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@ page import="cl.tds.controlvales.servlets.IngresarPlanillaServlet" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -22,7 +22,7 @@
 				<form  class="hform" action="IngresarPlanillaServlet" method="post" enctype="multipart/form-data">
 				<p class="note text-center">Por favor seleccione un archivo</p>
 				<p class="text-center"><input type="file" name="file" style="width:350px"/></p> 
-				<span>el nombre del archivo debe ser 'mes-aÃ±o', para indicar el periodo de los vales a cargar</span>
+				<span>el nombre del archivo debe ser 'mes-año', para indicar el periodo de los vales a cargar</span>
 				<br /> 
 				<p class="text-center"><button type="submit">Seleccionar</button></p>
 				</form>

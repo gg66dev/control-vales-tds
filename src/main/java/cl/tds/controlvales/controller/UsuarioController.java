@@ -72,6 +72,10 @@ public class UsuarioController {
 		return actualizado;
 	}
 	
+	public boolean eliminar(Usuario usuario){
+		return usuarioDao.eliminaUsuario(usuario);
+	}
+	
 	/**
 	 * Retorna el usuario que tiene por nombre de usuario username, si no lo
 	 * encuentra retorna null

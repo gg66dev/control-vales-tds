@@ -12,49 +12,48 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cl.tds.controlvales.beans.Departamento;
-import cl.tds.controlvales.controller.DepartamentoController;
-
-import org.springframework.web.util.HtmlUtils;
+import cl.tds.controlvales.beans.Usuario;
+import cl.tds.controlvales.controller.UsuarioController;
 
 /**
  * @author "Fernando Valencia"
  *
  */
-@WebServlet(name = "RegistrarDepartamentoServlet", urlPatterns = { "/RegistrarDepartamentoServlet" })
-public class RegistrarDepartamentoServlet extends HttpServlet {
+@WebServlet(name = "EliminarUsuarioServlet", urlPatterns = { "/EliminarUsuarioServlet" })
+public class EliminarUsuarioServlet extends HttpServlet {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8738788067544462465L;
-
+	private static final long serialVersionUID = 4556747597028982163L;
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
-
-		String nombre = HtmlUtils.htmlEscape( request.getParameter("nombre") );
-		String descripcion = HtmlUtils.htmlEscape( request.getParameter("descripcion") );
-		Departamento departamento = new Departamento(nombre, descripcion);
-
+		
+		String opcion = request.getParameter("opcion");
+		Usuario usuario = (Usuario ) request.getSession().getAttribute("usuario");
+		
 		PrintWriter out = response.getWriter();
 
 		try {
-			DepartamentoController departamentoController = new DepartamentoController();
-			long result = departamentoController.registrar(departamento);
+			UsuarioController usuarioController = new UsuarioController();
+			boolean eliminado = false;
+			if( opcion != null && opcion.equals("si")){
+				eliminado = usuarioController.eliminar(usuario);
+			}
 			out.println("<html>");
 			out.println("<head>");
-			out.println("<title>Registro</title>");
+			out.println("<title>Eliminar Usuario</title>");
 			out.println("</head>");
 			out.println("<body>");
 			out.println("<center>");
-			if (result > 0) {
-				out.println("<h1>Registro exitoso</h1>");
-			} else {
-				out.println("<h1>Ha fallado el registro</h1>");
-				out.println("Esto puede deberse a que falto el campo nombre.");
+			if ( opcion.equals("si") || opcion.equals("no") ) {
+				out.println("<h1>Modificaci&oacute;n exitosa</h1>");
+			} else if( !eliminado ) {
+				out.println("<h1>Ha fallado la eliminaci&oacute;n</h1>");
+				out.println("Esto puede deberse a que no se encontr&oacute; el usuario en la base de datos.");
 			}
-			out.println("Para regresar al sitio <a href=index.jsp>haga click aqu&iacute;</a>");
+			out.println("Para volver al sitio <a href=index.jsp>Haz click aqu&iacute;</a>");
 			out.println("</center>");
 			out.println("</body>");
 			out.println("</html>");
@@ -77,6 +76,6 @@ public class RegistrarDepartamentoServlet extends HttpServlet {
 
 	@Override
 	public String getServletInfo() {
-		return "Servlet para realizar registros de departamentos";
+		return "Servlet para eliminar registros de usuarios";
 	}
 }

@@ -60,11 +60,13 @@ public class UsuarioDAO implements Serializable {
 		}
 	}
 
-	public void eliminaUsuario(Usuario usuario) throws HibernateException {
+	public boolean eliminaUsuario(Usuario usuario) throws HibernateException {
+		boolean eliminado = false;
 		try {
 			iniciaOperacion();
 			sesion.delete(usuario);
 			tx.commit();
+			eliminado = true;
 		} catch (HibernateException he) {
 			manejaExcepcion(he);
 			throw he;
@@ -72,6 +74,7 @@ public class UsuarioDAO implements Serializable {
 			if (sesion != null)
 				sesion.close();
 		}
+		return eliminado;
 	}
 	
 	@SuppressWarnings("unchecked")

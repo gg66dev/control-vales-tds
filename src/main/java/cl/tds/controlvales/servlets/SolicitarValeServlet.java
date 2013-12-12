@@ -19,6 +19,8 @@ import cl.tds.controlvales.controller.ValeController;
 import cl.tds.controlvales.util.DateUtil;
 import cl.tds.controlvales.util.NumberUtil;
 
+import org.springframework.web.util.HtmlUtils;
+
 /**
  * Servlet implementation class SolicitaVale
  */
@@ -43,9 +45,9 @@ public class SolicitarValeServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			String origen = request.getParameter("origen");
-			String destino = request.getParameter("destino");
-			String motivo = request.getParameter("motivo");
+			String origen = HtmlUtils.htmlEscape( request.getParameter("origen") );
+			String destino = HtmlUtils.htmlEscape( request.getParameter("destino") );
+			String motivo = HtmlUtils.htmlEscape( request.getParameter("motivo") );
 			int monto_estipulado = Integer.parseInt( request.getParameter("monto_estipulado") );
 			
 			Vale vale = new Vale(fecha_uso, origen, destino, motivo, monto_estipulado);
