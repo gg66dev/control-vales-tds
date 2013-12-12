@@ -26,15 +26,16 @@
 				@SuppressWarnings("unchecked")
 				List<ValeXls> valesCorrectos = (List<ValeXls>) request.getSession()
 						.getAttribute("valesXlsCorrectos");
-				if(valesCorrectos.isEmpty()) valesCorrectos = null; 
 				@SuppressWarnings("unchecked")
 				List<ValeXls> valesErroneos = (List<ValeXls>) request.getSession()
-						.getAttribute("valesXlsErroneos");
-				if(valesErroneos.isEmpty()) valesErroneos = null;
+					.getAttribute("valesXlsErroneos");
 				@SuppressWarnings("unchecked")
 				List<ValeXls> valesInexistente = (List<ValeXls>) request
-						.getSession().getAttribute("valesXlsInexistente");
-				if(valesInexistente.isEmpty()) valesInexistente = null;
+					.getSession().getAttribute("valesXlsInexistente");
+				
+				//if(valesCorrectos.isEmpty()) valesCorrectos = null; 
+				//if(valesErroneos.isEmpty()) valesErroneos = null;
+				//if(valesInexistente.isEmpty()) valesInexistente = null;
 			%>
 
 			<select size="1" name="mes-consulta">
@@ -53,7 +54,7 @@
 			<button type="submit">Cargar</button>
 		</form>
 		<%
-			if (valesCorrectos != null) {
+			if (valesCorrectos != null && !valesCorrectos.isEmpty()) {
 		%>
 		<h4 class="text-center">Vales Correctos</h4>
 		<form method="post" action="detalleConsolidado.jsp">
@@ -91,7 +92,7 @@
 		</form>
 		<%
 			}
-			if (valesErroneos != null) {
+			if (valesErroneos != null && !valesErroneos.isEmpty()) {
 		%>
 		<h4 class="text-center">Vales cuyo monto no coincide</h4>
 		<form method="post" action="detalleConsolidado.jsp">
@@ -129,7 +130,7 @@
 		</form>
 		<%
 			}
-			if (valesInexistente != null) {
+			if (valesInexistente != null && !valesInexistente.isEmpty()) {
 		%>
 		<h4 class="text-center">Vales que no estan en la base de datos</h4>
 		<table>

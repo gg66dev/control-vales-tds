@@ -33,8 +33,13 @@
 	//vista la cual no tiene relacion
 	if (session.getAttribute("vales") != null)
 		session.removeAttribute("vales");
-	if (session.getAttribute("valesXls") != null)
-		session.removeAttribute("valesXls");
+	if(session.getAttribute("valesXlsCorrectos") != null)
+		session.removeAttribute("valesXlsCorrectos");
+	if(session.getAttribute("valesXlsErroneos") != null)
+		session.removeAttribute("valesXlsErroneos");
+	if(session.getAttribute("valesXlsInexistente") != null)
+		session.removeAttribute("valesXlsInexistente");
+
 	Usuario usuario = null;
 	if (session.getAttribute("login") != null) {
 		usuario = (Usuario) session.getAttribute("login");
