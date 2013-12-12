@@ -51,6 +51,9 @@
 					</p>
 				</div>
 			</div>
+			<%
+				if( usuario.getIdusuario() != 1 ){
+			%>
 			<div class="row space-bot">
 				<div class="c4 centered first">
 					<p class="note text-center">
@@ -60,6 +63,9 @@
 					</p>
 				</div>
 			</div>
+			<%
+				}
+			%>
 			<div class="row space-bot">
 				<div class="c4 centered first">
 					<p class="note text-center">
