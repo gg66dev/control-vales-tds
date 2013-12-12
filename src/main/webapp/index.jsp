@@ -52,6 +52,15 @@
 			<div class="row space-bot">
 				<div class="c4 centered first">
 					<p class="note text-center">
+						<a href="modificarUsuario.jsp">
+							Modificar mis datos
+						</a>
+					</p>
+				</div>
+			</div>
+			<div class="row space-bot">
+				<div class="c4 centered first">
+					<p class="note text-center">
 						<a href="consultarVales.jsp">
 							Consultar Vales
 						</a>

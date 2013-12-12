@@ -30,10 +30,8 @@ public class AutorizarValeServlet extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
-		
 		Vale vale = (Vale) request.getSession().getAttribute("vale");
-		String autorizado = request.getParameter("autorizado");
+		String autorizado = request.getParameter("autorizar");
 		PrintWriter out = response.getWriter();
 
 		try {
