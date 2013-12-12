@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+   pageEncoding="ISO-8859-1"%>
 <%@page import="cl.tds.controlvales.util.ValeXls"%>
 <%@page import="cl.tds.controlvales.util.FileXlsUtil"%>
 <%@page import="java.util.List"%>
@@ -24,8 +24,17 @@
 
 			<%
 				@SuppressWarnings("unchecked")
-				List<ValeXls> vales = (List<ValeXls>) request.getSession()
-						.getAttribute("valesXls");
+				List<ValeXls> valesCorrectos = (List<ValeXls>) request.getSession()
+						.getAttribute("valesXlsCorrectos");
+				if(valesCorrectos.isEmpty()) valesCorrectos = null; 
+				@SuppressWarnings("unchecked")
+				List<ValeXls> valesErroneos = (List<ValeXls>) request.getSession()
+						.getAttribute("valesXlsErroneos");
+				if(valesErroneos.isEmpty()) valesErroneos = null;
+				@SuppressWarnings("unchecked")
+				List<ValeXls> valesInexistente = (List<ValeXls>) request
+						.getSession().getAttribute("valesXlsInexistente");
+				if(valesInexistente.isEmpty()) valesInexistente = null;
 			%>
 
 			<select size="1" name="mes-consulta">
@@ -44,41 +53,111 @@
 			<button type="submit">Cargar</button>
 		</form>
 		<%
-			if (vales != null) {
+			if (valesCorrectos != null) {
 		%>
-
+		<h4 class="text-center">Vales Correctos</h4>
 		<form method="post" action="detalleConsolidado.jsp">
-		<table>
-			<tr>
-				<th></th>
-				<th class="text-center">folio</th>
-				<th class="text-center">Fecha de Uso</th>
-				<th class="text-center">monto</th>
-			</tr>
-			<%
-				for (ValeXls v : vales) {
-			%>
-			<tr>
-				<td><input type="radio" name="valor_valexls"
-					value="<%=v.folio +"+"+ v.fecha +"+"+v.monto%>"></td>
-				<td class="text-center"><%=v.folio%></td>
-				<td class="text-center"><%=v.fecha%></td>
-				<td class="text-center"><%=v.monto%></td>
-			</tr>
-			<%
-				}
-			%>
-			<tr>
-				<td colspan=7 class="text-center"><button type="submit">Ver detalle</button></td>
-			</tr>
-		</table>
+			<table>
+				<%
+					if (valesCorrectos != null) {
+				%>
+				<tr>
+					<th></th>
+					<th class="text-center">folio</th>
+					<th class="text-center">Fecha de Uso</th>
+					<th class="text-center">monto</th>
+				</tr>
+				<%
+					for (ValeXls v : valesCorrectos) {
+				%>
+				<tr>
+					<td><input type="radio" name="valor_valexls"
+						value="<%=v.folio + "+" + v.fecha + "+" + v.monto%>"></td>
+					<td class="text-center"><%=v.folio%></td>
+					<td class="text-center"><%=v.fecha%></td>
+					<td class="text-center"><%=v.monto%></td>
+				</tr>
+				<%
+					}
+				%>
+				<tr>
+					<td colspan=7 class="text-center"><button type="submit">Ver
+							detalle</button></td>
+				</tr>
+				<%
+			}
+		%>
+			</table>
 		</form>
-
+		<%
+			}
+			if (valesErroneos != null) {
+		%>
+		<h4 class="text-center">Vales cuyo monto no coincide</h4>
+		<form method="post" action="detalleConsolidado.jsp">
+			<table>
+				<%
+					if (valesErroneos != null) {
+				%>
+				<tr>
+					<th></th>
+					<th class="text-center">folio</th>
+					<th class="text-center">Fecha de Uso</th>
+					<th class="text-center">monto</th>
+				</tr>
+				<%
+					for (ValeXls v : valesErroneos) {
+				%>
+				<tr>
+					<td><input type="radio" name="valor_valexls"
+						value="<%=v.folio + "+" + v.fecha + "+" + v.monto%>"></td>
+					<td class="text-center"><%=v.folio%></td>
+					<td class="text-center"><%=v.fecha%></td>
+					<td class="text-center"><%=v.monto%></td>
+				</tr>
+				<%
+					}
+				%>
+				<tr>
+					<td colspan=7 class="text-center"><button type="submit">Ver
+							detalle</button></td>
+				</tr>
+				<%
+			}
+		%>
+			</table>
+		</form>
+		<%
+			}
+			if (valesInexistente != null) {
+		%>
+		<h4 class="text-center">Vales que no estan en la base de datos</h4>
+		<table>
+				<%
+					if (valesInexistente != null) {
+				%>
+				<tr>
+					<th class="text-center">folio</th>
+					<th class="text-center">Fecha de Uso</th>
+					<th class="text-center">monto</th>
+				</tr>
+				<%
+					for (ValeXls v : valesInexistente) {
+				%>
+				<tr>
+					<td class="text-center"><%=v.folio%></td>
+					<td class="text-center"><%=v.fecha%></td>
+					<td class="text-center"><%=v.monto%></td>
+				</tr>
+				<%
+					}
+			}
+		%>
+		</table>
 		<%
 			}
 		%>
-
-		<br /> <a href="index.jsp">Inicio</a><br />
+	<br /> <a href="index.jsp">Inicio</a><br />
 	</center>
 </body>
 </html>

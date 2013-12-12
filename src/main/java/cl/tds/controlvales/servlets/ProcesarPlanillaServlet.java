@@ -43,7 +43,7 @@ public class ProcesarPlanillaServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 3268280970123582388L;
 
-	private final String ruta = "C:/Apache-tomcat-7.0.47/webapps/data/planillas/";
+	private final String ruta = "./planillas/";
 	private static Logger LOGGER = Logger.getLogger("InfoLogging");
 
 	protected void processRequest(HttpServletRequest request,
@@ -53,7 +53,9 @@ public class ProcesarPlanillaServlet extends HttpServlet {
 		ArrayList<ValeXls> listaValesXls = new ArrayList<ValeXls>();
 		String file = request.getParameter("mes-consulta");
 		LOGGER.info(ruta + file);
-		List cellDataList = new ArrayList();
+		List cellDataListCorrectos = new ArrayList();
+		List cellDataListErroneos = new ArrayList();
+		List cellDataListInexistente = new ArrayList();
 		try {
 			FileInputStream fileInputStream = new FileInputStream(ruta + file);
 			// if(! fileInputStream.markSupported()) {
@@ -87,12 +89,27 @@ public class ProcesarPlanillaServlet extends HttpServlet {
 								(String) cellTempList.get(0),
 								(String) cellTempList.get(1),
 								(String) cellTempList.get(2));
-						cellDataList.add(valexls);
 						//convalida el vale
 						ValeController valeController = new ValeController();
 						String sv  = (String) cellTempList.get(0);
-						Vale v =  valeController.obtenerValeFolio(Long.parseLong(sv.split("\\.")[0]));							
-						valeController.autorizarVale(v, Estado.consolidado);
+						double dFolio = Double.parseDouble(sv); 
+						Vale v =  valeController.obtenerValeFolio((long)dFolio);
+						//ve si el vale existe
+						if(v != null){
+							valeController.autorizarVale(v, Estado.consolidado);
+							//compara montos
+							String sm  = (String) cellTempList.get(2);
+							double dMonto = Double.parseDouble(sm); 
+							if(v.getMonto_real() != (int)dMonto){
+								//monto no coinciden
+								cellDataListErroneos.add(valexls);
+							}
+							else{//vale existe y monto coincide
+								cellDataListCorrectos.add(valexls);
+							}
+						}
+						else
+							cellDataListInexistente.add(valexls);
 					}
 					i++;
 				}
@@ -120,19 +137,33 @@ public class ProcesarPlanillaServlet extends HttpServlet {
 							}
 							// ocupa la clase valeXls para guardar cada objetos
 							ValeXls valexls = new ValeXls(
-									(String) cellTempList.get(0),
-									(String) cellTempList.get(1),
-									(String) cellTempList.get(2));
-							cellDataList.add(valexls);
+									(String) cellTempList.get(0), //folio
+									(String) cellTempList.get(1), //fecha_uso
+									(String) cellTempList.get(2)); //monto_real
 							//convalida el vale
 							ValeController valeController = new ValeController();
 							String sv  = (String) cellTempList.get(0);
-							Vale v =  valeController.obtenerValeFolio(Long.parseLong(sv.split("\\.")[0]));							
-							valeController.autorizarVale(v, Estado.consolidado);
+							double dFolio = Double.parseDouble(sv); 
+							Vale v =  valeController.obtenerValeFolio((long)dFolio);
+							//ve si el vale existe
+							if(v != null){
+								valeController.autorizarVale(v, Estado.consolidado);
+								//compara montos
+								String sm  = (String) cellTempList.get(2);
+								double dMonto = Double.parseDouble(sm); 
+								if(v.getMonto_real() != (int)dMonto){
+									//monto no coinciden
+									cellDataListErroneos.add(valexls);
+								}
+								else{//vale existe y monto coincide
+									cellDataListCorrectos.add(valexls);
+								}
+							}
+							else
+								cellDataListInexistente.add(valexls);
 						}
 						i++;
 					}
-
 				}
 			}
 		} catch (Exception ex) {
@@ -140,11 +171,16 @@ public class ProcesarPlanillaServlet extends HttpServlet {
 		}
 
 		// envia lista a jsp
-		request.getSession().setAttribute("valesXls", cellDataList);
+		request.getSession().setAttribute("valesXlsCorrectos", cellDataListCorrectos);
+		request.getSession().setAttribute("valesXlsErroneos", cellDataListErroneos);
+		request.getSession().setAttribute("valesXlsInexistente", cellDataListInexistente);
 		response.sendRedirect("consolidacionVales.jsp");
 
 	}
 
+	
+	
+	
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
