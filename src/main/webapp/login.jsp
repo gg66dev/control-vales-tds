@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="stylesheet" type="text/css" href="./css/ivory.css" />
 <script type="text/javascript" src="./js/validate.min.js"></script>
 <title>Login</title>
@@ -14,8 +15,7 @@
 			<form class="vform" id="form" name="form" method="post" action="LoginServlet">
 				<h1 class="text-center">Login</h1>
 				<p>
-					Por favor ponga su informaci&oacute;n para ingresar <br />¿Nuevo
-					usuario? <a href="registrarUsuario.jsp">Registrese</a>
+					Por favor ponga su informaci&oacute;n para ingresar
 				</p>
 				<p id="error"></p>
 				
