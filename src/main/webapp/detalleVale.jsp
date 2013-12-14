@@ -23,7 +23,7 @@
 <%
 if( session.getAttribute("login") != null ){
 	Usuario login = (Usuario ) session.getAttribute("login");
-	if( login.getPerfil().equals(Perfil.usuario) ){
+	if( login.getPerfil().equals(Perfil.usuario) || login.getPerfil().equals(Perfil.gerente) ){
 %>
 	<div class="row">
 		<h1 class="text-center">Detalle Vale</h1>

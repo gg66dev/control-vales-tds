@@ -59,11 +59,13 @@ public class CentroCostoDAO implements Serializable {
 		}
 	}
 
-	public void eliminaCentroCosto(CentroCosto centroCosto) throws HibernateException {
+	public boolean eliminaCentroCosto(CentroCosto centroCosto) throws HibernateException {
+		boolean eliminado = false;
 		try {
 			iniciaOperacion();
 			sesion.delete(centroCosto);
 			tx.commit();
+			eliminado = true;
 		} catch (HibernateException he) {
 			manejaExcepcion(he);
 			throw he;
@@ -71,6 +73,7 @@ public class CentroCostoDAO implements Serializable {
 			if (sesion != null)
 				sesion.close();
 		}
+		return eliminado;
 	}
 	
 	public CentroCosto obtenCentroCosto(long id_centroCosto) throws HibernateException {

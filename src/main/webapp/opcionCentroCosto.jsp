@@ -64,7 +64,7 @@ if( session.getAttribute("login") != null ){
 				<div class="row space-bot">
 					<div class="c4 centered first">
 						<p class="note text-center">
-							<a href="eliminarCentroCosto.jsp">
+							<a href="eliminarCentroDeCosto.jsp">
 								Eliminar centro de costo
 							</a>
 						</p>

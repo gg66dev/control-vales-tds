@@ -43,6 +43,10 @@ public class DepartamentoController {
 		return actualizado;
 	}
 	
+	public boolean eliminar(Departamento departamento){
+		return this.deptoDao.eliminaDepartamento(departamento);
+	}
+	
 	public List<Departamento> obtenerListaDepartamentos(){
 		return this.deptoDao.obtenListaDepartamentos();
 	}

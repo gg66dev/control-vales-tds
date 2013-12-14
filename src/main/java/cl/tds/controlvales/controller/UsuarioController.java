@@ -58,6 +58,26 @@ public class UsuarioController {
 	/**
 	 * 
 	 */
+	public boolean actualiza(Usuario usuario){
+		boolean actualizado = false;
+		if( this.usuarioDao.obtenUsuario(usuario.getIdusuario()) != null ){
+			if( usuario.getNombre() != null 
+					&& usuario.getUsuario() != null
+					&& usuario.getPerfil() != null 
+					&& usuario.getCentroCosto() != null 
+					&& usuario.getPassword().length() >= 6
+					&& ValidacionUtil.validarRut(usuario.getRut())
+					&& ValidacionUtil.validaEmail(usuario.getEmail())){
+				if( this.usuarioDao.actualizaUsuario(usuario) )
+					actualizado = true;
+			}
+		}
+		return actualizado;
+	}
+	
+	/**
+	 * 
+	 */
 	public boolean actualiza(Usuario usuario, String password2){
 		boolean actualizado = false;
 		if( this.usuarioDao.obtenUsuario(usuario.getIdusuario()) != null ){

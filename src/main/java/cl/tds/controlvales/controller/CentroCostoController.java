@@ -44,6 +44,10 @@ public class CentroCostoController {
 		return actualizado;
 	}
 	
+	public boolean eliminar(CentroCosto centroCosto){
+		return this.centroCostoDao.eliminaCentroCosto(centroCosto);
+	}
+	
 	public List<CentroCosto> obtenerListaCentroCostos(){
 		return this.centroCostoDao.obtenListaCentroCostos();
 	}

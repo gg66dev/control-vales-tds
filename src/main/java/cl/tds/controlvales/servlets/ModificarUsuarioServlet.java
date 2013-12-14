@@ -48,9 +48,10 @@ public class ModificarUsuarioServlet extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		boolean result = false;
+		Usuario user = null;
 		try {
 			UsuarioController usuarioController = new UsuarioController();
-			Usuario user = usuarioController.obtenUsuario(Long.parseLong(id));
+			user = usuarioController.obtenUsuario(Long.parseLong(id));
 			if( user != null ){
 				for(Perfil p : Perfil.values()){
 					if( p.toString().toLowerCase().equals(perfil) ){
@@ -66,13 +67,23 @@ public class ModificarUsuarioServlet extends HttpServlet {
 					user.setCentroCosto(centroCosto);
 				}
 			}
-			user.setNombre(nombre);
-			user.setPassword(password1);
-			user.setEmail(email);
-			user.setUsuario(usuario);
-			user.setRut(rut);
-			user.setDomicilio(domicilio);
-			result = usuarioController.actualiza(user, password2);
+			if( nombre != null )
+				user.setNombre(nombre);
+			if( email != null )
+				user.setEmail(email);
+			if( usuario != null )
+				user.setUsuario(usuario);
+			if( rut != null )
+				user.setRut(rut);
+			if( domicilio != null )
+				user.setDomicilio(domicilio);
+			
+			if( password1 == null && password2 == null ){
+				result = usuarioController.actualiza(user);
+			}else{
+				user.setPassword(password1);
+				result = usuarioController.actualiza(user, password2);
+			}
 			
 		} finally {
 			out.println("<html>");
@@ -82,12 +93,14 @@ public class ModificarUsuarioServlet extends HttpServlet {
 			out.println("<body>");
 			out.println("<center>");
 			if (result) {
+				request.getSession().removeAttribute("login");
+				request.getSession().setAttribute("login", user);
 				out.println("<h1>Modificaci&oacute;n exitosa</h1>");
 				out.println("Para regresar al sitio "
 						+ "<a href=index.jsp>haga click aqu&iacute;</a>");
 			} else {
 				out.println("<h1>Ha fallado la operaci&oacute;n</h1>");
-				out.println("Esto puede deberse a que el nombre de usuario ya existe o alg&uacute;n campo "
+				out.println("Esto puede deberse a que alg&uacute;n campo "
 						+ "no cumple con los formatos exigidos.");
 				out.println();
 				out.println("Para intentar de nuevo <a href=administrarUsuarios.jsp>Haz click aqu&iacute;</a>");

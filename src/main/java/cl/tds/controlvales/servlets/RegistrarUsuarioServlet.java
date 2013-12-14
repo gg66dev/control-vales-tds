@@ -73,15 +73,14 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 			out.println("<center>");
 			if (result) {
 				out.println("<h1>Registro exitoso</h1>");
-				out.println("Para ingresar al sitio con su nueva cuenta "
-						+ "<a href=login.jsp>haga click aqu&iacute;</a>");
+				out.println("Para regresar al sitio <a href=index.jsp>haga click aqu&iacute;</a>");
 			} else {
 				out.println("<h1>Ha fallado el registro</h1>");
 				out.println("Esto puede deberse a que el nombre de usuario ya existe o los passwords "
 						+ "no coinciden, no tienen el m&iacute;nimo tama&ntilde;o o alg&uacute;n campo "
 						+ "no cumple con los formatos exigidos.");
 				out.println();
-				out.println("Para intentar de nuevo <a href=register.jsp>Haz click aqu&iacute;</a>");
+				out.println("Para intentar de nuevo <a href=registrarUsuario.jsp>Haz click aqu&iacute;</a>");
 			}
 			out.println("</center>");
 			out.println("</body>");

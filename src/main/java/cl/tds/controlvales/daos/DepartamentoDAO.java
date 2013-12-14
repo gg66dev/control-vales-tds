@@ -61,11 +61,14 @@ public class DepartamentoDAO implements Serializable {
 		}
 	}
 
-	public void eliminaDepartamento(Departamento departamento) throws HibernateException {
+	public boolean eliminaDepartamento(Departamento departamento) throws HibernateException {
+		boolean eliminado = false;
+		
 		try {
 			iniciaOperacion();
 			sesion.delete(departamento);
 			tx.commit();
+			eliminado = true;
 		} catch (HibernateException he) {
 			manejaExcepcion(he);
 			throw he;
@@ -73,6 +76,8 @@ public class DepartamentoDAO implements Serializable {
 			if (sesion != null)
 				sesion.close();
 		}
+		
+		return eliminado;
 	}
 	
 	public Departamento obtenDepartamento(long id_departamento) throws HibernateException {

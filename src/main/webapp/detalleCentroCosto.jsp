@@ -67,30 +67,32 @@ if( session.getAttribute("login") != null ){
 							<input type="text" name="descripcion" id="descripcion"
 							value="<%= centroCosto.getDescripcion() %>" />
 						<%
-							DepartamentoController departamentoController = new DepartamentoController();
-											List<Departamento> departamentos = 
-													departamentoController.obtenerListaDepartamentos();
-											if( departamentos != null && departamentos.size() != 0 ){
+							if( centroCosto.getIdcentro_costo() != 1l ){
+								DepartamentoController departamentoController = new DepartamentoController();
+								List<Departamento> departamentos = 
+										departamentoController.obtenerListaDepartamentos();
+								if( departamentos != null && departamentos.size() != 0 ){
 						%>
-						<label>Departamento</label> <select size=1 name="departamento">
-							<%
-								for( Departamento d : departamentos ){
-											if( centroCosto.getDepartamento() != null 
-													&& centroCosto.getDepartamento().getIddepartamento() == d.getIddepartamento() ){
-							%>
-							<option value="<%= d.getIddepartamento() %>" selected="selected">
-								<%= d.getNombre() %>
-							</option>
-							<%
-								}else{
-							%>
-							<option value="<%= d.getIddepartamento() %>"><%= d.getNombre() %></option>
-							<%
-								}
-										}
-							%>
-						</select>
+							<label>Departamento</label> <select size=1 name="departamento">
+								<%
+									for( Departamento d : departamentos ){
+												if( centroCosto.getDepartamento() != null 
+														&& centroCosto.getDepartamento().getIddepartamento() == d.getIddepartamento() ){
+								%>
+								<option value="<%= d.getIddepartamento() %>" selected="selected">
+									<%= d.getNombre() %>
+								</option>
+								<%
+									}else{
+								%>
+								<option value="<%= d.getIddepartamento() %>"><%= d.getNombre() %></option>
+								<%
+									}
+											}
+								%>
+							</select>
 						<%
+								}
 							}
 						%>
 						<button type="submit">Actualizar centro de costo</button>

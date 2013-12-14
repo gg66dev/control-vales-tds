@@ -50,10 +50,12 @@ if( session.getAttribute("login") != null ){
 					ArrayList<String> fileList;
 					FileXlsUtil f = new FileXlsUtil();
 					fileList = f.getListXlsFile();
-					for (String fileName : fileList) {
-				%>
-				<option value="<%=fileName%>"><%=fileName%></option>
+					if( fileList != null ){
+						for (String fileName : fileList) {
+					%>
+						<option value="<%=fileName%>"><%=fileName%></option>
 				<%
+						}
 					}
 				%>
 			</select>

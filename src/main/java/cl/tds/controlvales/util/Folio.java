@@ -19,11 +19,9 @@ public class Folio {
 	public static long generaFolio(){
 		Vale v = valeDAO.obtenUltimoVale();
 		if( v != null ){
-			if( valeDAO.obtenListaVales() != null ){
-				FOLIO = v.getFolio() + 1;
-			}else{
-				FOLIO = 1l;
-			}
+			FOLIO = v.getFolio() + 1l;
+		}else{
+			FOLIO = 1l;
 		}
 		return FOLIO++;
 	}

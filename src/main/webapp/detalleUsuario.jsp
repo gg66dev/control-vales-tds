@@ -98,30 +98,31 @@ if( session.getAttribute("login") != null ){
 									}
 								%>
 							</select>
-						<%
-							}
-							CentroCostoController centroCostoController = new CentroCostoController();
-							List<CentroCosto> centroCostos = centroCostoController.obtenerListaCentroCostos();
-							if( centroCostos != null && centroCostos.size() != 0 ){
-						%>
-						<label>Centro de costo</label> <select size=1 name="centro_costo">
 							<%
-								for( CentroCosto c : centroCostos ){
-											if( usuario.getCentroCosto() != null && usuario.getCentroCosto().equals(c) ){
+								CentroCostoController centroCostoController = new CentroCostoController();
+								List<CentroCosto> centroCostos = centroCostoController.obtenerListaCentroCostos();
+								if( centroCostos != null && centroCostos.size() != 0 ){
 							%>
-							<option value="<%= c.getIdcentro_costo() %>" selected="selected">
-								<%= c.getNombre() %>
-							</option>
-							<%
-								}else{
-							%>
-							<option value="<%= c.getIdcentro_costo() %>"><%= c.getNombre() %></option>
-							<%
-								}
+							<label>Centro de costo</label> <select size=1 name="centro_costo">
+								<%
+									for( CentroCosto c : centroCostos ){
+										if( usuario.getCentroCosto() != null 
+												&& usuario.getCentroCosto().getIdcentro_costo() == usuario.getCentroCosto().getIdcentro_costo() ){
+								%>
+									<option value="<%= c.getIdcentro_costo() %>" selected="selected">
+										<%= c.getNombre() %>
+									</option>
+									<%
+										}else{
+									%>
+									<option value="<%= c.getIdcentro_costo() %>"><%= c.getNombre() %></option>
+								<%
 										}
-							%>
-						</select>
+									}
+								%>
+							</select>
 						<%
+								}
 							}
 						%>
 						<button type="submit">Actualizar usuario</button>
