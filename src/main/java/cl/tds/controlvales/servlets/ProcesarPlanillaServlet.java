@@ -43,19 +43,18 @@ public class ProcesarPlanillaServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 3268280970123582388L;
 
-	private final String ruta = "C:/Apache-tomcat-7.0.47/webapps/data/planillas/";
+	private final String ruta = System.getProperty("catalina.base")+"/webapps/data/planillas/";
 	private static Logger LOGGER = Logger.getLogger("InfoLogging");
 
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 
-		ArrayList<ValeXls> listaValesXls = new ArrayList<ValeXls>();
 		String file = request.getParameter("mes-consulta");
 		LOGGER.info(ruta + file);
-		List cellDataListCorrectos = new ArrayList();
-		List cellDataListErroneos = new ArrayList();
-		List cellDataListInexistente = new ArrayList();
+		List<ValeXls> cellDataListCorrectos = new ArrayList<ValeXls>();
+		List<ValeXls> cellDataListErroneos = new ArrayList<ValeXls>();
+		List<ValeXls> cellDataListInexistente = new ArrayList<ValeXls>();
 		try {
 			FileInputStream fileInputStream = new FileInputStream(ruta + file);
 			// if(! fileInputStream.markSupported()) {

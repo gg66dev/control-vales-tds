@@ -180,7 +180,7 @@
 					</p>
 				</div>
 			</div>
-			<div class="row space-bot">
+			<!-- <div class="row space-bot">
 				<div class="c4 centered first">
 					<p class="note text-center">
 						<a href="moduloInformes.jsp">
@@ -188,7 +188,7 @@
 						</a>
 					</p>
 				</div>
-			</div>
+			</div>-->
 			<div class="row space-bot">
 				<div class="c4 centered first">
 					<p class="note text-center">

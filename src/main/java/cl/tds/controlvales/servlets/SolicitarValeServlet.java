@@ -34,6 +34,9 @@ public class SolicitarValeServlet extends HttpServlet {
 		
 		boolean result = false;
 		
+		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+		if ( usuario == null )System.out.println("usuario es null");
+		
 		if( NumberUtil.isInteger(request.getParameter("monto_estipulado"))
 				&& DateUtil.isDate(request.getParameter("fecha_uso")) 
 				&& request.getSession().getAttribute("usuario") != null){

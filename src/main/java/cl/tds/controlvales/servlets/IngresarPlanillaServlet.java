@@ -32,7 +32,7 @@ public class IngresarPlanillaServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1732597084276799693L;
 	
-	private final String ruta = "C:/Apache-tomcat-7.0.47/webapps/data/planillas/";
+	private final String ruta = System.getProperty("catalina.base")+"/webapps/data/planillas/";
 	private final String[] tiposPermitidos = {
 			"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
 			"application/vnd.oasis.opendocument.spreadsheet"
@@ -42,6 +42,10 @@ public class IngresarPlanillaServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		
+		
+		//crea directorio de la ruta
+		(new File(ruta)).mkdirs();		
+		
 		// Create a factory for disk-based file items
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 
@@ -49,6 +53,7 @@ public class IngresarPlanillaServlet extends HttpServlet {
 		ServletFileUpload upload = new ServletFileUpload(factory);
 
 		PrintWriter out = response.getWriter();
+		
 		try {
 			// request es la HttpServletRequest que recibimos del formulario.
 			// Los items obtenidos serán cada uno de los campos del formulario,
