@@ -15,6 +15,9 @@ public class FileXlsUtil {
 		String files;
 		ArrayList<String> fileList = new ArrayList<String>();
 		
+		//crea directorio de la ruta
+		(new File(ruta)).mkdirs();		
+		
 		File folder = new File(ruta);
 		File[] listOfFiles = folder.listFiles();
 

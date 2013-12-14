@@ -1,5 +1,6 @@
 package cl.tds.controlvales.servlets;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -50,6 +51,9 @@ public class ProcesarPlanillaServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 
+		//crea directorio de la ruta
+		(new File(ruta)).mkdirs();		
+		
 		String file = request.getParameter("mes-consulta");
 		LOGGER.info(ruta + file);
 		List<ValeXls> cellDataListCorrectos = new ArrayList<ValeXls>();

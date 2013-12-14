@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-   pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <%@page import="cl.tds.controlvales.util.ValeXls"%>
 <%@page import="cl.tds.controlvales.util.FileXlsUtil"%>
 <%@page import="java.util.List"%>
@@ -11,7 +11,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="stylesheet" type="text/css" href="./css/ivory.css" />
 <title>Consolidaci&oacute;n de vales</title>
 <script src="./js/jquery-1.9.1.js"></script>
@@ -24,36 +25,37 @@ if( session.getAttribute("login") != null ){
 %>
 <body>
 	<center>
+
+		<%
+		@SuppressWarnings("unchecked")
+		List<ValeXls> valesCorrectos = (List<ValeXls>) request.getSession()
+				.getAttribute("valesXlsCorrectos");
+		@SuppressWarnings("unchecked")
+		List<ValeXls> valesErroneos = (List<ValeXls>) request.getSession()
+			.getAttribute("valesXlsErroneos");
+		@SuppressWarnings("unchecked")
+		List<ValeXls> valesInexistente = (List<ValeXls>) request
+			.getSession().getAttribute("valesXlsInexistente");
+	
+		
+			ArrayList<String> fileList;
+			FileXlsUtil f = new FileXlsUtil();
+			fileList = f.getListXlsFile(); 
+		
+			if(!fileList.isEmpty()){
+		%>
+
 		<form class="vform" id="form" name="form" method="post"
 			action="ProcesarPlanillaServlet">
 			<h1 class="text-center">Consolidaci&oacute;n de vales</h1>
 			<p>Por favor seleccionar el mes a cargar</p>
 
-			<%
-				@SuppressWarnings("unchecked")
-				List<ValeXls> valesCorrectos = (List<ValeXls>) request.getSession()
-						.getAttribute("valesXlsCorrectos");
-				@SuppressWarnings("unchecked")
-				List<ValeXls> valesErroneos = (List<ValeXls>) request.getSession()
-					.getAttribute("valesXlsErroneos");
-				@SuppressWarnings("unchecked")
-				List<ValeXls> valesInexistente = (List<ValeXls>) request
-					.getSession().getAttribute("valesXlsInexistente");
-				
-				//if(valesCorrectos.isEmpty()) valesCorrectos = null; 
-				//if(valesErroneos.isEmpty()) valesErroneos = null;
-				//if(valesInexistente.isEmpty()) valesInexistente = null;
-			%>
-
 			<select size="1" name="mes-consulta">
 				<%
-					ArrayList<String> fileList;
-					FileXlsUtil f = new FileXlsUtil();
-					fileList = f.getListXlsFile();
 					if( fileList != null ){
 						for (String fileName : fileList) {
 					%>
-						<option value="<%=fileName%>"><%=fileName%></option>
+				<option value="<%=fileName%>"><%=fileName%></option>
 				<%
 						}
 					}
@@ -62,7 +64,17 @@ if( session.getAttribute("login") != null ){
 
 			<button type="submit">Cargar</button>
 		</form>
+		
 		<%
+			}else {
+		%>
+			<h1 class="text-center">Consolidaci&oacute;n de vales</h1>
+			<h4 class="text-center">No hay planillas ingresadas en el sistema</h4>
+		<%
+			}
+		%>
+		<%
+		
 			if (valesCorrectos != null && !valesCorrectos.isEmpty()) {
 		%>
 		<h4 class="text-center">Vales Correctos</h4>
@@ -143,23 +155,23 @@ if( session.getAttribute("login") != null ){
 		%>
 		<h4 class="text-center">Vales que no estan en la base de datos</h4>
 		<table>
-				<%
+			<%
 					if (valesInexistente != null) {
 				%>
-				<tr>
-					<th class="text-center">folio</th>
-					<th class="text-center">Fecha de Uso</th>
-					<th class="text-center">monto</th>
-				</tr>
-				<%
+			<tr>
+				<th class="text-center">folio</th>
+				<th class="text-center">Fecha de Uso</th>
+				<th class="text-center">monto</th>
+			</tr>
+			<%
 					for (ValeXls v : valesInexistente) {
 				%>
-				<tr>
-					<td class="text-center"><%=v.folio%></td>
-					<td class="text-center"><%=v.fecha%></td>
-					<td class="text-center"><%=v.monto%></td>
-				</tr>
-				<%
+			<tr>
+				<td class="text-center"><%=v.folio%></td>
+				<td class="text-center"><%=v.fecha%></td>
+				<td class="text-center"><%=v.monto%></td>
+			</tr>
+			<%
 					}
 			}
 		%>
@@ -167,9 +179,9 @@ if( session.getAttribute("login") != null ){
 		<%
 			}
 		%>
-	<br /> <a href="index.jsp">Inicio</a><br />
+		<br /> <a href="index.jsp">Inicio</a><br />
 	</center>
-<%
+	<%
 	}
 }
 %>
