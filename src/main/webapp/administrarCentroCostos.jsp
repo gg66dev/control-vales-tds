@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="cl.tds.controlvales.beans.CentroCosto"%>
 <%@page import="cl.tds.controlvales.beans.Usuario"%>
 <%@page import="cl.tds.controlvales.beans.Perfil"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.List"%>
-<%@page import="cl.tds.controlvales.controller.UsuarioController"%>
+<%@page import="cl.tds.controlvales.controller.CentroCostoController"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -12,7 +13,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="stylesheet" type="text/css" href="./css/ivory.css" />
-<title>Listar usuarios</title>
+<title>Listar centro de costos</title>
 </head>
 <body>
 <%
@@ -21,37 +22,35 @@ if( session.getAttribute("login") != null ){
 	if( login.getPerfil().equals(Perfil.administrador) ){
 %>
 <div class="row space-bot">
-	<h1 class="text-center">Administrar usuarios</h1>
+	<h1 class="text-center">Administrar centro de costos</h1>
 </div> 
 	<div class="content">
 		<div class="grid">
 			<%
-				if(session.getAttribute("usuario") != null)
-					session.removeAttribute("usuario");
-				UsuarioController usuarioController = new UsuarioController();
-				List<Usuario> list = usuarioController.obtenerListaUsuario();
+				if(session.getAttribute("centroCosto") != null)
+					session.removeAttribute("centroCosto");
+				CentroCostoController centroCostoController = new CentroCostoController();
+				List<CentroCosto> list = centroCostoController.obtenerListaCentroCostos();
 				if (!list.isEmpty()) {
 			%>
 			<hr>
 			<div class="row space-bot">
 				<div class="c2 first"></div>
 				<div class="c8">
-					<form name="form" method="post" action="opcionUsuario.jsp">
-						<p class="note text-center">Por favor seleccione un usuario a
+					<form name="form" method="post" action="opcionCentroCosto.jsp">
+						<p class="note text-center">Por favor seleccione un centro de costo a
 							modificar</p>
 						<p id="error"></p>
 						<table>
 							<tr>
-								<th class="text-center">Usuario</th>
+								<th class="text-center">Centro de costo</th>
 								<th class="text-center">Nombre</th>
-								<th class="text-center">Nombre de usuario</th>
-								<th class="text-center">Rut</th>
-								<th class="text-center">Email</th>
+								<th class="text-center">Descripci&oacute;n</th>
 							</tr>
 							<%
 								int i = 0;
-								for (Usuario u : list) {
-									if (i % 2 == 1) {
+									for (CentroCosto cc : list) {
+										if (i % 2 == 1) {
 							%>
 							<tr class="even">
 								<%
@@ -62,17 +61,16 @@ if( session.getAttribute("login") != null ){
 								<%
 									}
 								%>
-											<td class="text-center"><input
-									value="<%=u.getIdusuario()%>" name="usuario" type="radio">
+
+								<td class="text-center"><input
+									value="<%=cc.getIdcentro_costo()%>" name="centroCosto" type="radio">
 								</td>
 								<td class="text-center">
-									<%=u.getNombre()%>
+									<%=cc.getNombre()%>
 								</td>
 								<td class="text-center">
-									<%=u.getUsuario()%>
+									<%=cc.getDescripcion()%>
 								</td>
-								<td class="text-center"><%=u.getRut()%></td>
-								<td class="text-center"><%=u.getEmail()%></td>
 							</tr>
 							<%
 								}
@@ -91,7 +89,7 @@ if( session.getAttribute("login") != null ){
 				} else {
 			%>
 			<div class="row space-bot">
-				<p class="note text-center">No hay usuarios registrados.</p>
+				<p class="note text-center">No hay departamentos registrados.</p>
 			</div>
 			<%
 				}

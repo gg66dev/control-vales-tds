@@ -49,8 +49,8 @@ public class UsuarioController {
 				&& user.getPassword().length() >= 6
 				&& ValidacionUtil.validarRut(user.getRut())
 				&& ValidacionUtil.validaEmail(user.getEmail())) {
-			this.usuarioDao.guardaUsuario(user);
-			registrado = true;
+			if( this.usuarioDao.guardaUsuario(user) > 0l)
+				registrado = true;
 		}
 		return registrado;
 	}
@@ -58,15 +58,19 @@ public class UsuarioController {
 	/**
 	 * 
 	 */
-	public boolean actualiza(Usuario usuario){
+	public boolean actualiza(Usuario usuario, String password2){
 		boolean actualizado = false;
 		if( this.usuarioDao.obtenUsuario(usuario.getIdusuario()) != null ){
 			if( usuario.getNombre() != null 
 					&& usuario.getUsuario() != null
 					&& usuario.getPerfil() != null 
-					&& usuario.getCentroCosto() != null ){
-				this.usuarioDao.actualizaUsuario(usuario);
-				actualizado = true;
+					&& usuario.getCentroCosto() != null 
+					&& usuario.getPassword().equals(password2)
+					&& usuario.getPassword().length() >= 6
+					&& ValidacionUtil.validarRut(usuario.getRut())
+					&& ValidacionUtil.validaEmail(usuario.getEmail())){
+				if( this.usuarioDao.actualizaUsuario(usuario) )
+					actualizado = true;
 			}
 		}
 		return actualizado;

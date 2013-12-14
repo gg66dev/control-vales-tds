@@ -17,10 +17,11 @@ public class CentroCostoController {
 	private CentroCostoDAO centroCostoDao = new CentroCostoDAO();
 
 	public long registrar(CentroCosto centroCosto){
+		long resp = 0l;
 		if( centroCosto.getNombre() != null && centroCosto.getDepartamento() != null ){
-			return centroCostoDao.guardaCentroCosto(centroCosto);
+			resp = centroCostoDao.guardaCentroCosto(centroCosto);
 		}
-		return -1l;
+		return resp;
 	}
 	
 	public CentroCosto obtenCentroCosto(long id_centroCosto ){
@@ -30,7 +31,20 @@ public class CentroCostoController {
 		return null;
 	}
 	
-	public List<CentroCosto> listarCentroCostos(){
+	public boolean actualiza(CentroCosto centroCosto){
+		boolean actualizado = false;
+		if( this.centroCostoDao.obtenCentroCosto(centroCosto.getIdcentro_costo()) != null ){
+			if( centroCosto.getNombre() != null 
+					&& centroCosto.getNombre() != null
+					&& centroCosto.getDepartamento() != null  ){
+				this.centroCostoDao.actualizaCentroCosto(centroCosto);
+				actualizado = true;
+			}
+		}
+		return actualizado;
+	}
+	
+	public List<CentroCosto> obtenerListaCentroCostos(){
 		return this.centroCostoDao.obtenListaCentroCostos();
 	}
 }

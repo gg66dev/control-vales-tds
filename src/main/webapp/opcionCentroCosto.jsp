@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@page import="cl.tds.controlvales.beans.Usuario"%>
-<%@page import="cl.tds.controlvales.controller.UsuarioController"%>
+<%@page import="cl.tds.controlvales.beans.CentroCosto"%>
+<%@page import="cl.tds.controlvales.controller.CentroCostoController"%>
 <%@page import="cl.tds.controlvales.util.NumberUtil"%>
 <%@page import="cl.tds.controlvales.beans.Usuario"%>
 <%@page import="cl.tds.controlvales.beans.Perfil"%>
@@ -34,16 +34,16 @@ if( session.getAttribute("login") != null ){
 	if( login.getPerfil().equals(Perfil.administrador) ){
 %>
 	<div class="row space-bot">
-		<h1 class="text-center">Administrar Usuarios</h1>
+		<h1 class="text-center">Administrar Centro de costos</h1>
 		<p class="text-center">Por favor escoga una opci&oacute;n </p>
 	</div>
 	<%
-		String id = request.getParameter("usuario");
+		String id = request.getParameter("centroCosto");
 		if( id != null && NumberUtil.isLong(id) ){
-			UsuarioController uc = new UsuarioController();				
-			Usuario usuario = uc.obtenUsuario(Long.parseLong(id));
-			if( usuario != null ){
-				request.getSession().setAttribute("usuario", usuario);
+			CentroCostoController cc = new CentroCostoController();				
+			CentroCosto centroCosto = cc.obtenCentroCosto(Long.parseLong(id));
+			if( centroCosto != null ){
+				request.getSession().setAttribute("centroCosto", centroCosto);
 	%>
 	<hr>
 	<div class="content">
@@ -52,20 +52,20 @@ if( session.getAttribute("login") != null ){
 				<div class="row space-bot">
 					<div class="c4 centered first">
 						<p class="note text-center">
-							<a href="detalleUsuario.jsp">
-								Modificar Usuario
+							<a href="detalleCentroCosto.jsp">
+								Modificar centro de costo
 							</a>
 						</p>
 					</div>
 				</div>
 				<%
-					if( usuario.getIdusuario() != 1 ){
+					if( centroCosto.getIdcentro_costo() != 1 ){
 				%>
 				<div class="row space-bot">
 					<div class="c4 centered first">
 						<p class="note text-center">
-							<a href="eliminarUsuario.jsp">
-								Eliminar usuario
+							<a href="eliminarCentroCosto.jsp">
+								Eliminar centro de costo
 							</a>
 						</p>
 					</div>
@@ -88,11 +88,11 @@ if( session.getAttribute("login") != null ){
 	<%
 			}else{
 	%>
-	<div class="row">
-		<p class="note text-center">
-			Usuario no encontrado
-		</p>
-	</div>
+<div class="row">
+	<p class="note text-center">
+		Centro de costo no encontrado
+	</p>
+</div>
 <%
 			}
 		}

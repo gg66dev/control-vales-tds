@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@page import="cl.tds.controlvales.beans.Usuario"%>
-<%@page import="cl.tds.controlvales.controller.UsuarioController"%>
-<%@page import="cl.tds.controlvales.beans.Perfil"%>
 <%@page import="cl.tds.controlvales.beans.CentroCosto"%>
 <%@page import="cl.tds.controlvales.controller.CentroCostoController"%>
+<%@page import="cl.tds.controlvales.beans.Departamento"%>
+<%@page import="cl.tds.controlvales.controller.DepartamentoController"%>
 <%@page import="cl.tds.controlvales.util.NumberUtil"%>
+<%@page import="cl.tds.controlvales.beans.Usuario"%>
+<%@page import="cl.tds.controlvales.beans.Perfil"%>
 <%@page import="java.util.List;"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -16,7 +17,7 @@
 <script src="./js/jquery-1.9.1.js"></script>
 <script src="./js/jquery.Rut.js"></script>
 <script type="text/javascript" src="./js/validate.js"></script>
-<title>Administrar usuario</title>
+<title>Administrar centro de costo</title>
 <style>
 	.content{width: 100%; height: auto; background-color: #EBEAE8; padding: 30px 12px;}
 	.note {
@@ -38,25 +39,16 @@ if( session.getAttribute("login") != null ){
 	Usuario login = (Usuario ) session.getAttribute("login");
 	if( login.getPerfil().equals(Perfil.administrador) ){
 %>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('#rut').Rut({
-			on_error : function() {
-				alert('Rut incorrecto');
-			}
-		});
-	});
-</script>
 <script>
 	$("form").validate();
 </script>
 <div class="row">
-	<h1 class="text-center">Administrar usuario</h1>
+	<h1 class="text-center">Administrar centro de costo</h1>
 	<p class="note text-center">Por favor ingrese la siguiente informaci&oacute;n</p>
 </div>
 <%
-	Usuario usuario = (Usuario ) request.getSession().getAttribute("usuario");
-	if( usuario != null ){
+	CentroCosto centroCosto = (CentroCosto ) request.getSession().getAttribute("centroCosto");
+	if( centroCosto != null ){
 %>
 <div class="content">
 	<div class="grid">
@@ -64,58 +56,35 @@ if( session.getAttribute("login") != null ){
 			<div class="row space-bot">
 				<div class="c4 centered first">
 					<form class="vform" id="form" name="form" method="post"
-						action="ModificarUsuarioServlet">
+						action="ModificarCentroDeCostoServlet">
 						<p id="error"></p>
-							<input type="hidden" value="<%= usuario.getIdusuario() %>"
-							name="id" /> <label>Nombre </label> <input type="text"
-							name="nombre" id="nombre" value="<%= usuario.getNombre() %>" /> <label>Nombre
-							de usuario </label> <input type="text" name="usuario" id="usuario"
-							value="<%= usuario.getUsuario() %>" /> <label>Email</label> <input
-							type="text" name="email" id="email"
-							value="<%= usuario.getEmail() %>" /> <label>Rut</label> <input
-							type="text" name="rut" id="rut" value="<%= usuario.getRut() %>" />
-						<label>Domicilio</label> <input type="text" name="domicilio"
-							id="domicilio" value="<%= usuario.getDomicilio() %>" /> 
-						
+							<input type="hidden" value="<%= centroCosto.getIdcentro_costo() %>"
+							name="id" />
+							<label>Nombre </label>
+							<input type="text" name="nombre" id="nombre" 
+							value="<%= centroCosto.getNombre() %>" /> 
+							<label>Descrici&oacute;n </label> 
+							<input type="text" name="descripcion" id="descripcion"
+							value="<%= centroCosto.getDescripcion() %>" />
 						<%
-							if( usuario.getIdusuario() != 1l ){
+							DepartamentoController departamentoController = new DepartamentoController();
+											List<Departamento> departamentos = 
+													departamentoController.obtenerListaDepartamentos();
+											if( departamentos != null && departamentos.size() != 0 ){
 						%>
-							<label>Perfil</label> <select size=1 name="perfil">
-								<%
-									for( Perfil p : Perfil.values() ) {
-										if( usuario.getPerfil().equals(p) ) {
-								%>
-								<option value="<%= p.toString().toLowerCase() %>"
-									selected="selected">
-									<%= p.toString() %>
-								</option>
-								<%
-										}else{
-								%>
-								<option value="<%= p.toString().toLowerCase() %>"><%= p.toString() %></option>
-								<%
-										}
-									}
-								%>
-							</select>
-						<%
-							}
-							CentroCostoController centroCostoController = new CentroCostoController();
-							List<CentroCosto> centroCostos = centroCostoController.obtenerListaCentroCostos();
-							if( centroCostos != null && centroCostos.size() != 0 ){
-						%>
-						<label>Centro de costo</label> <select size=1 name="centro_costo">
+						<label>Departamento</label> <select size=1 name="departamento">
 							<%
-								for( CentroCosto c : centroCostos ){
-											if( usuario.getCentroCosto() != null && usuario.getCentroCosto().equals(c) ){
+								for( Departamento d : departamentos ){
+											if( centroCosto.getDepartamento() != null 
+													&& centroCosto.getDepartamento().getIddepartamento() == d.getIddepartamento() ){
 							%>
-							<option value="<%= c.getIdcentro_costo() %>" selected="selected">
-								<%= c.getNombre() %>
+							<option value="<%= d.getIddepartamento() %>" selected="selected">
+								<%= d.getNombre() %>
 							</option>
 							<%
 								}else{
 							%>
-							<option value="<%= c.getIdcentro_costo() %>"><%= c.getNombre() %></option>
+							<option value="<%= d.getIddepartamento() %>"><%= d.getNombre() %></option>
 							<%
 								}
 										}
@@ -124,7 +93,7 @@ if( session.getAttribute("login") != null ){
 						<%
 							}
 						%>
-						<button type="submit">Actualizar usuario</button>
+						<button type="submit">Actualizar centro de costo</button>
 					</form>
 				</div>
 			</div>
@@ -149,16 +118,7 @@ if( session.getAttribute("login") != null ){
 			[ {
 				name : 'nombre',
 				rules : 'required'
-			}, {
-				name : 'usuario',
-				rules : 'required'
-			}, {
-				name : 'email',
-				rules : 'required'
-			}, {
-				name : 'rut',
-				rules : 'required'
-			} ],
+			}],
 			function(errors, event) {
 				if (errors.length > 0) {
 					var errorString = '';

@@ -28,8 +28,8 @@ public class CentroCostoDAO implements Serializable {
 	private Session sesion = null;
 	private Transaction tx = null;
 
-	public Long guardaCentroCosto(CentroCosto centroCosto) throws HibernateException {
-		Long id = (long) 0;
+	public long guardaCentroCosto(CentroCosto centroCosto) throws HibernateException {
+		long id = 0l;
 
 		try {
 			iniciaOperacion();
@@ -37,7 +37,6 @@ public class CentroCostoDAO implements Serializable {
 			tx.commit();
 		} catch (HibernateException he) {
 			manejaExcepcion(he);
-			throw he;
 		} finally {
 			if (sesion != null)
 				sesion.close();

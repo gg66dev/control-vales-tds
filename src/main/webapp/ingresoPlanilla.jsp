@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="cl.tds.controlvales.servlets.IngresarPlanillaServlet" %>
+<%@page import="cl.tds.controlvales.beans.Usuario"%>
+<%@page import="cl.tds.controlvales.beans.Perfil"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,6 +12,11 @@
 <link rel="stylesheet" type="text/css" href="./css/ivory.css" />
 </head>
 <body>
+<%
+if( session.getAttribute("login") != null ){
+	Usuario login = (Usuario ) session.getAttribute("login");
+	if( login.getPerfil().equals(Perfil.administrador) ){
+%>
 <div class="row">
 	<h1 class="text-center">Ingresar planilla</h1>
 </div>
@@ -37,5 +44,9 @@
 		</div>
 	</div>
 </div>
+<%
+	}
+}
+%>
 </body>
 </html>

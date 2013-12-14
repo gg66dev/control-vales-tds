@@ -1,14 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="cl.tds.controlvales.beans.Departamento"%>
+<%@page import="cl.tds.controlvales.controller.DepartamentoController"%>
+<%@page import="cl.tds.controlvales.util.NumberUtil"%>
 <%@page import="cl.tds.controlvales.beans.Usuario"%>
 <%@page import="cl.tds.controlvales.beans.Perfil"%>
+<%@page import="java.util.List;"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="stylesheet" type="text/css" href="./css/ivory.css" />
-<title>Eliminar usuario</title>
+<script src="./js/jquery-1.9.1.js"></script>
+<script src="./js/jquery.Rut.js"></script>
+<script type="text/javascript" src="./js/validate.js"></script>
+<title>Administrar departamento</title>
 <style>
 	.content{width: 100%; height: auto; background-color: #EBEAE8; padding: 30px 12px;}
 	.note {
@@ -30,55 +37,56 @@ if( session.getAttribute("login") != null ){
 	Usuario login = (Usuario ) session.getAttribute("login");
 	if( login.getPerfil().equals(Perfil.administrador) ){
 %>
-<div class="row space-bot">
-	<h1 class="text-center">Eliminar usuario</h1>
-	<p class="text-center">Est&aacute; a punto de eliminar un usuario, 
-	considere que al realizar esta operaci&oacute;n usted eliminar&aacute; 
-	de la base de datos los vales asociados a dicho usuario.</p>
-</div> 
-	<div class="grid">
-		<p id="error"></p>
-		<div class="row space-bot">
-			<div class="c4 centered first">
-				<form id="form" name="form" method="post"
-					action="EliminarUsuarioServlet">
-					<table>
-							<tr>
-								<th class="text-center">Opci&oacute;n</th>
-								<th class="text-center">Valor</th>
-							</tr>
-							<tr>
-								<td class="text-center">Si</td>
-								<td class="text-center"><input value="si" name="opcion" type="radio" /></td>
-							</tr>
-							<tr>
-								<td class="text-center">No</td>
-								<td class="text-center"><input value="no" name="opcion" type="radio" /></td>
-							</tr>
-							<tr>
-								<td colspan=2 class="text-center"><button type="submit">Eliminar</button></td>
-							</tr>
-						</table>
-				</form>
-			</div>
-		</div>
-	</div> <!-- fin grid -->
+<script>
+	$("form").validate();
+</script>
+<div class="row">
+	<h1 class="text-center">Administrar departamento</h1>
+	<p class="note text-center">Por favor ingrese la siguiente informaci&oacute;n</p>
+</div>
+<%
+Departamento departamento = (Departamento ) request.getSession().getAttribute("departamento");
+	if( departamento != null ){
+%>
 <div class="content">
 	<div class="grid">
 		<div class="row">
+			<div class="row space-bot">
+				<div class="c4 centered first">
+					<form class="vform" id="form" name="form" method="post"
+						action="ModificarDepartamentoServlet">
+						<p id="error"></p>
+							<input type="hidden" value="<%= departamento.getIddepartamento() %>"
+							name="id" />
+							<label>Nombre </label> 
+							<input type="text" name="nombre" id="nombre" value="<%= departamento.getNombre() %>" />
+							<label>Descrici&oacute;n </label>
+							<input type="text" name="descripcion" id="descripcion" 
+							value="<%= departamento.getDescripcion() %>" />
+						<%
+							}
+						%>
+						<button type="submit">Actualizar departamento</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="row space-bot">
 			<div class="c4 centered first">
 				<p class="note text-center">
-					<a href="index.jsp">Inicio</a>
+					<a href="index.jsp">Volver al inicio</a>
 				</p>
 			</div>
-		</div> <!-- fin row -->
-	</div> <!-- fin grid -->
-</div> <!-- fin content -->
+		</div>	
+	</div>
+</div>
 <script>
 	var validator = new FormValidator(
 			'form',
 			[ {
-				name : 'opcion',
+				name : 'nombre',
 				rules : 'required'
 			}],
 			function(errors, event) {

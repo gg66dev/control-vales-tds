@@ -38,10 +38,11 @@ public class RegistrarDepartamentoServlet extends HttpServlet {
 		Departamento departamento = new Departamento(nombre, descripcion);
 
 		PrintWriter out = response.getWriter();
-
+		long result = 0l;
 		try {
 			DepartamentoController departamentoController = new DepartamentoController();
-			long result = departamentoController.registrar(departamento);
+			result = departamentoController.registrar(departamento);
+		} finally {
 			out.println("<html>");
 			out.println("<head>");
 			out.println("<title>Registro</title>");
@@ -52,13 +53,12 @@ public class RegistrarDepartamentoServlet extends HttpServlet {
 				out.println("<h1>Registro exitoso</h1>");
 			} else {
 				out.println("<h1>Ha fallado el registro</h1>");
-				out.println("Esto puede deberse a que falto el campo nombre.");
+				out.println("Esto puede deberse a que falto el campo nombre o ya existe el departamento.");
 			}
 			out.println("Para regresar al sitio <a href=index.jsp>haga click aqu&iacute;</a>");
 			out.println("</center>");
 			out.println("</body>");
 			out.println("</html>");
-		} finally {
 			out.close();
 		}
 	}

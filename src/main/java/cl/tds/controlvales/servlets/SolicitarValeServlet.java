@@ -33,33 +33,32 @@ public class SolicitarValeServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		
 		boolean result = false;
-		
-		if( NumberUtil.isInteger(request.getParameter("monto_estipulado"))
-				&& DateUtil.isDate(request.getParameter("fecha_uso")) 
-				&& request.getSession().getAttribute("usuario") != null){
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			Date fecha_uso = null;
-			try {
-				fecha_uso = new Date( sdf.parse( request.getParameter("fecha_uso") ).getTime() );
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			String origen = HtmlUtils.htmlEscape( request.getParameter("origen") );
-			String destino = HtmlUtils.htmlEscape( request.getParameter("destino") );
-			String motivo = HtmlUtils.htmlEscape( request.getParameter("motivo") );
-			int monto_estipulado = Integer.parseInt( request.getParameter("monto_estipulado") );
-			
-			Vale vale = new Vale(fecha_uso, origen, destino, motivo, monto_estipulado);
-			vale.setUsuario( (Usuario ) request.getSession().getAttribute("usuario") );
-			vale.setEstado(Estado.abierto);
-			
-			ValeController valeController = new ValeController();
-			result = valeController.solicitaVale( vale );
-		}
 		PrintWriter out = response.getWriter();
 		try {
-			
+			if( NumberUtil.isInteger(request.getParameter("monto_estipulado"))
+					&& DateUtil.isDate(request.getParameter("fecha_uso")) 
+					&& request.getSession().getAttribute("login") != null){
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+				Date fecha_uso = null;
+				try {
+					fecha_uso = new Date( sdf.parse( request.getParameter("fecha_uso") ).getTime() );
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				String origen = HtmlUtils.htmlEscape( request.getParameter("origen") );
+				String destino = HtmlUtils.htmlEscape( request.getParameter("destino") );
+				String motivo = HtmlUtils.htmlEscape( request.getParameter("motivo") );
+				int monto_estipulado = Integer.parseInt( request.getParameter("monto_estipulado") );
+				
+				Vale vale = new Vale(fecha_uso, origen, destino, motivo, monto_estipulado);
+				vale.setUsuario( (Usuario ) request.getSession().getAttribute("login") );
+				vale.setEstado(Estado.abierto);
+				
+				ValeController valeController = new ValeController();
+				result = valeController.solicitaVale( vale );
+			}
+		} finally {
 			out.println("<html>");
 			out.println("<head>");
 			out.println("<title>Solicitar Vale</title>");
@@ -80,7 +79,6 @@ public class SolicitarValeServlet extends HttpServlet {
 			out.println("</center>");
 			out.println("</body>");
 			out.println("</html>");
-		} finally {
 			out.close();
 		}
     }

@@ -43,9 +43,11 @@ public class ModificarUsuarioServlet extends HttpServlet {
 		String domicilio = HtmlUtils.htmlEscape( request.getParameter("domicilio") );
 		String email = request.getParameter("email");
 		String perfil = request.getParameter("perfil");
+		String password1 = request.getParameter("password1");
+		String password2 = request.getParameter("password2");
 		
 		PrintWriter out = response.getWriter();
-
+		boolean result = false;
 		try {
 			UsuarioController usuarioController = new UsuarioController();
 			Usuario user = usuarioController.obtenUsuario(Long.parseLong(id));
@@ -65,11 +67,14 @@ public class ModificarUsuarioServlet extends HttpServlet {
 				}
 			}
 			user.setNombre(nombre);
+			user.setPassword(password1);
 			user.setEmail(email);
 			user.setUsuario(usuario);
 			user.setRut(rut);
 			user.setDomicilio(domicilio);
-			boolean result = usuarioController.actualiza(user);
+			result = usuarioController.actualiza(user, password2);
+			
+		} finally {
 			out.println("<html>");
 			out.println("<head>");
 			out.println("<title>Registro</title>");
@@ -90,7 +95,6 @@ public class ModificarUsuarioServlet extends HttpServlet {
 			out.println("</center>");
 			out.println("</body>");
 			out.println("</html>");
-		} finally {
 			out.close();
 		}
 	}

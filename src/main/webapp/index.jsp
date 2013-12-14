@@ -39,17 +39,23 @@
 		session.removeAttribute("valesXlsErroneos");
 	if(session.getAttribute("valesXlsInexistente") != null)
 		session.removeAttribute("valesXlsInexistente");
-
-	Usuario usuario = null;
+	if(session.getAttribute("centroCosto") != null)
+		session.removeAttribute("centroCosto");
+	if(session.getAttribute("departamento") != null)
+		session.removeAttribute("departamento");
+	if(session.getAttribute("usuario") != null)
+		session.removeAttribute("usuario");
+	
+	Usuario login = null;
 	if (session.getAttribute("login") != null) {
-		usuario = (Usuario) session.getAttribute("login");
+		login = (Usuario) session.getAttribute("login");
 %>
 <div class="row space-bot">
 	<h1 class="text-center">Bienvenido</h1>
-	<p class="text-center">Usted ha ingresado como <b><%=usuario.getNombre()%></b> </p>
+	<p class="text-center">Usted ha ingresado como <b><%=login.getNombre()%></b> </p>
 </div> 
 <%
-	if( usuario.getPerfil().equals(Perfil.usuario)){
+	if( login.getPerfil().equals(Perfil.usuario)){
 %>
 <div class="content">
 	<div class="grid">
@@ -94,11 +100,20 @@
 	</div> <!-- fin grid -->
 </div> <!-- fin content -->
 <%
-	}else if( usuario.getPerfil().equals(Perfil.administrador)){
+	}else if( login.getPerfil().equals(Perfil.administrador)){
 %>
 <div class="content">
 	<div class="grid">
 		<div class="row">
+			<div class="row space-bot">
+				<div class="c4 centered first">
+					<p class="note text-center">
+						<a href="modificarUsuario.jsp">
+							Modificar mis datos
+						</a>
+					</p>
+				</div>
+			</div>
 			<div class="row space-bot">
 				<div class="c4 centered first">
 					<p class="note text-center">
@@ -122,6 +137,24 @@
 					<p class="note text-center">
 						<a href="registrarUsuario.jsp">
 							Crear Usuario
+						</a>
+					</p>
+				</div>
+			</div>
+			<div class="row space-bot">
+				<div class="c4 centered first">
+					<p class="note text-center">
+						<a href="administrarCentroCostos.jsp">
+							Administrar Centros de costos
+						</a>
+					</p>
+				</div>
+			</div>
+			<div class="row space-bot">
+				<div class="c4 centered first">
+					<p class="note text-center">
+						<a href="administrarDepartamentos.jsp">
+							Administrar Departamentos
 						</a>
 					</p>
 				</div>
@@ -157,11 +190,20 @@
 	</div> <!-- fin grid -->
 </div> <!-- fin content -->
 <%
-	}else if( usuario.getPerfil().equals(Perfil.gerente)){
+	}else if( login.getPerfil().equals(Perfil.gerente)){
 %>
 <div class="content">
 	<div class="grid">
 		<div class="row">
+			<div class="row space-bot">
+				<div class="c4 centered first">
+					<p class="note text-center">
+						<a href="modificarUsuario.jsp">
+							Modificar mis datos
+						</a>
+					</p>
+				</div>
+			</div>
 			<div class="row space-bot">
 				<div class="c4 centered first">
 					<p class="note text-center">

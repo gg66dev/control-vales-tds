@@ -8,6 +8,8 @@
 <%@ page import="cl.tds.controlvales.beans.CentroCosto"%>
 <%@ page import="cl.tds.controlvales.beans.Estado"%>
 <%@ page import="cl.tds.controlvales.beans.Departamento"%>
+<%@page import="cl.tds.controlvales.beans.Usuario"%>
+<%@page import="cl.tds.controlvales.beans.Perfil"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,6 +24,11 @@
 <title>Autorizar Vale</title>
 </head>
 <body>
+<%
+if( session.getAttribute("login") != null ){
+	Usuario login = (Usuario ) session.getAttribute("login");
+	if( login.getPerfil().equals(Perfil.gerente) ){
+%>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#desde,#hasta").datepicker({
@@ -140,7 +147,7 @@
 							<tr>
 								<%
 									CentroCostoController centroCostoController = new CentroCostoController();
-												List<CentroCosto> centroCostos = centroCostoController.listarCentroCostos();
+									List<CentroCosto> centroCostos = centroCostoController.obtenerListaCentroCostos();
 												if( centroCostos != null && centroCostos.size() != 0 ){
 								%>
 								<td class="text-center">
@@ -193,7 +200,7 @@
 							<tr>
 								<%
 									DepartamentoController departamentoController = new DepartamentoController();
-									List<Departamento> departamentos = departamentoController.listarDepartamentos();
+									List<Departamento> departamentos = departamentoController.obtenerListaDepartamentos();
 									if( departamentos != null && departamentos.size() != 0 ){
 								%>
 								<td class="text-center">
@@ -341,5 +348,9 @@
 					}
 				});
 	</script>
+<%
+	}
+}
+%>
 </body>
 </html>

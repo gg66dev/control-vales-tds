@@ -46,11 +46,13 @@ public class UsuarioDAO implements Serializable {
 		return id;
 	}
 
-	public void actualizaUsuario(Usuario usuario) throws HibernateException {
+	public boolean actualizaUsuario(Usuario usuario) throws HibernateException {
+		boolean actualizado = false;
 		try {
 			iniciaOperacion();
 			sesion.update(usuario);
 			tx.commit();
+			actualizado = true;
 		} catch (HibernateException he) {
 			manejaExcepcion(he);
 			throw he;
@@ -58,6 +60,7 @@ public class UsuarioDAO implements Serializable {
 			if (sesion != null)
 				sesion.close();
 		}
+		return actualizado;
 	}
 
 	public boolean eliminaUsuario(Usuario usuario) throws HibernateException {

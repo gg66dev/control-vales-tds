@@ -3,6 +3,7 @@
 <%@page import="cl.tds.controlvales.beans.Perfil"%>
 <%@page import="cl.tds.controlvales.beans.CentroCosto"%>
 <%@page import="cl.tds.controlvales.controller.CentroCostoController"%>
+<%@page import="cl.tds.controlvales.beans.Usuario"%>
 <%@page import="java.util.List;"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -16,6 +17,11 @@
 <script type="text/javascript" src="./js/validate.js"></script>
 </head>
 <body>
+<%
+if( session.getAttribute("login") != null ){
+	Usuario login = (Usuario ) session.getAttribute("login");
+	if( login.getPerfil().equals(Perfil.administrador) ){
+%>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#rut').Rut({
@@ -57,7 +63,7 @@
 			</select>
 			<%
 				CentroCostoController centroCostoController = new CentroCostoController();
-						List<CentroCosto> centroCostos = centroCostoController.listarCentroCostos();
+						List<CentroCosto> centroCostos = centroCostoController.obtenerListaCentroCostos();
 						if( centroCostos != null && centroCostos.size() != 0 ){
 			%>
 			<label>Centro de costo</label> <select size=1 name="centro_costo">
@@ -114,5 +120,9 @@
 					}
 				});
 	</script>
+<%
+	}
+}
+%>
 </body>
 </html>

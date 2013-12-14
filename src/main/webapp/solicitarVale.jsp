@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@page import="java.util.List;"%>
+<%@page import="java.util.List"%>
+<%@page import="cl.tds.controlvales.beans.Usuario"%>
+<%@page import="cl.tds.controlvales.beans.Perfil"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,6 +17,11 @@
 <script type="text/javascript" src="./js/validate.js"></script>
 </head>
 <body>
+<%
+if( session.getAttribute("login") != null ){
+	Usuario login = (Usuario ) session.getAttribute("login");
+	if( login.getPerfil().equals(Perfil.usuario) ){
+%>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#fecha_uso").datepicker({
@@ -72,5 +79,9 @@
 	    }       
 	});
 	</script>
+<%
+	}
+}
+%>
 </body>
 </html>

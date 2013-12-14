@@ -2,6 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@page import="cl.tds.controlvales.controller.DepartamentoController"%>
 <%@page import="cl.tds.controlvales.beans.Departamento"%>
+<%@page import="cl.tds.controlvales.beans.Usuario"%>
+<%@page import="cl.tds.controlvales.beans.Perfil"%>
 <%@page import="java.util.List;"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -14,6 +16,11 @@
 <script type="text/javascript" src="./js/validate.js"></script>
 </head>
 <body>
+<%
+if( session.getAttribute("login") != null ){
+	Usuario login = (Usuario ) session.getAttribute("login");
+	if( login.getPerfil().equals(Perfil.administrador) ){
+%>
 	<center>
 		<form class="vform" id="form" name="form" method="post"
 			action="RegistrarCentroDeCostoServlet">
@@ -27,8 +34,7 @@
 			</label>
 			<%
 				DepartamentoController deptoController = new DepartamentoController();
-						List<Departamento> departamentos = deptoController
-								.listarDepartamentos();
+						List<Departamento> departamentos = deptoController.obtenerListaDepartamentos();
 						if (departamentos != null && departamentos.size() != 0) {
 			%>
 			<select size="1" name="departamento">
@@ -69,5 +75,9 @@
 					}
 				});
 	</script>
+<%
+	}
+}
+%>
 </body>
 </html>

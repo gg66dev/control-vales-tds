@@ -6,6 +6,8 @@
 <%@ page import="cl.tds.controlvales.controller.CentroCostoController"%>
 <%@ page import="cl.tds.controlvales.beans.CentroCosto"%>
 <%@ page import="cl.tds.controlvales.beans.Estado"%>
+<%@page import="cl.tds.controlvales.beans.Usuario"%>
+<%@page import="cl.tds.controlvales.beans.Perfil"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,6 +21,11 @@
 <script type="text/javascript" src="./js/validate.js"></script>
 <title>Autorizar Vale</title>
 </head>
+<%
+if( session.getAttribute("login") != null ){
+	Usuario login = (Usuario ) session.getAttribute("login");
+	if( login.getPerfil().equals(Perfil.gerente) ){
+%>
 <body>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -115,8 +122,8 @@
 							<tr>
 								<%
 									CentroCostoController centroCostoController = new CentroCostoController();
-												List<CentroCosto> centroCostos = centroCostoController.listarCentroCostos();
-												if( centroCostos != null && centroCostos.size() != 0 ){
+									List<CentroCosto> centroCostos = centroCostoController.obtenerListaCentroCostos();
+									if( centroCostos != null && centroCostos.size() != 0 ){
 								%>
 								<td class="text-center">
 								<center>
@@ -295,5 +302,9 @@
 					}
 				});
 	</script>
+<%
+	}
+}
+%>
 </body>
 </html>

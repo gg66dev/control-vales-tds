@@ -60,10 +60,11 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 		}
 		
 		PrintWriter out = response.getWriter();
-
+		boolean result = false;
 		try {
 			UsuarioController usuarioController = new UsuarioController();
-			boolean result = usuarioController.register(user, password2);
+			result = usuarioController.register(user, password2);
+		} finally {
 			out.println("<html>");
 			out.println("<head>");
 			out.println("<title>Registro</title>");
@@ -85,7 +86,6 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 			out.println("</center>");
 			out.println("</body>");
 			out.println("</html>");
-		} finally {
 			out.close();
 		}
 	}

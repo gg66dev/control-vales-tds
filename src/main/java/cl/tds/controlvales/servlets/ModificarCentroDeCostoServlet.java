@@ -21,34 +21,41 @@ import org.springframework.web.util.HtmlUtils;
 
 /**
  * @author "Fernando Valencia"
- *
+ * 
  */
-@WebServlet(name = "RegistrarCentroDeCostoServlet", urlPatterns = { "/RegistrarCentroDeCostoServlet" })
-public class RegistrarCentroDeCostoServlet extends HttpServlet {
+@WebServlet(name = "ModificarCentroDeCostoServlet", urlPatterns = { "/ModificarCentroDeCostoServlet" })
+public class ModificarCentroDeCostoServlet extends HttpServlet {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4539069919832703390L;
+	private static final long serialVersionUID = -944132770981096460L;
 
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 
+		String id = HtmlUtils.htmlEscape( request.getParameter("id") );
 		String nombre = HtmlUtils.htmlEscape( request.getParameter("nombre") );
 		String descripcion = HtmlUtils.htmlEscape( request.getParameter("descripcion") );
-		String id_departamento = request.getParameter("departamento");
-		long id = Long.parseLong(id_departamento);
-		DepartamentoController deptoController = new DepartamentoController();
-		Departamento departamento = deptoController.obtenDepartamento(id);
-		CentroCosto centroCosto = new CentroCosto(nombre, descripcion, departamento);
-
+		
 		PrintWriter out = response.getWriter();
-		long result = 0l;
+		boolean result = false;
 		try {
 			CentroCostoController centroCostoController = new CentroCostoController();
-			result = centroCostoController.registrar(centroCosto);
-			
+			CentroCosto centroCosto = centroCostoController.obtenCentroCosto(Long.parseLong(id));
+			if( centroCosto != null ){
+				String id_departamento = (String ) request.getParameter("departamento");
+				if( id_departamento != null ){
+					long idDepartamento = Long.parseLong(id_departamento);
+					DepartamentoController departamentoController = new DepartamentoController();
+					Departamento departamento = departamentoController.obtenDepartamento(idDepartamento);
+					centroCosto.setDepartamento(departamento);
+				}
+			}
+			centroCosto.setNombre(nombre);
+			centroCosto.setDescripcion(descripcion);
+			result = centroCostoController.actualiza(centroCosto);
 		} finally {
 			out.println("<html>");
 			out.println("<head>");
@@ -56,14 +63,17 @@ public class RegistrarCentroDeCostoServlet extends HttpServlet {
 			out.println("</head>");
 			out.println("<body>");
 			out.println("<center>");
-			if (result > 0l) {
-				out.println("<h1>Registro exitoso</h1>");
+			if (result) {
+				out.println("<h1>Modificaci&oacute;n exitosa</h1>");
+				out.println("Para regresar al sitio "
+						+ "<a href=index.jsp>haga click aqu&iacute;</a>");
 			} else {
-				out.println("<h1>Ha fallado el registro</h1>");
-				out.println("Esto puede deberse a que falto completar el campo nombre "
-						+ "o ya existe el centro de costo.");
+				out.println("<h1>Ha fallado la operaci&oacute;n</h1>");
+				out.println("Esto puede deberse a que el centro de costo ya existe o no se encontr&oacute;"
+						+ "el departamento seleccionado.");
+				out.println();
+				out.println("Para intentar de nuevo <a href=administrarCentroCostos.jsp>Haz click aqu&iacute;</a>");
 			}
-			out.println("Para regresar al sitio <a href=index.jsp>haga click aqu&iacute;</a>");
 			out.println("</center>");
 			out.println("</body>");
 			out.println("</html>");
@@ -85,6 +95,6 @@ public class RegistrarCentroDeCostoServlet extends HttpServlet {
 
 	@Override
 	public String getServletInfo() {
-		return "Servlet para realizar registros de centros de costos";
+		return "Servlet para modificar usuarios";
 	}
 }

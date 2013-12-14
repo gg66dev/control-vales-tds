@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import cl.tds.controlvales.beans.Estado;
 import cl.tds.controlvales.beans.Vale;
 import cl.tds.controlvales.controller.ValeController;
 import cl.tds.controlvales.util.NumberUtil;
@@ -41,7 +39,7 @@ public class ConfirmarMontoServlet extends HttpServlet {
 				java.util.Calendar cal = java.util.Calendar.getInstance(); 
 				Date timeNow = new Date(cal.getTimeInMillis()); 
 				valeController.actualizarVale(vale,timeNow);
-				
+			} finally {
 				out.println("<html>");
 				out.println("<head>");
 				out.println("<title>Registro</title>");
@@ -56,7 +54,6 @@ public class ConfirmarMontoServlet extends HttpServlet {
 				
 				//remueve atributo que ya no lo utilizara
 				request.getSession().removeAttribute("vale");
-			} finally {
 				out.close();
 			}
 		}

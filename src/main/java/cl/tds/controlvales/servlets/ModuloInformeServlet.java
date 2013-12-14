@@ -1,11 +1,6 @@
 package cl.tds.controlvales.servlets;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -13,12 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import cl.tds.controlvales.beans.Estado;
-import cl.tds.controlvales.beans.Vale;
-import cl.tds.controlvales.controller.ValeController;
-import cl.tds.controlvales.util.NumberUtil;
-import cl.tds.controlvales.util.ValidacionUtil;
 
 
 @WebServlet(name = "ModuloInformeServlet", urlPatterns = { "/ModuloInformeServlet" })

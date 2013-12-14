@@ -5,6 +5,8 @@
 <%@ page import="cl.tds.controlvales.beans.Vale"%>
 <%@ page import="cl.tds.controlvales.beans.Estado"%>
 <%@ page import="cl.tds.controlvales.util.NumberUtil"%>
+<%@page import="cl.tds.controlvales.beans.Usuario"%>
+<%@page import="cl.tds.controlvales.beans.Perfil"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,6 +20,11 @@
 <script src="./js/jquery-ui-1.10.3.custom.js"></script>
 </head>
 <body>
+<%
+if( session.getAttribute("login") != null ){
+	Usuario login = (Usuario ) session.getAttribute("login");
+	if( login.getPerfil().equals(Perfil.usuario) ){
+%>
 	<div class="row">
 		<h1 class="text-center">Detalle Vale</h1>
 	</div>
@@ -144,5 +151,9 @@
 			</p>
 		</div>
 	</div>
+<%
+	}
+}
+%>
 </body>
 </html>

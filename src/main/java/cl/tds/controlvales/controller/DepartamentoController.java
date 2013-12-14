@@ -17,10 +17,11 @@ public class DepartamentoController {
 	private DepartamentoDAO deptoDao = new DepartamentoDAO();
 
 	public long registrar(Departamento departamento){
+		long resp = 0l;
 		if( departamento.getNombre() != null ){
-			return this.deptoDao.guardaDepartamento(departamento);
+			resp = this.deptoDao.guardaDepartamento(departamento);
 		}
-		return -1l;
+		return resp;
 	}
 	
 	public Departamento obtenDepartamento(long id_departamento){
@@ -30,7 +31,19 @@ public class DepartamentoController {
 		return null;
 	}
 	
-	public List<Departamento> listarDepartamentos(){
+	public boolean actualiza(Departamento departamento){
+		boolean actualizado = false;
+		if( this.deptoDao.obtenDepartamento(departamento.getIddepartamento() ) != null ){
+			if( departamento.getNombre() != null 
+					&& departamento.getNombre() != null ){
+				this.deptoDao.actualizaDepartamento(departamento);
+				actualizado = true;
+			}
+		}
+		return actualizado;
+	}
+	
+	public List<Departamento> obtenerListaDepartamentos(){
 		return this.deptoDao.obtenListaDepartamentos();
 	}
 }

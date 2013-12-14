@@ -34,13 +34,13 @@ public class EliminarUsuarioServlet extends HttpServlet {
 		Usuario usuario = (Usuario ) request.getSession().getAttribute("usuario");
 		
 		PrintWriter out = response.getWriter();
-
+		boolean eliminado = false;
 		try {
 			UsuarioController usuarioController = new UsuarioController();
-			boolean eliminado = false;
 			if( opcion != null && opcion.equals("si")){
 				eliminado = usuarioController.eliminar(usuario);
 			}
+		} finally {
 			out.println("<html>");
 			out.println("<head>");
 			out.println("<title>Eliminar Usuario</title>");
@@ -57,7 +57,6 @@ public class EliminarUsuarioServlet extends HttpServlet {
 			out.println("</center>");
 			out.println("</body>");
 			out.println("</html>");
-		} finally {
 			out.close();
 		}
 	}

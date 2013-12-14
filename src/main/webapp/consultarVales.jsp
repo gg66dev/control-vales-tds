@@ -7,6 +7,7 @@
 <%@ page import="cl.tds.controlvales.beans.CentroCosto"%>
 <%@ page import="cl.tds.controlvales.beans.Estado"%>
 <%@ page import="cl.tds.controlvales.beans.Usuario"%>
+<%@ page import="cl.tds.controlvales.beans.Perfil"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,6 +21,11 @@
 <script type="text/javascript" src="./js/validate.js"></script>
 <title>Consultar Vale</title>
 </head>
+<%
+if( session.getAttribute("login") != null ){
+	Usuario login = (Usuario ) session.getAttribute("login");
+	if( login.getPerfil().equals(Perfil.usuario) ){
+%>
 <body>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -164,12 +170,12 @@
 							</tr>
 							<%
 								Usuario usuario = null;
-												if (session.getAttribute("usuario") != null) {
-													usuario = (Usuario) session.getAttribute("usuario");
-												}
-												for ( Vale v : vales ){
-													if ( usuario != null 
-															&& v.getUsuario().getIdusuario().equals(usuario.getIdusuario()) ){
+								if (session.getAttribute("login") != null) {
+									usuario = (Usuario) session.getAttribute("login");
+								}
+								for ( Vale v : vales ){
+									if ( usuario != null 
+											&& v.getUsuario().getIdusuario().equals(usuario.getIdusuario()) ){
 							%>
 							<tr>
 								<td><input type="radio" name="id_vale"
@@ -257,5 +263,9 @@
 					}
 				});
 	</script>
+<%
+	}
+}
+%>
 </body>
 </html>

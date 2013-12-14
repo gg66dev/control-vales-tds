@@ -42,7 +42,7 @@ public class AutorizarValeServlet extends HttpServlet {
 			}else if ( autorizado != null && autorizado.equals("rechazado")){
 				valeController.autorizarVale(vale, Estado.rechazado);
 			}
-			
+		} finally {
 			out.println("<html>");
 			out.println("<head>");
 			out.println("<title>Registro</title>");
@@ -54,8 +54,8 @@ public class AutorizarValeServlet extends HttpServlet {
 			out.println("</center>");
 			out.println("</body>");
 			out.println("</html>");
-		} finally {
 			out.close();
+			request.getSession().removeAttribute("vale");
 		}
 	}
 

@@ -50,12 +50,11 @@ public class ProcesarPlanillaServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 
-		ArrayList<ValeXls> listaValesXls = new ArrayList<ValeXls>();
 		String file = request.getParameter("mes-consulta");
 		LOGGER.info(ruta + file);
-		List cellDataListCorrectos = new ArrayList();
-		List cellDataListErroneos = new ArrayList();
-		List cellDataListInexistente = new ArrayList();
+		List<ValeXls> cellDataListCorrectos = new ArrayList<ValeXls>();
+		List<ValeXls> cellDataListErroneos = new ArrayList<ValeXls>();
+		List<ValeXls> cellDataListInexistente = new ArrayList<ValeXls>();
 		try {
 			FileInputStream fileInputStream = new FileInputStream(ruta + file);
 			// if(! fileInputStream.markSupported()) {
@@ -73,14 +72,14 @@ public class ProcesarPlanillaServlet extends HttpServlet {
 				 * itera las filas y celdas de la planilla para obtener todos
 				 * los datos
 				 */
-				Iterator rowIterator = hssfSheet.rowIterator();
+				Iterator<?> rowIterator = hssfSheet.rowIterator();
 				int i = 0;
 				while (rowIterator.hasNext()) {
 					HSSFRow hssfRow = (HSSFRow) rowIterator.next();
 					// se salta la primera fila que es la de los nombres
 					if (i > 0) {
-						Iterator iterator = hssfRow.cellIterator();
-						List cellTempList = new ArrayList();
+						Iterator<?> iterator = hssfRow.cellIterator();
+						List<String> cellTempList = new ArrayList<String>();
 						while (iterator.hasNext()) {
 							HSSFCell hssfCell = (HSSFCell) iterator.next();
 							cellTempList.add(hssfCell.toString());
@@ -123,14 +122,14 @@ public class ProcesarPlanillaServlet extends HttpServlet {
 					 * itera las filas y celdas de la planilla para obtener
 					 * todos los datos
 					 */
-					Iterator rowIterator = xssfSheet.rowIterator();
+					Iterator<?> rowIterator = xssfSheet.rowIterator();
 					int i = 0;
 					while (rowIterator.hasNext()) {
 						XSSFRow xssfRow = (XSSFRow) rowIterator.next();
 						// se salta la primera fila que es la de los nombres
 						if (i > 0) {
-							Iterator iterator = xssfRow.cellIterator();
-							List cellTempList = new ArrayList();
+							Iterator<?> iterator = xssfRow.cellIterator();
+							List<String> cellTempList = new ArrayList<String>();
 							while (iterator.hasNext()) {
 								XSSFCell xssfCell = (XSSFCell) iterator.next();
 								cellTempList.add(xssfCell.toString());
