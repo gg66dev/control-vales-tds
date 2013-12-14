@@ -43,7 +43,7 @@ public class ProcesarPlanillaServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 3268280970123582388L;
 
-	private final String ruta = "C:/Apache-tomcat-7.0.47/webapps/data/planillas/";
+	private final String ruta = System.getProperty("catalina.base")+"/webapps/data/planillas/";
 	private static Logger LOGGER = Logger.getLogger("InfoLogging");
 
 	protected void processRequest(HttpServletRequest request,

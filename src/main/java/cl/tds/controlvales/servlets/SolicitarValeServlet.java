@@ -33,6 +33,7 @@ public class SolicitarValeServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		
 		boolean result = false;
+		
 		PrintWriter out = response.getWriter();
 		try {
 			if( NumberUtil.isInteger(request.getParameter("monto_estipulado"))

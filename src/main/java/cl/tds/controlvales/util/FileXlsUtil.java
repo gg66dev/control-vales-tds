@@ -2,12 +2,10 @@ package cl.tds.controlvales.util;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 public class FileXlsUtil {
 
-	private final String ruta = "C:/Apache-tomcat-7.0.47/webapps/data/planillas/";
-	private static Logger LOGGER = Logger.getLogger("InfoLogging");
+	private final String ruta = System.getProperty("catalina.base")+"/webapps/data/planillas/";
 	
 	public FileXlsUtil() {
 
