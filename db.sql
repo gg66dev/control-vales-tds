@@ -93,8 +93,9 @@ ENGINE = InnoDB;
 
 USE `control_vales` ;
 
+GRANT USAGE ON `control_vales`.* TO 'kross';
 SET SQL_MODE = '';
- DROP USER kross;
+DROP USER kross;
 SET SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 CREATE USER 'kross' IDENTIFIED BY 'sprit3';
 

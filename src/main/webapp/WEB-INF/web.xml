@@ -6,9 +6,9 @@
     version="2.5">
 <display-name>Archetype Created Web Application</display-name>
   <servlet>
-    <display-name>SolicitaValeServlet</display-name>
-  	<servlet-name>SolicitaValeServlet</servlet-name>
-  	<servlet-class>cl.tds.controlvales.servlets.SolicitaValeServlet</servlet-class>
+    <display-name>SolicitarValeServlet</display-name>
+  	<servlet-name>SolicitarValeServlet</servlet-name>
+  	<servlet-class>cl.tds.controlvales.servlets.SolicitarValeServlet</servlet-class>
   </servlet>
   
   <servlet>
@@ -30,20 +30,32 @@
   </servlet>
   
   <servlet>
-      <display-name>RegisterServlet</display-name>
-      <servlet-name>RegisterServlet</servlet-name>
-      <servlet-class>cl.tds.controlvales.servlets.RegisterServlet</servlet-class>
+      <display-name>RegistrarUsuarioServlet</display-name>
+      <servlet-name>RegistrarUsuarioServlet</servlet-name>
+      <servlet-class>cl.tds.controlvales.servlets.RegistrarUsuarioServlet</servlet-class>
   </servlet>
   
   <servlet>
-      <display-name>RegistrarEmpresaServlet</display-name>
-      <servlet-name>RegistrarEmpresaServlet</servlet-name>
-      <servlet-class>cl.tds.controlvales.servlets.RegistrarEmpresaServlet</servlet-class>
+      <display-name>ModificarUsuarioServlet</display-name>
+      <servlet-name>ModificarUsuarioServlet</servlet-name>
+      <servlet-class>cl.tds.controlvales.servlets.ModificarUsuarioServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+      <display-name>RegistrarDepartamentoServlet</display-name>
+      <servlet-name>RegistrarDepartamentoServlet</servlet-name>
+      <servlet-class>cl.tds.controlvales.servlets.RegistrarDepartamentoServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+      <display-name>RegistrarCentroDeCostoServlet</display-name>
+      <servlet-name>RegistrarCentroDeCostoServlet</servlet-name>
+      <servlet-class>cl.tds.controlvales.servlets.RegistrarCentroDeCostoServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-  	<servlet-name>SolicitaValeServlet</servlet-name>
-  	<url-pattern>/SolicitaValeServlet</url-pattern>
+  	<servlet-name>SolicitarValeServlet</servlet-name>
+  	<url-pattern>/SolicitarValeServlet</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
@@ -62,12 +74,22 @@
   </servlet-mapping>
 
   <servlet-mapping>
-  	<servlet-name>RegisterServlet</servlet-name>
-  	<url-pattern>/RegisterServlet</url-pattern>
+  	<servlet-name>RegistrarUsuarioServlet</servlet-name>
+  	<url-pattern>/RegistrarUsuarioServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>ModificarUsuarioServlet</servlet-name>
+  	<url-pattern>/ModificarUsuarioServlet</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
-  	<servlet-name>RegistrarEmpresaServlet</servlet-name>
-  	<url-pattern>/RegistrarEmpresaServlet</url-pattern>
+  	<servlet-name>RegistrarDepartamentoServlet</servlet-name>
+  	<url-pattern>/RegistrarDepartamentoServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>RegistrarCentroDeCostoServlet</servlet-name>
+  	<url-pattern>/RegistrarCentroDeCostoServlet</url-pattern>
   </servlet-mapping>
 </web-app>
